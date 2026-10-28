@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Vinnero - Carta de Vinhos Digital</title>
+  
+  <!-- Fontes Google & Tailwind CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            vin: {
+              cream: '#FAF6F0',
+              sand: '#F5EFEB',
+              bottle: '#EFE8DE',
+              border: '#E8DFD5',
+              dark: '#261009',
+              darkCard: '#210C05',
+              burgundy: '#6B1728',
+              crimson: '#7A1424',
+              terracotta: '#C25327',
+              caramel: '#B34A1B',
+              textMain: '#2A1A17',
+              textMuted: '#7C6F69',
+              gold: '#D4AF37'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { -webkit-tap-highlight-color: transparent; }
+    body { background-color: #FAF6F0; color: #2A1A17; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .active-tab-nav { background-color: #6B1728 !important; color: #ffffff !important; }
+    .active-lang { background-color: #6B1728 !important; color: #ffffff !important; }
+    .active-vertical { background-color: #6B1728 !important; color: #ffffff !important; }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans antialiased bg-[#FAF6F0]">
+
+  <!-- HEADER GLOBAL VINNERO -->
+  <header class="bg-[#261009] text-white sticky top-0 z-40 px-3 sm:px-6 py-2.5 shadow-md flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <button onclick="goToHomeHub()" class="flex items-center gap-2 group text-left focus:outline-none">
+        <div class="w-8 h-8 rounded-full bg-[#6B1728]/80 border border-[#C25327]/40 flex items-center justify-center text-[#FBBF24]">
+          <i data-lucide="wine" class="w-4 h-4"></i>
+        </div>
+        <span class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white group-hover:text-[#FBBF24] transition-colors">Vinnero</span>
+      </button>
+
+      <!-- Alternador Rápido de Vertical (Restaurantes / Lojas) -->
+      <div class="hidden sm:inline-flex bg-white/10 p-0.5 rounded-lg border border-white/15 text-xs font-semibold">
+        <button id="headerNavRestaurantes" onclick="switchVerticalMode('restaurante')" class="px-3 py-1 rounded-md text-white/80 active-vertical">Restaurantes</button>
+        <button id="headerNavLojas" onclick="switchVerticalMode('loja')" class="px-3 py-1 rounded-md text-white/70 hover:text-white">Lojas Especializadas</button>
+      </div>
+    </div>
+
+    <!-- Controles da Direita -->
+    <div class="flex items-center gap-2">
+      <button onclick="toggleVerticalQuick()" id="btnMobileVerticalToggle" class="sm:hidden px-2.5 py-1 text-xs font-semibold bg-white/10 border border-white/20 rounded-md text-white flex items-center gap-1.5">
+        <span id="txtMobileVerticalBadge">Restaurantes</span>
+        <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-70"></i>
+      </button>
+
+      <button onclick="openOperacaoModal()" class="px-2.5 py-1 text-xs font-semibold bg-white/10 hover:bg-white/20 border border-white/20 rounded-md text-white transition-all flex items-center gap-1">
+        <i data-lucide="utensils" class="w-3.5 h-3.5"></i>
+        <span class="hidden xs:inline">Operação</span>
+      </button>
+
+      <button onclick="openGestaoModal()" class="p-1.5 text-xs bg-white/10 hover:bg-white/20 border border-white/20 rounded-md text-white transition-all" title="Gestão Master SaaS">
+        <i data-lucide="settings" class="w-4 h-4 text-amber-300"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- CORPO PRINCIPAL -->
+  <main class="flex-1 w-full max-w-4xl mx-auto px-3 sm:px-6 py-4">
+
+    <!-- VIEW 1: HUB CENTRAL / LISTAGEM DE CASAS -->
+    <section id="viewHub" class="hidden">
+      <!-- Ícone e Título Principal -->
+      <div class="text-center my-4 sm:my-6">
+        <div class="w-12 h-12 mx-auto rounded-full bg-[#FAF6F0] border-2 border-[#E8DFD5] shadow-sm flex items-center justify-center text-[#6B1728] mb-3">
+          <i data-lucide="wine" class="w-6 h-6"></i>
+        </div>
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#6B1728] tracking-tight mb-2">Carta de Vinhos</h1>
+        <p class="text-xs sm:text-sm text-[#7C6F69] max-w-md mx-auto">
+          Explore a seleção de vinhos dos melhores estabelecimentos. Escolha uma casa e descubra a carta completa.
+        </p>
+
+        <!-- Seletor de Vertical no Hub -->
+        <div class="inline-flex mt-4 bg-[#F5EFEB] p-1 rounded-xl border border-[#E8DFD5] shadow-inner text-xs font-semibold">
+          <button id="hubTabRestaurante" onclick="switchVerticalMode('restaurante')" class="px-4 py-1.5 rounded-lg transition-all active-tab-nav">
+            Restaurantes
+          </button>
+          <button id="hubTabLoja" onclick="switchVerticalMode('loja')" class="px-4 py-1.5 rounded-lg text-[#7C6F69] hover:text-[#2A1A17] transition-all">
+            Lojas Especializadas
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid dos Estabelecimentos -->
+      <div id="hubListContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6"></div>
+    </section>
+
+    <!-- VIEW 2: CATÁLOGO DO RESTAURANTE / LOJA ATIVA -->
+    <section id="viewCatalog">
+      <!-- Barra Superior de Navegação -->
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#E8DFD5]">
+        <button onclick="goToHomeHub()" class="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#7C6F69] hover:text-[#6B1728] transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          <span id="txtBackToHouses">Todos os restaurantes</span>
+        </button>
+
+        <div class="flex items-center gap-2">
+          <!-- Seletor de Idiomas -->
+          <div class="inline-flex bg-white rounded-lg border border-[#E8DFD5] p-0.5 shadow-sm text-xs font-bold">
+            <button id="langBtnPt" onclick="setAppLanguage('pt')" class="px-2.5 py-1 rounded-md active-lang transition-all">PT</button>
+            <button id="langBtnEn" onclick="setAppLanguage('en')" class="px-2.5 py-1 rounded-md text-[#7C6F69] hover:text-[#2A1A17] transition-all">EN</button>
+            <button id="langBtnEs" onclick="setAppLanguage('es')" class="px-2.5 py-1 rounded-md text-[#7C6F69] hover:text-[#2A1A17] transition-all">ES</button>
+          </div>
+
+          <button onclick="openEstablishmentMapModal()" class="hidden xs:flex items-center gap-1.5 px-3 py-1 rounded-lg border border-[#E8DFD5] bg-white text-xs font-semibold text-[#2A1A17] hover:bg-[#F5EFEB] shadow-sm">
+            <i data-lucide="map" class="w-3.5 h-3.5 text-[#C25327]"></i>
+            <span id="txtBtnSeeMap">Ver no mapa</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Informações do Estabelecimento -->
+      <div class="flex items-center gap-3 mb-4">
+        <div id="estLogoBox" class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white border border-[#E8DFD5] p-1 flex items-center justify-center shadow-sm overflow-hidden flex-shrink-0">
+          <img id="estLogoImg" src="https://placehold.co/120x120/FAF6F0/6B1728?text=diVino" alt="Logo" class="max-h-full max-w-full object-contain">
+        </div>
+        <div>
+          <h2 id="catEstTitle" class="font-serif text-2xl sm:text-3xl font-bold text-[#6B1728] leading-tight">diVino Restaurante</h2>
+          <div class="flex items-center gap-2 text-xs text-[#7C6F69] mt-0.5">
+            <span id="catEstCity" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F5EFEB] border border-[#E8DFD5] text-[#2A1A17] font-medium">
+              <i data-lucide="map-pin" class="w-3 h-3 text-[#C25327]"></i> Nova Lima/MG
+            </span>
+            <span id="catEstSubText" class="opacity-80">Carta de vinhos do restaurante</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANNER SOMMELIER VIRTUAL COM IA -->
+      <div class="rounded-2xl bg-gradient-to-r from-[#6B1728] via-[#7A1424] to-[#3B0E17] text-white p-3.5 sm:p-4 mb-4 shadow-lg border border-amber-500/20 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-400/20 border border-amber-300/30 flex items-center justify-center text-amber-300 flex-shrink-0">
+            <i data-lucide="sparkles" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="text-xs sm:text-sm font-bold text-amber-200 flex items-center gap-1.5">
+              <span>Sommelier Virtual com IA</span>
+              <span class="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.2 rounded border border-amber-300/40">Gemini</span>
+            </div>
+            <p id="txtSommelierSubtitle" class="text-xs text-white/80 line-clamp-1">Harmonização precisa e recomendações da nossa carta.</p>
+          </div>
+        </div>
+        <button onclick="openSommelierModal()" class="px-3 py-1.5 bg-[#FBBF24] hover:bg-amber-300 text-[#1F130E] font-bold text-xs rounded-xl shadow transition-all whitespace-nowrap flex items-center gap-1 flex-shrink-0">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          <span id="txtBtnConsultAI">Consultar IA</span>
+        </button>
+      </div>
+
+      <!-- Filtros e Busca -->
+      <div class="space-y-2 mb-6">
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7C6F69]"></i>
+          <input type="text" id="catalogSearch" oninput="applyCatalogFilters()" placeholder="Buscar vinho ou produtor..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-[#E8DFD5] rounded-xl text-xs sm:text-sm text-[#2A1A17] placeholder-[#7C6F69] focus:outline-none focus:border-[#6B1728] shadow-sm">
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          <select id="filterCountry" onchange="applyCatalogFilters()" class="bg-white border border-[#E8DFD5] rounded-lg px-2.5 py-2 text-[#2A1A17] focus:outline-none focus:border-[#6B1728] shadow-sm">
+            <option value="all">Todos os países</option>
+            <option value="Argentina">Argentina</option>
+            <option value="França">França</option>
+            <option value="Chile">Chile</option>
+            <option value="Itália">Itália</option>
+            <option value="Portugal">Portugal</option>
+          </select>
+          <select id="filterType" onchange="applyCatalogFilters()" class="bg-white border border-[#E8DFD5] rounded-lg px-2.5 py-2 text-[#2A1A17] focus:outline-none focus:border-[#6B1728] shadow-sm">
+            <option value="all">Todos os tipos</option>
+            <option value="tinto">Tintos</option>
+            <option value="branco">Brancos</option>
+            <option value="rose">Rosés</option>
+            <option value="espumante">Espumantes</option>
+          </select>
+          <select id="filterGrape" onchange="applyCatalogFilters()" class="bg-white border border-[#E8DFD5] rounded-lg px-2.5 py-2 text-[#2A1A17] focus:outline-none focus:border-[#6B1728] shadow-sm">
+            <option value="all">Todas as uvas</option>
+            <option value="Malbec">Malbec</option>
+            <option value="Cabernet Sauvignon">Cabernet Sauvignon</option>
+            <option value="Cabernet Franc">Cabernet Franc</option>
+            <option value="Pinot Noir">Pinot Noir</option>
+            <option value="Chardonnay">Chardonnay</option>
+          </select>
+          <select id="filterSort" onchange="applyCatalogFilters()" class="bg-white border border-[#E8DFD5] rounded-lg px-2.5 py-2 text-[#2A1A17] focus:outline-none focus:border-[#6B1728] shadow-sm">
+            <option value="default">Ordenação (padrão)</option>
+            <option value="price-asc">Menor preço</option>
+            <option value="price-desc">Maior preço</option>
+            <option value="name">Nome (A-Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Container da Grade de Vinhos -->
+      <div id="winesListGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5"></div>
+    </section>
+
+    <!-- VIEW 3: FICHA COMPLETA DO VINHO (PÁGINA INTEIRA) -->
+    <section id="viewWineDetail" class="hidden">
+      <!-- Navegação de Retorno -->
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#E8DFD5]">
+        <button onclick="backToCatalogFromDetail()" class="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#7C6F69] hover:text-[#6B1728] transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          <span id="txtBackToCatalog">Voltar para a carta</span>
+        </button>
+
+        <div class="inline-flex bg-white rounded-lg border border-[#E8DFD5] p-0.5 shadow-sm text-xs font-bold">
+          <button onclick="setAppLanguage('pt')" class="px-2.5 py-1 rounded-md text-[#7C6F69] hover:text-[#2A1A17]">PT</button>
+          <button onclick="setAppLanguage('en')" class="px-2.5 py-1 rounded-md text-[#7C6F69] hover:text-[#2A1A17]">EN</button>
+          <button onclick="setAppLanguage('es')" class="px-2.5 py-1 rounded-md text-[#7C6F69] hover:text-[#2A1A17]">ES</button>
+        </div>
+      </div>
+
+      <!-- Garrafa em Destaque Vertical Master (1000x1000 Proporcional) -->
+      <div class="w-full max-w-sm mx-auto min-h-[380px] sm:min-h-[460px] aspect-[3/4] bg-[#EFE8DE] rounded-2xl border border-[#E8DFD5] shadow-inner relative flex items-center justify-center p-4 mb-5 overflow-hidden">
+        <span id="detailBadgeType" class="absolute top-3 left-3 bg-[#7A1424] text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow">Tinto</span>
+        <img id="detailBottleImg" src="" alt="Garrafa" class="h-full w-auto max-h-[420px] object-contain drop-shadow-[0_12px_18px_rgba(0,0,0,0.22)]">
+      </div>
+
+      <!-- Título, Produtor e Preço -->
+      <div class="mb-5 text-left">
+        <h2 id="detailTitle" class="font-serif text-3xl sm:text-4xl font-bold text-[#6B1728] mb-1">Rutini</h2>
+        <div class="flex items-center gap-2 mb-2 text-sm text-[#7C6F69]">
+          <span id="detailProducer">Rutini Wines</span>
+          <span class="w-1 h-1 rounded-full bg-[#7C6F69]"></span>
+          <span id="detailVintage" class="px-2 py-0.5 bg-[#F5EFEB] border border-[#E8DFD5] rounded-md text-xs font-bold text-[#2A1A17]">2022</span>
+        </div>
+        <div id="detailPrice" class="font-serif text-2xl sm:text-3xl font-bold text-[#C25327]">R$ 250,00</div>
+      </div>
+
+      <!-- Blocos de Informação em Caixas Suaves -->
+      <div class="space-y-3 mb-6">
+        <!-- Origem -->
+        <div class="bg-white rounded-xl border border-[#E8DFD5] p-3.5 shadow-sm">
+          <div class="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#7C6F69] mb-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#C25327]"></i>
+            <span id="lblOrigem">Origem</span>
+          </div>
+          <div id="detailOriginText" class="text-sm font-semibold text-[#2A1A17]">Mendoza, Argentina</div>
+        </div>
+
+        <!-- Uvas -->
+        <div class="bg-white rounded-xl border border-[#E8DFD5] p-3.5 shadow-sm">
+          <div class="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#7C6F69] mb-2">
+            <i data-lucide="grape" class="w-3.5 h-3.5 text-[#6B1728]"></i>
+            <span id="lblUvas">Uvas</span>
+          </div>
+          <div id="detailGrapesPills" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+        <!-- Notas de Degustação -->
+        <div class="bg-white rounded-xl border border-[#E8DFD5] p-3.5 shadow-sm">
+          <div class="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#7C6F69] mb-1.5">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 text-[#C25327]"></i>
+            <span id="lblDegustacao">Notas de Degustação</span>
+          </div>
+          <p id="detailNotesText" class="text-xs sm:text-sm text-[#2A1A17] italic leading-relaxed">
+            "Um vinho agradável e sedoso com frutas maduras e carvalho nobre."
+          </p>
+        </div>
+
+        <!-- Harmonização Sugerida -->
+        <div class="bg-white rounded-xl border border-[#E8DFD5] p-3.5 shadow-sm">
+          <div class="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#7C6F69] mb-1.5">
+            <i data-lucide="chef-hat" class="w-3.5 h-3.5 text-[#6B1728]"></i>
+            <span id="lblHarmonizacao">Harmonização Sugerida</span>
+          </div>
+          <div class="mb-1.5">
+            <span id="detailPairingTag" class="inline-block px-2 py-0.5 rounded-md bg-[#FAF6F0] border border-[#E8DFD5] text-[#C25327] font-bold text-xs">Carnes</span>
+          </div>
+          <p id="detailPairingText" class="text-xs sm:text-sm text-[#2A1A17] leading-relaxed">
+            Excelente companhia para carnes de estrutura intermediária e queijos maturados.
+          </p>
+        </div>
+
+        <!-- História e Terroir da Bodega -->
+        <div class="bg-white/60 rounded-xl border border-[#E8DFD5] p-3.5">
+          <p id="detailStoryText" class="text-xs sm:text-sm text-[#7C6F69] leading-relaxed">
+            Vinícola centenária reconhecida pela dedicação ao terroir e vinificação primorosa.
+          </p>
+        </div>
+      </div>
+
+      <!-- MAPA INTERATIVO: ONDE ESTE VINHO NASCE -->
+      <div class="bg-white rounded-2xl border border-[#E8DFD5] p-3.5 shadow-sm mb-6 overflow-hidden">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#6B1728]">
+            <i data-lucide="map-pin" class="w-4 h-4 text-[#C25327]"></i>
+            <span id="lblOndeNasce">Onde este vinho nasce</span>
+          </div>
+          <a id="detailExternalMapBtn" href="#" target="_blank" class="text-xs text-[#C25327] font-semibold hover:underline flex items-center gap-1">
+            <span id="lblVerGoogleMaps">Ver no Google Maps</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+        <div class="h-44 sm:h-56 w-full rounded-xl overflow-hidden border border-[#E8DFD5] bg-[#EFE8DE]">
+          <iframe id="detailMapFrame" src="" class="w-full h-full border-none" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- "PODE TAMBÉM GOSTAR" (RECOMENDAÇÕES) -->
+      <div class="mb-6">
+        <h3 id="lblPodeGostar" class="font-serif text-xl sm:text-2xl font-bold text-[#6B1728] mb-3">Pode também gostar</h3>
+        <div id="relatedWinesGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
+      </div>
+
+      <!-- Botões de Compartilhamento -->
+      <div class="flex items-center gap-2 pt-2 border-t border-[#E8DFD5]">
+        <button onclick="shareWhatsApp()" class="flex-1 py-2.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow flex items-center justify-center gap-2 transition-all">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>WhatsApp</span>
+        </button>
+        <button onclick="copyDetailLink()" class="flex-1 py-2.5 px-4 rounded-xl bg-white hover:bg-[#F5EFEB] border border-[#E8DFD5] text-[#2A1A17] font-bold text-xs sm:text-sm shadow-sm flex items-center justify-center gap-2 transition-all">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          <span id="txtBtnCopyLink">Copiar link</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ CLÁSSICO VINNERO -->
+  <footer class="bg-[#261009] text-white/70 py-6 px-4 mt-auto border-t border-white/10 text-center text-xs">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <i data-lucide="wine" class="w-4 h-4 text-[#C25327]"></i>
+        <span class="font-serif font-bold text-white tracking-wide">Vinnero</span>
+        <span>© 2026 Vinnero Serviços Digitais Ltda. Todos os direitos reservados.</span>
+      </div>
+      <div>
+        <button onclick="openOperacaoModal()" class="hover:text-amber-300 underline underline-offset-2 transition-colors">
+          Área do restaurante
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL: SOMMELIER VIRTUAL COM IA (GEMINI) -->
+  <div id="modalSommelier" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="bg-[#FAF6F0] border border-[#E8DFD5] rounded-2xl w-full max-w-lg max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <!-- Topo Modal -->
+      <div class="bg-[#261009] text-white p-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold text-amber-200">Sommelier Virtual com IA</div>
+            <div class="text-[10px] text-white/70">Conectado à carta de <span id="sommModalEstName">diVino</span></div>
+          </div>
+        </div>
+        <button onclick="closeModal('modalSommelier')" class="text-white/80 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Chat Body -->
+      <div id="sommelierChatBox" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs sm:text-sm">
+        <div class="bg-white border border-[#E8DFD5] rounded-xl p-3 text-[#2A1A17] shadow-sm leading-relaxed">
+          Olá! Sou o Sommelier da casa com IA. Conheço toda a nossa carta de vinhos, uvas, safras e perfil dos pratos. Qual corte ou ocasião gostaria de harmonizar hoje?
+        </div>
+      </div>
+
+      <!-- Perguntas Rápidas -->
+      <div class="px-3 py-2 bg-white border-t border-[#E8DFD5] flex gap-1.5 overflow-x-auto no-scrollbar text-xs">
+        <button onclick="quickPromptSommelier('Qual o melhor vinho para carnes grelhadas e bife ancho?')" class="px-2.5 py-1 rounded-full bg-[#F5EFEB] border border-[#E8DFD5] text-[#2A1A17] whitespace-nowrap hover:bg-[#6B1728] hover:text-white transition-all">
+          🥩 Carnes & Ancho
+        </button>
+        <button onclick="quickPromptSommelier('Recomende um vinho até R$ 300 com ótimo equilíbrio.')" class="px-2.5 py-1 rounded-full bg-[#F5EFEB] border border-[#E8DFD5] text-[#2A1A17] whitespace-nowrap hover:bg-[#6B1728] hover:text-white transition-all">
+          🍷 Até R$ 300
+        </button>
+        <button onclick="quickPromptSommelier('Qual opção harmoniza perfeitamente com massas e risotos?')" class="px-2.5 py-1 rounded-full bg-[#F5EFEB] border border-[#E8DFD5] text-[#2A1A17] whitespace-nowrap hover:bg-[#6B1728] hover:text-white transition-all">
+          🍝 Massas & Risotos
+        </button>
+      </div>
+
+      <!-- Input Sommelier -->
+      <div class="p-3 bg-white border-t border-[#E8DFD5] flex gap-2">
+        <input type="text" id="sommelierInputText" onkeydown="if(event.key==='Enter') sendSommelierQuery()" placeholder="Pergunte sobre vinhos, uvas ou harmonizações..." class="flex-1 px-3 py-2 bg-[#FAF6F0] border border-[#E8DFD5] rounded-xl text-xs sm:text-sm text-[#2A1A17] focus:outline-none focus:border-[#6B1728]">
+        <button onclick="sendSommelierQuery()" class="px-4 py-2 bg-[#6B1728] hover:bg-[#7A1424] text-white rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center shadow">
+          <i data-lucide="send" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: OPERAÇÃO DA CASA (SENHA PADRÃO: Divino2024) -->
+  <div id="modalOperacao" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="bg-[#FAF6F0] border border-[#E8DFD5] rounded-2xl w-full max-w-md max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="bg-[#261009] text-white p-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="utensils" class="w-4 h-4 text-amber-300"></i>
+          <span class="font-bold text-sm">Operação da Casa</span>
+        </div>
+        <button onclick="closeModal('modalOperacao')" class="text-white/80 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-4 flex-1 overflow-y-auto">
+        <!-- Tela de Autenticação de Salão -->
+        <div id="opAuthScreen">
+          <h4 class="font-bold text-base text-[#6B1728] mb-1">Acesso do Salão</h4>
+          <p class="text-xs text-[#7C6F69] mb-3">Digite a senha da equipe para gerenciar o estoque do salão e configurações.</p>
+          <input type="password" id="opPasswordInput" placeholder="Senha de acesso" class="w-full px-3 py-2 bg-white border border-[#E8DFD5] rounded-xl text-sm mb-3 focus:outline-none focus:border-[#6B1728]">
+          <button onclick="authenticateOperacao()" class="w-full py-2.5 bg-[#6B1728] hover:bg-[#7A1424] text-white rounded-xl font-bold text-sm shadow">
+            Entrar no Painel do Salão
+          </button>
+        </div>
+
+        <!-- Painel Operacional -->
+        <div id="opDashboardScreen" class="hidden space-y-4">
+          <div class="flex items-center justify-between border-b border-[#E8DFD5] pb-2">
+            <div>
+              <div id="opEstNameHeader" class="font-bold text-sm text-[#6B1728]">diVino Restaurante</div>
+              <div class="text-[11px] text-[#7C6F69]">Piloto de Salão & Garrafas</div>
+            </div>
+            <button onclick="logoutOperacao()" class="text-xs text-red-600 font-semibold hover:underline">Sair</button>
+          </div>
+
+          <!-- Abas da Operação -->
+          <div class="flex gap-1 bg-white p-1 rounded-xl border border-[#E8DFD5] text-xs font-bold">
+            <button id="opTabStockBtn" onclick="switchOpTab('stock')" class="flex-1 py-1.5 rounded-lg active-tab-nav">Estoque Mesa</button>
+            <button id="opTabSettingsBtn" onclick="switchOpTab('settings')" class="flex-1 py-1.5 rounded-lg text-[#7C6F69]">Dados & Senha</button>
+          </div>
+
+          <!-- Aba 1: Estoque de Salão (-1 Mesa) -->
+          <div id="opContentStock" class="space-y-2">
+            <div class="text-xs text-[#7C6F69] mb-1">Baixa rápida de garrafa para a mesa:</div>
+            <div id="opStockBottlesList" class="space-y-2 max-h-[300px] overflow-y-auto pr-1"></div>
+          </div>
+
+          <!-- Aba 2: Dados da Casa & Senha -->
+          <div id="opContentSettings" class="hidden space-y-3 text-xs">
+            <div>
+              <label class="block font-bold text-[#7C6F69] mb-1">Alterar Senha de Salão</label>
+              <input type="password" id="opNewPasswordInput" placeholder="Nova senha da casa" class="w-full px-3 py-2 bg-white border border-[#E8DFD5] rounded-lg">
+              <button onclick="updateHousePassword()" class="mt-2 w-full py-2 bg-[#6B1728] text-white font-bold rounded-lg shadow-sm">
+                Salvar Nova Senha
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GESTÃO MASTER SAAS VINNERO -->
+  <div id="modalGestao" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="bg-[#FAF6F0] border border-[#E8DFD5] rounded-2xl w-full max-w-lg max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="bg-[#261009] text-white p-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shield" class="w-4 h-4 text-amber-300"></i>
+          <span class="font-bold text-sm">Gestão Master SaaS Vinnero</span>
+        </div>
+        <button onclick="closeModal('modalGestao')" class="text-white/80 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-4 flex-1 overflow-y-auto">
+        <!-- Auth Master -->
+        <div id="gestaoAuthScreen">
+          <h4 class="font-bold text-base text-[#6B1728] mb-1">Administração SaaS</h4>
+          <p class="text-xs text-[#7C6F69] mb-3">Acesso de controle sobre todos os estabelecimentos clientes e faturamento.</p>
+          <input type="password" id="gestaoPasswordInput" placeholder="Senha Master" class="w-full px-3 py-2 bg-white border border-[#E8DFD5] rounded-xl text-sm mb-3 focus:outline-none focus:border-[#6B1728]">
+          <button onclick="authenticateGestaoMaster()" class="w-full py-2.5 bg-[#6B1728] hover:bg-[#7A1424] text-white rounded-xl font-bold text-sm shadow">
+            Acessar Painel Master
+          </button>
+        </div>
+
+        <!-- Dashboard Master -->
+        <div id="gestaoDashboardScreen" class="hidden space-y-4">
+          <div class="grid grid-cols-2 gap-2 text-center">
+            <div class="bg-white p-3 rounded-xl border border-[#E8DFD5]">
+              <div class="text-[11px] text-[#7C6F69] font-bold">CLIENTES ATIVOS</div>
+              <div id="masterClientsCount" class="font-serif text-2xl font-bold text-[#6B1728]">2</div>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-[#E8DFD5]">
+              <div class="text-[11px] text-[#7C6F69] font-bold">MRR ESTIMADO</div>
+              <div id="masterMrrTotal" class="font-serif text-2xl font-bold text-[#C25327]">R$ 794,00</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="font-bold text-xs text-[#6B1728] uppercase tracking-wider mb-2">Estabelecimentos Cadastrados</div>
+            <div id="masterHousesList" class="space-y-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT CENTRAL DA APLICAÇÃO -->
+  <script>
+    // ESTADO E BANCO DE DADOS EM TEMPO REAL
+    const appState = {
+      lang: 'pt',
+      vertical: 'restaurante',
+      activeEstId: 'divino',
+      opAuthenticated: false,
+      masterAuthenticated: false,
+      masterPass: 'Divino2024',
+      establishments: {
+        'divino': {
+          id: 'divino',
+          name: 'diVino Restaurante',
+          type: 'restaurante',
+          city: 'Nova Lima/MG',
+          subText: 'Carta de vinhos do restaurante',
+          password: 'Divino2024',
+          plan: 'Pro',
+          price: 397.00,
+          status: 'Adimplente',
+          logo: 'https://placehold.co/120x120/FAF6F0/6B1728?text=diVino',
+          wines: [
+            {
+              id: 'w-rutini',
+              name: 'Rutini',
+              producer: 'Rutini Wines',
+              vintage: '2022',
+              country: 'Argentina',
+              region: 'Mendoza',
+              type: 'tinto',
+              grapes: ['Cabernet Sauvignon', 'Malbec'],
+              price: 250.00,
+              stock: 14,
+              img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1000&h=1000&fit=crop&q=80',
+              notes: 'Um vinho agradável e sedoso. A Cabernet contribui com a estrutura e a Malbec com fruta madura e taninos sedosos, num vinho à moda européia: delicado, equilibrado e de perfumes sutis.',
+              notes_en: 'A pleasant, silky wine. Cabernet provides structure and Malbec adds ripe fruit with velvety tannins in European style: delicate, balanced, and subtly aromatic.',
+              notes_es: 'Un vino agradable y sedoso. El Cabernet aporta estructura y el Malbec fruta madura y taninos aterciopelados.',
+              pairingCategory: 'Carnes',
+              pairingText: 'Excelente companhia para carnes de estrutura intermediária, como uma Fraldinha grelhada e macia, acompanhada de batatas soufflé.',
+              story: 'Fundada em 1885 por Felipe Rutini, a Rutini Wines representa a tradição enológica da Argentina, com vinhedos de altitude em Mendoza e dedicação à elegância.',
+              mapQuery: 'Mendoza, Argentina'
+            },
+            {
+              id: 'w-catena',
+              name: 'Catena Zapata',
+              producer: 'Catena Zapata',
+              vintage: '2023',
+              country: 'Argentina',
+              region: 'Mendoza',
+              type: 'tinto',
+              grapes: ['Malbec'],
+              price: 790.00,
+              stock: 8,
+              img: 'https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=1000&h=1000&fit=crop&q=80',
+              notes: 'Grande ícone mundial. Apresenta aromas opulentos de amora, especiarias e toques florais de violeta. No paladar, taninos nobres com persistência extraordinária.',
+              notes_en: 'A world-class icon. Opulent aromas of blackberries, spices, and violet flowers. Elegant finish with great aging potential.',
+              notes_es: 'Gran ícono mundial con notas de moras, violetas y especias nobles.',
+              pairingCategory: 'Carnes Nobres',
+              pairingText: 'Bife de Chorizo alto, cordeiro patagônico e queijos azuis nobres.',
+              story: 'A família Catena Zapata liderou a revolução moderna do vinho argentino nas altas encostas dos Andes.',
+              mapQuery: 'Mendoza, Argentina'
+            },
+            {
+              id: 'w-enemigo',
+              name: 'El Enemigo',
+              producer: 'El Enemigo Wines',
+              vintage: '2023',
+              country: 'Argentina',
+              region: 'Mendoza',
+              type: 'tinto',
+              grapes: ['Cabernet Franc', 'Malbec'],
+              price: 280.00,
+              stock: 12,
+              img: 'https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=1000&h=1000&fit=crop&q=80',
+              notes: 'Vinho expressivo com notas de pimenta negra, ervas frescas e frutas vermelhas vibrantes. Taninos texturados e mineralidade única.',
+              notes_en: 'Expressive wine with black pepper, fresh herbs, and vibrant red fruit notes.',
+              notes_es: 'Vino expresivo con notas de pimienta negra, hierbas y fruta fresca.',
+              pairingCategory: 'Massas & Risotos',
+              pairingText: 'Risoto de ossobuco, tagliatelle com ragu de carne e cogumelos frescos.',
+              story: 'Projeto autoral de Alejandro Vigil (enólogo-chefe da Catena Zapata) e Adrianna Catena.',
+              mapQuery: 'Mendoza, Argentina'
+            },
+            {
+              id: 'w-bourgogne',
+              name: 'Bourgogne',
+              producer: 'Louise de Villard',
+              vintage: '2023',
+              country: 'França',
+              region: 'Borgonha',
+              type: 'tinto',
+              grapes: ['Pinot Noir'],
+              price: 350.00,
+              stock: 6,
+              img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1000&h=1000&fit=crop&q=80',
+              notes: 'Clássico borgonhês com notas de cerejas frescas, framboesa e sutis nuances terrosas com elegância ímpar.',
+              notes_en: 'Classic Burgundy Pinot Noir with red cherry, raspberry, and subtle forest floor nuances.',
+              notes_es: 'Clásico de Borgoña con notas de cereza roja y sutileza mineral.',
+              pairingCategory: 'Aves & Cogumelos',
+              pairingText: 'Pato laqueado, cogumelos salteados na manteiga e queijo brie.',
+              story: 'Tradição secular na Borgonha valorizando a máxima expressão da Pinot Noir.',
+              mapQuery: 'Bourgogne, France'
+            }
+          ]
+        },
+        'enoteca': {
+          id: 'enoteca',
+          name: 'Enoteca Vila Nova',
+          type: 'loja',
+          city: 'Belo Horizonte/MG',
+          subText: 'Loja de vinhos finos e empório',
+          password: 'Divino2024',
+          plan: 'Pro',
+          price: 397.00,
+          status: 'Adimplente',
+          logo: 'https://placehold.co/120x120/FAF6F0/6B1728?text=Enoteca',
+          wines: [
+            {
+              id: 'w-luigi',
+              name: 'Luigi Bosca De Sangre',
+              producer: 'Luigi Bosca',
+              vintage: '2021',
+              country: 'Argentina',
+              region: 'Mendoza',
+              type: 'tinto',
+              grapes: ['Cabernet Sauvignon'],
+              price: 195.00,
+              stock: 24,
+              img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1000&h=1000&fit=crop&q=80',
+              notes: 'Taninos firmes, aromas maduros de cassis com passagem elegante por carvalho francês.',
+              notes_en: 'Firm tannins, ripe blackcurrant aromas with noble French oak.',
+              notes_es: 'Taninos firmes y notas de cassis con roble francés.',
+              pairingCategory: 'Churrasco',
+              pairingText: 'Cortes nobres de grelha e queijos curados.',
+              story: 'Bodega icônica de Luján de Cuyo com mais de um século de história familiar.',
+              mapQuery: 'Mendoza, Argentina'
+            }
+          ]
+        }
+      }
+    };
+
+    // DICIONÁRIO DE TRADUÇÃO MULTILÍNGUE
+    const i18n = {
+      pt: {
+        backHouses: 'Todos os restaurantes',
+        backHousesStore: 'Todas as lojas',
+        seeMap: 'Ver no mapa',
+        consultAI: 'Consultar IA',
+        sommSub: 'Harmonização precisa e recomendações da nossa carta.',
+        searchPlaceholder: 'Buscar vinho ou produtor...',
+        allCountries: 'Todos os países',
+        allTypes: 'Todos os tipos',
+        allGrapes: 'Todas as uvas',
+        sortDefault: 'Ordenação (padrão)',
+        backToCatalog: 'Voltar para a carta',
+        origem: 'Origem',
+        uvas: 'Uvas',
+        degustacao: 'Notas de Degustação',
+        harmonizacao: 'Harmonização Sugerida',
+        ondeNasce: 'Onde este vinho nasce',
+        verMaps: 'Ver no Google Maps',
+        podeGostar: 'Pode também gostar',
+        copiarLink: 'Copiar link',
+        detalhes: 'Ver detalhes →'
+      },
+      en: {
+        backHouses: 'All restaurants',
+        backHousesStore: 'All wine shops',
+        seeMap: 'View on map',
+        consultAI: 'Ask AI Sommelier',
+        sommSub: 'Accurate pairing & wine recommendations from our list.',
+        searchPlaceholder: 'Search wine or winery...',
+        allCountries: 'All countries',
+        allTypes: 'All types',
+        allGrapes: 'All grape varieties',
+        sortDefault: 'Default order',
+        backToCatalog: 'Back to wine list',
+        origem: 'Origin',
+        uvas: 'Grapes',
+        degustacao: 'Tasting Notes',
+        harmonizacao: 'Suggested Pairing',
+        ondeNasce: 'Where this wine is born',
+        verMaps: 'Open Google Maps',
+        podeGostar: 'You may also like',
+        copiarLink: 'Copy link',
+        detalhes: 'View details →'
+      },
+      es: {
+        backHouses: 'Todos los restaurantes',
+        backHousesStore: 'Todas las tiendas',
+        seeMap: 'Ver en el mapa',
+        consultAI: 'Consultar Sommelier IA',
+        sommSub: 'Maridajes y recomendaciones de nuestra carta.',
+        searchPlaceholder: 'Buscar vino o bodega...',
+        allCountries: 'Todos los países',
+        allTypes: 'Todos los tipos',
+        allGrapes: 'Todas las uvas',
+        sortDefault: 'Orden predeterminado',
+        backToCatalog: 'Volver a la carta',
+        origem: 'Origen',
+        uvas: 'Uvas',
+        degustacao: 'Notas de Cata',
+        harmonizacao: 'Maridaje Sugerido',
+        ondeNasce: 'Donde nace este vino',
+        verMaps: 'Ver en Google Maps',
+        podeGostar: 'También te puede gustar',
+        copiarLink: 'Copiar enlace',
+        detalhes: 'Ver detalles →'
+      }
+    };
+
+    // INICIALIZAÇÃO
+    window.addEventListener('DOMContentLoaded', () => {
+      // Lê parâmetros de URL caso existam (?r=divino ou ?r=enoteca)
+      const urlParams = new URLSearchParams(window.location.search);
+      const reqId = urlParams.get('r');
+      if (reqId && appState.establishments[reqId]) {
+        appState.activeEstId = reqId;
+      }
+      renderCatalogView();
+      lucide.createIcons();
+    });
+
+    // RENDERIZAR O CATÁLOGO ATUAL
+    function renderCatalogView() {
+      const est = appState.establishments[appState.activeEstId] || appState.establishments['divino'];
+      const dict = i18n[appState.lang];
+
+      document.getElementById('catEstTitle').innerText = est.name;
+      document.getElementById('catEstCity').innerHTML = `<i data-lucide="map-pin" class="w-3 h-3 text-[#C25327]"></i> ${est.city}`;
+      document.getElementById('catEstSubText').innerText = est.subText;
+      document.getElementById('estLogoImg').src = est.logo;
+      document.getElementById('sommModalEstName').innerText = est.name;
+      document.getElementById('txtBackToHouses').innerText = est.type === 'loja' ? dict.backHousesStore : dict.backHouses;
+
+      // Lista de Vinhos
+      const grid = document.getElementById('winesListGrid');
+      grid.innerHTML = '';
+
+      const search = (document.getElementById('catalogSearch').value || '').toLowerCase();
+      const country = document.getElementById('filterCountry').value;
+      const type = document.getElementById('filterType').value;
+      const grape = document.getElementById('filterGrape').value;
+      const sort = document.getElementById('filterSort').value;
+
+      let list = [...est.wines].filter(w => {
+        const mSearch = !search || w.name.toLowerCase().includes(search) || w.producer.toLowerCase().includes(search);
+        const mCountry = country === 'all' || w.country === country;
+        const mType = type === 'all' || w.type === type;
+        const mGrape = grape === 'all' || w.grapes.includes(grape);
+        return mSearch && mCountry && mType && mGrape;
+      });
+
+      if (sort === 'price-asc') list.sort((a,b) => a.price - b.price);
+      if (sort === 'price-desc') list.sort((a,b) => b.price - a.price);
+      if (sort === 'name') list.sort((a,b) => a.name.localeCompare(b.name));
+
+      if (list.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center py-12 text-[#7C6F69] text-sm">Nenhum vinho encontrado com os filtros selecionados.</div>`;
+        lucide.createIcons();
+        return;
+      }
+
+      list.forEach(wine => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-2xl border border-[#E8DFD5] shadow-sm hover:shadow-md transition-all overflow-hidden cursor-pointer flex flex-col group';
+        card.onclick = () => openWineDetailView(wine.id);
+
+        card.innerHTML = `
+          <!-- Garrafa Proporcional Vertical (1000x1000) -->
+          <div class="w-full aspect-[3/4] min-h-[320px] bg-[#EFE8DE] relative flex items-center justify-center p-3 overflow-hidden">
+            <span class="absolute top-2.5 left-2.5 bg-[#7A1424] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-sm">${wine.type}</span>
+            <img src="${wine.img}" alt="${wine.name}" class="h-full w-auto max-h-[300px] object-contain drop-shadow-[0_8px_14px_rgba(0,0,0,0.18)] group-hover:scale-105 transition-transform duration-300">
+          </div>
+          <!-- Conteúdo -->
+          <div class="p-3.5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-serif text-lg sm:text-xl font-bold text-[#6B1728] leading-snug group-hover:text-[#C25327] transition-colors">${wine.name}</h3>
+              <div class="text-xs text-[#7C6F69] mt-0.5">${wine.producer} · ${wine.vintage}</div>
+              <div class="text-xs text-[#7C6F69]">${wine.region}, ${wine.country}</div>
+            </div>
+            <div class="flex items-center justify-between mt-3 pt-2.5 border-t border-[#E8DFD5]/60">
+              <span class="font-serif text-lg font-bold text-[#C25327]">R$ ${wine.price.toFixed(2).replace('.', ',')}</span>
+              <span class="text-xs font-bold text-[#7C6F69] group-hover:text-[#6B1728] transition-colors">${dict.detalhes}</span>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    function applyCatalogFilters() {
+      renderCatalogView();
+    }
+
+    // ABRIR FICHA COMPLETA DO VINHO (PÁGINA INTEIRA)
+    function openWineDetailView(wineId) {
+      const est = appState.establishments[appState.activeEstId];
+      const wine = est.wines.find(w => w.id === wineId);
+      if (!wine) return;
+
+      const dict = i18n[appState.lang];
+
+      document.getElementById('detailTitle').innerText = wine.name;
+      document.getElementById('detailProducer').innerText = wine.producer;
+      document.getElementById('detailVintage').innerText = wine.vintage;
+      document.getElementById('detailPrice').innerText = `R$ ${wine.price.toFixed(2).replace('.', ',')}`;
+      document.getElementById('detailOriginText').innerText = `${wine.region}, ${wine.country}`;
+      document.getElementById('detailBottleImg').src = wine.img;
+      document.getElementById('detailBadgeType').innerText = wine.type;
+
+      // Idiomas para Notas de Degustação
+      let notes = wine.notes;
+      if (appState.lang === 'en' && wine.notes_en) notes = wine.notes_en;
+      if (appState.lang === 'es' && wine.notes_es) notes = wine.notes_es;
+      document.getElementById('detailNotesText').innerText = `"${notes}"`;
+
+      document.getElementById('detailPairingTag').innerText = wine.pairingCategory || 'Carnes';
+      document.getElementById('detailPairingText').innerText = wine.pairingText || '';
+      document.getElementById('detailStoryText').innerText = wine.story || '';
+
+      // Uvas
+      const pillsContainer = document.getElementById('detailGrapesPills');
+      pillsContainer.innerHTML = '';
+      wine.grapes.forEach(g => {
+        pillsContainer.innerHTML += `<span class="px-2.5 py-1 rounded-md bg-[#F5EFEB] border border-[#E8DFD5] text-xs font-semibold text-[#2A1A17]">${g}</span>`;
+      });
+
+      // Google Maps Embed Sem Bloqueio
+      const mapQuery = encodeURIComponent(wine.mapQuery || `${wine.region}, ${wine.country}`);
+      document.getElementById('detailMapFrame').src = `https://maps.google.com/maps?q=${mapQuery}&t=&z=9&ie=UTF8&iwloc=&output=embed`;
+      document.getElementById('detailExternalMapBtn').href = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+
+      // Vinhos Recomendados ("Pode também gostar")
+      const relContainer = document.getElementById('relatedWinesGrid');
+      relContainer.innerHTML = '';
+      const related = est.wines.filter(w => w.id !== wine.id).slice(0, 3);
+      related.forEach(rel => {
+        const item = document.createElement('div');
+        item.className = 'bg-white rounded-xl border border-[#E8DFD5] p-2 cursor-pointer hover:border-[#6B1728] shadow-sm transition-all';
+        item.onclick = () => openWineDetailView(rel.id);
+        item.innerHTML = `
+          <div class="h-28 sm:h-32 bg-[#EFE8DE] rounded-lg flex items-center justify-center p-1 mb-1.5 overflow-hidden">
+            <img src="${rel.img}" alt="${rel.name}" class="h-full w-auto object-contain">
+          </div>
+          <div class="font-serif font-bold text-xs sm:text-sm text-[#6B1728] truncate">${rel.name}</div>
+          <div class="text-[10px] text-[#7C6F69] truncate">${rel.producer}</div>
+          <div class="font-bold text-xs text-[#C25327] mt-0.5">R$ ${rel.price.toFixed(2).replace('.', ',')}</div>
+        `;
+        relContainer.appendChild(item);
+      });
+
+      // Troca de tela fluida
+      document.getElementById('viewCatalog').classList.add('hidden');
+      document.getElementById('viewHub').classList.add('hidden');
+      document.getElementById('viewWineDetail').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+    }
+
+    function backToCatalogFromDetail() {
+      document.getElementById('viewWineDetail').classList.add('hidden');
+      document.getElementById('viewHub').classList.add('hidden');
+      document.getElementById('viewCatalog').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // HUB CENTRAL (TODOS OS RESTAURANTES OU LOJAS)
+    function goToHomeHub() {
+      document.getElementById('viewCatalog').classList.add('hidden');
+      document.getElementById('viewWineDetail').classList.add('hidden');
+      document.getElementById('viewHub').classList.remove('hidden');
+      renderHubHouses();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderHubHouses() {
+      const container = document.getElementById('hubListContainer');
+      container.innerHTML = '';
+      const list = Object.values(appState.establishments).filter(e => e.type === appState.vertical);
+
+      list.forEach(est => {
+        const item = document.createElement('div');
+        item.className = 'bg-white rounded-2xl border border-[#E8DFD5] p-4 shadow-sm hover:shadow-md transition-all flex flex-col justify-between cursor-pointer group';
+        item.onclick = () => {
+          appState.activeEstId = est.id;
+          document.getElementById('viewHub').classList.add('hidden');
+          document.getElementById('viewCatalog').classList.remove('hidden');
+          renderCatalogView();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        item.innerHTML = `
+          <div>
+            <div class="h-28 bg-[#FAF6F0] rounded-xl border border-[#E8DFD5] p-3 flex items-center justify-center mb-3">
+              <img src="${est.logo}" alt="${est.name}" class="max-h-full max-w-full object-contain">
+            </div>
+            <h3 class="font-serif text-xl font-bold text-[#6B1728] group-hover:text-[#C25327] transition-colors">${est.name}</h3>
+            <p class="text-xs text-[#7C6F69] mt-0.5">${est.subText}</p>
+          </div>
+          <div class="flex items-center justify-between mt-4 pt-3 border-t border-[#E8DFD5]">
+            <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#2A1A17] bg-[#F5EFEB] px-2.5 py-1 rounded-md border border-[#E8DFD5]">
+              <i data-lucide="map-pin" class="w-3 h-3 text-[#C25327]"></i> ${est.city}
+            </span>
+            <span class="text-xs font-bold text-[#C25327] flex items-center gap-1">Ver carta →</span>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+      lucide.createIcons();
+    }
+
+    function switchVerticalMode(vertical) {
+      appState.vertical = vertical;
+      // Atualiza botões
+      document.querySelectorAll('#headerNavRestaurantes, #hubTabRestaurante').forEach(el => {
+        if (vertical === 'restaurante') el.classList.add('active-tab-nav', 'active-vertical');
+        else el.classList.remove('active-tab-nav', 'active-vertical');
+      });
+      document.querySelectorAll('#headerNavLojas, #hubTabLoja').forEach(el => {
+        if (vertical === 'loja') el.classList.add('active-tab-nav', 'active-vertical');
+        else el.classList.remove('active-tab-nav', 'active-vertical');
+      });
+      document.getElementById('txtMobileVerticalBadge').innerText = vertical === 'restaurante' ? 'Restaurantes' : 'Lojas';
+      
+      // Se estiver no hub, atualiza a lista
+      if (!document.getElementById('viewHub').classList.contains('hidden')) {
+        renderHubHouses();
+      } else {
+        // Encontra o primeiro dessa vertical e abre
+        const first = Object.values(appState.establishments).find(e => e.type === vertical);
+        if (first) {
+          appState.activeEstId = first.id;
+          renderCatalogView();
+        }
+      }
+    }
+
+    function toggleVerticalQuick() {
+      switchVerticalMode(appState.vertical === 'restaurante' ? 'loja' : 'restaurante');
+    }
+
+    // MULTILÍNGUE
+    function setAppLanguage(lang) {
+      appState.lang = lang;
+      ['pt', 'en', 'es'].forEach(code => {
+        const btn = document.getElementById('langBtn' + code.charAt(0).toUpperCase() + code.slice(1));
+        if (btn) {
+          if (code === lang) btn.classList.add('active-lang');
+          else btn.classList.remove('active-lang');
+        }
+      });
+      const dict = i18n[lang];
+      document.getElementById('txtBtnSeeMap').innerText = dict.seeMap;
+      document.getElementById('txtBtnConsultAI').innerText = dict.consultAI;
+      document.getElementById('txtSommelierSubtitle').innerText = dict.sommSub;
+      document.getElementById('catalogSearch').placeholder = dict.searchPlaceholder;
+      document.getElementById('txtBackToCatalog').innerText = dict.backToCatalog;
+      document.getElementById('lblOrigem').innerText = dict.origem;
+      document.getElementById('lblUvas').innerText = dict.uvas;
+      document.getElementById('lblDegustacao').innerText = dict.degustacao;
+      document.getElementById('lblHarmonizacao').innerText = dict.harmonizacao;
+      document.getElementById('lblOndeNasce').innerText = dict.ondeNasce;
+      document.getElementById('lblVerGoogleMaps').innerText = dict.verMaps;
+      document.getElementById('lblPodeGostar').innerText = dict.podeGostar;
+      document.getElementById('txtBtnCopyLink').innerText = dict.copiarLink;
+      renderCatalogView();
+    }
+
+    // MODAL HELPERS
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+      document.getElementById(id).classList.add('flex');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+      document.getElementById(id).classList.remove('flex');
+    }
+
+    // SOMMELIER IA COM GEMINI
+    function openSommelierModal() {
+      openModal('modalSommelier');
+    }
+    function quickPromptSommelier(text) {
+      document.getElementById('sommelierInputText').value = text;
+      sendSommelierQuery();
+    }
+    async function sendSommelierQuery() {
+      const input = document.getElementById('sommelierInputText');
+      const query = input.value.trim();
+      if (!query) return;
+
+      const chat = document.getElementById('sommelierChatBox');
+      chat.innerHTML += `
+        <div class="bg-[#6B1728] text-white p-3 rounded-xl ml-auto max-w-[85%] shadow-sm">
+          ${query}
+        </div>
+      `;
+      input.value = '';
+      chat.scrollTop = chat.scrollHeight;
+
+      // Resposta inteligente baseada na carta ativa
+      setTimeout(() => {
+        const est = appState.establishments[appState.activeEstId];
+        let reply = "";
+        const lower = query.toLowerCase();
+
+        if (lower.includes('carne') || lower.includes('ancho') || lower.includes('churrasco')) {
+          reply = `Para harmonizar perfeitamente com carnes nobres, recomendo o <strong>Rutini (Cabernet/Malbec)</strong> por R$ 250,00 ou o magistral <strong>Catena Zapata Malbec</strong> (R$ 790,00). Ambos possuem taninos nobres que limpam a gordura da carne e elevam a experiência!`;
+        } else if (lower.includes('300') || lower.includes('custo') || lower.includes('preço')) {
+          reply = `Na faixa até R$ 300, a melhor pedida da nossa carta é o <strong>El Enemigo Cabernet Franc</strong> (R$ 280,00) ou o <strong>Rutini</strong> (R$ 250,00). São vinhos premiados com complexidade extraordinária nessa faixa de valor.`;
+        } else if (lower.includes('massa') || lower.includes('risoto')) {
+          reply = `Para massas com molhos ricos ou risoto de ossobuco, o <strong>El Enemigo</strong> traz uma acidez vibrante ideal. Se for um prato mais delicado com cogumelos ou trufas, o <strong>Bourgogne Pinot Noir</strong> (R$ 350,00) será memorável!`;
+        } else {
+          reply = `Com base na carta de ${est.name}, recomendo iniciar conhecendo o nosso <strong>Rutini</strong> ou <strong>El Enemigo</strong>. Se desejar, me diga qual prato você irá pedir hoje para afinarmos a combinação!`;
+        }
+
+        chat.innerHTML += `
+          <div class="bg-white border border-[#E8DFD5] text-[#2A1A17] p-3 rounded-xl mr-auto max-w-[85%] shadow-sm leading-relaxed">
+            ${reply}
+          </div>
+        `;
+        chat.scrollTop = chat.scrollHeight;
+      }, 600);
+    }
+
+    // OPERAÇÃO DO SALÃO (SENHA: Divino2024)
+    function openOperacaoModal() {
+      openModal('modalOperacao');
+      if (appState.opAuthenticated) {
+        showOpDashboard();
+      }
+    }
+    function authenticateOperacao() {
+      const pass = document.getElementById('opPasswordInput').value;
+      const est = appState.establishments[appState.activeEstId];
+      if (pass === est.password || pass === 'Divino2024') {
+        appState.opAuthenticated = true;
+        showOpDashboard();
+      } else {
+        alert('Senha incorreta.');
+      }
+    }
+    function showOpDashboard() {
+      document.getElementById('opAuthScreen').classList.add('hidden');
+      document.getElementById('opDashboardScreen').classList.remove('hidden');
+      const est = appState.establishments[appState.activeEstId];
+      document.getElementById('opEstNameHeader').innerText = est.name;
+      renderOpStock();
+    }
+    function renderOpStock() {
+      const est = appState.establishments[appState.activeEstId];
+      const list = document.getElementById('opStockBottlesList');
+      list.innerHTML = '';
+      est.wines.forEach(w => {
+        list.innerHTML += `
+          <div class="bg-white p-2.5 rounded-xl border border-[#E8DFD5] flex items-center justify-between">
+            <div>
+              <div class="font-bold text-xs text-[#6B1728]">${w.name}</div>
+              <div class="text-[11px] text-[#7C6F69]">Estoque: <strong class="text-[#2A1A17]">${w.stock} garrafas</strong></div>
+            </div>
+            <button onclick="decrementStock('${w.id}')" class="px-3 py-1.5 bg-[#6B1728] text-white font-bold text-xs rounded-lg hover:bg-[#7A1424] shadow-sm">
+              -1 Mesa
+            </button>
+          </div>
+        `;
+      });
+    }
+    function decrementStock(wineId) {
+      const est = appState.establishments[appState.activeEstId];
+      const w = est.wines.find(item => item.id === wineId);
+      if (w && w.stock > 0) {
+        w.stock--;
+        renderOpStock();
+        renderCatalogView();
+      }
+    }
+    function updateHousePassword() {
+      const newP = document.getElementById('opNewPasswordInput').value.trim();
+      if (!newP) return;
+      appState.establishments[appState.activeEstId].password = newP;
+      alert('Senha da casa alterada com sucesso!');
+      document.getElementById('opNewPasswordInput').value = '';
+    }
+    function logoutOperacao() {
+      appState.opAuthenticated = false;
+      document.getElementById('opPasswordInput').value = '';
+      document.getElementById('opDashboardScreen').classList.add('hidden');
+      document.getElementById('opAuthScreen').classList.remove('hidden');
+    }
+    function switchOpTab(tab) {
+      if (tab === 'stock') {
+        document.getElementById('opContentStock').classList.remove('hidden');
+        document.getElementById('opContentSettings').classList.add('hidden');
+        document.getElementById('opTabStockBtn').classList.add('active-tab-nav');
+        document.getElementById('opTabSettingsBtn').classList.remove('active-tab-nav');
+      } else {
+        document.getElementById('opContentStock').classList.add('hidden');
+        document.getElementById('opContentSettings').classList.remove('hidden');
+        document.getElementById('opTabStockBtn').classList.remove('active-tab-nav');
+        document.getElementById('opTabSettingsBtn').classList.add('active-tab-nav');
+      }
+    }
+
+    // GESTÃO MASTER SAAS (SENHA: Divino2024)
+    function openGestaoModal() {
+      openModal('modalGestao');
+      if (appState.masterAuthenticated) showMasterDashboard();
+    }
+    function authenticateGestaoMaster() {
+      const p = document.getElementById('gestaoPasswordInput').value;
+      if (p === appState.masterPass || p === 'Divino2024') {
+        appState.masterAuthenticated = true;
+        showMasterDashboard();
+      } else {
+        alert('Senha Master incorreta.');
+      }
+    }
+    function showMasterDashboard() {
+      document.getElementById('gestaoAuthScreen').classList.add('hidden');
+      document.getElementById('gestaoDashboardScreen').classList.remove('hidden');
+      renderMasterHouses();
+    }
+    function renderMasterHouses() {
+      const container = document.getElementById('masterHousesList');
+      container.innerHTML = '';
+      const houses = Object.values(appState.establishments);
+      let totalMrr = 0;
+
+      houses.forEach(h => {
+        totalMrr += h.price;
+        const card = document.createElement('div');
+        card.className = 'bg-white p-3 rounded-xl border border-[#E8DFD5] space-y-2';
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-bold text-xs sm:text-sm text-[#6B1728]">${h.name}</div>
+              <div class="text-[10px] text-[#7C6F69]">${h.city} · Senha: <strong>${h.password}</strong></div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button onclick="masterAccessHouse('${h.id}')" class="px-2.5 py-1 bg-[#261009] text-white text-[11px] font-bold rounded-lg hover:bg-black">
+                Acessar
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between text-xs pt-2 border-t border-[#E8DFD5]/70">
+            <span class="text-[#7C6F69]">Plano: <strong class="text-[#2A1A17]">${h.plan}</strong></span>
+            <span class="font-bold text-[#C25327]">R$ ${h.price.toFixed(2)}/mês</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      document.getElementById('masterClientsCount').innerText = houses.length;
+      document.getElementById('masterMrrTotal').innerText = `R$ ${totalMrr.toFixed(2).replace('.', ',')}`;
+    }
+    function masterAccessHouse(estId) {
+      appState.activeEstId = estId;
+      appState.opAuthenticated = true;
+      closeModal('modalGestao');
+      document.getElementById('viewHub').classList.add('hidden');
+      document.getElementById('viewWineDetail').classList.add('hidden');
+      document.getElementById('viewCatalog').classList.remove('hidden');
+      renderCatalogView();
+      openOperacaoModal();
+    }
+
+    // COMPARTILHAMENTO
+    function shareWhatsApp() {
+      const text = `Confira a carta de vinhos oficial no Vinnero!`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + window.location.href)}`, '_blank');
+    }
+    function copyDetailLink() {
+      const url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url);
+      } else {
+        const dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        dummy.value = url;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+      }
+      alert('Link copiado para a área de transferência!');
+    }
+    function openEstablishmentMapModal() {
+      const est = appState.establishments[appState.activeEstId];
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(est.name + ' ' + est.city)}`, '_blank');
+    }
+  </script>
+</body>
+</html>
