@@ -90,16 +90,30 @@
   <header class="sticky top-0 z-30 bg-gradient-to-r from-vinnero-wineDark via-vinnero-wine to-vinnero-wineDark text-white shadow-lg border-b border-vinnero-gold/30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Logo e Identidade -->
-      <div onclick="goToHomeHub()" class="flex items-center gap-3 cursor-pointer group">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-vinnero-gold to-vinnero-goldLight p-0.5 shadow-md group-hover:scale-105 transition-transform">
-          <div class="w-full h-full bg-vinnero-wineDark rounded-[14px] flex items-center justify-center text-vinnero-gold font-cinzel font-bold text-xl">
-            V
+      <!-- Logo e Identidade Oficial Vinnero -->
+      <div onclick="goToHomeHub()" class="flex items-center gap-3 cursor-pointer group" title="Ir para o início">
+        <div class="flex items-center gap-2.5">
+          <!-- Ícone do Cacho de Uvas Geométrico Oficial Vinnero em SVG -->
+          <svg class="w-9 h-11 text-vinnero-goldLight group-hover:scale-105 transition-transform" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Ramo / Folha geométrica superior -->
+            <path d="M50 34L50 20M50 20L30 16L38 34L50 20M50 20L66 14" stroke-width="5.5" />
+            <!-- Nó central -->
+            <circle cx="50" cy="35" r="3" fill="currentColor" stroke="none" />
+            <!-- Círculos de Uva em camadas concêntricas geométricas -->
+            <!-- Camada 1 (topo) -->
+            <circle cx="30" cy="56" r="14" />
+            <circle cx="70" cy="56" r="14" />
+            <!-- Camada 2 (centro) -->
+            <circle cx="50" cy="56" r="14" />
+            <circle cx="40" cy="78" r="14" />
+            <circle cx="60" cy="78" r="14" />
+            <!-- Camada 3 (ponta inferior) -->
+            <circle cx="50" cy="98" r="14" />
+          </svg>
+          <div class="flex flex-col">
+            <span class="font-sans text-xl sm:text-2xl font-bold tracking-[0.16em] text-white leading-none">VINNERO</span>
+            <span class="text-[9px] sm:text-[10px] text-vinnero-goldLight tracking-[0.25em] uppercase font-semibold mt-1">Carta de Vinhos Digital</span>
           </div>
-        </div>
-        <div>
-          <h1 class="font-cinzel text-xl sm:text-2xl font-bold tracking-wider text-white">VINNERO</h1>
-          <p class="text-[10px] sm:text-xs text-vinnero-goldLight tracking-widest uppercase font-semibold">Carta de Vinhos Digital</p>
         </div>
       </div>
 
@@ -702,11 +716,20 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         
-        <!-- Apresentação da Plataforma -->
+        <!-- Apresentação da Plataforma com Logo Oficial -->
         <div class="md:col-span-2">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-7 h-7 rounded-lg bg-vinnero-gold flex items-center justify-center text-vinnero-wineDark font-cinzel font-bold text-sm">V</span>
-            <span class="font-cinzel text-lg font-bold tracking-wider text-white">VINNERO</span>
+          <div class="flex items-center gap-2.5 mb-3">
+            <svg class="w-8 h-10 text-vinnero-gold" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M50 34L50 20M50 20L30 16L38 34L50 20M50 20L66 14" stroke-width="5.5" />
+              <circle cx="50" cy="35" r="3" fill="currentColor" stroke="none" />
+              <circle cx="30" cy="56" r="14" />
+              <circle cx="70" cy="56" r="14" />
+              <circle cx="50" cy="56" r="14" />
+              <circle cx="40" cy="78" r="14" />
+              <circle cx="60" cy="78" r="14" />
+              <circle cx="50" cy="98" r="14" />
+            </svg>
+            <span class="font-sans text-xl font-bold tracking-[0.18em] text-white">VINNERO</span>
           </div>
           <p class="text-xs text-white/80 leading-relaxed max-w-md font-light">
             Plataforma digital de alta gastronomia e enologia para restaurantes, bares de vinho e boutiques especializadas. Cardápio inteligente, harmonizações guiadas e conexão direta com seus clientes.
