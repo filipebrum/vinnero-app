@@ -126,20 +126,18 @@
           <button type="button" id="langBtn_es" onclick="setAppLanguage('es')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all text-white/70 hover:text-white">ES</button>
         </div>
 
-        <!-- Botão Operação do Salão -->
-        <button type="button" onclick="openOperacaoModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-colors text-xs font-semibold shadow-sm">
-          <svg class="w-3.5 h-3.5 text-vinnero-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Botão Operação do Salão (Apenas Ícone) -->
+        <button type="button" onclick="openOperacaoModal()" title="Operação da Casa" aria-label="Operação da Casa" class="p-2 md:p-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-vinnero-gold transition-all shadow-sm flex items-center justify-center hover:scale-105 active:scale-95">
+          <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
           </svg>
-          <span class="hidden sm:inline">Operação</span>
         </button>
 
-        <!-- Botão Gestão Master SaaS (Para o Dono da Plataforma) -->
-        <button type="button" onclick="openMasterModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-vinnero-gold hover:bg-vinnero-goldLight text-vinnero-charcoal transition-colors text-xs font-bold shadow-md">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Botão Gestão Master SaaS (Apenas Ícone) -->
+        <button type="button" onclick="openMasterModal()" title="Gestão Master SaaS" aria-label="Gestão Master SaaS" class="p-2 md:p-2.5 rounded-xl bg-vinnero-gold hover:bg-vinnero-goldLight text-vinnero-charcoal transition-all shadow-md flex items-center justify-center hover:scale-105 active:scale-95">
+          <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
           </svg>
-          <span>Gestão Master</span>
         </button>
       </div>
 
@@ -382,53 +380,53 @@
   </main>
 
   <!-- ==================== RODAPÉ INSTITUCIONAL COMPLETO ==================== -->
-  <footer class="bg-vinnero-charcoal text-white/80 border-t border-vinnero-gold/30 mt-12">
+  <footer class="bg-gradient-to-r from-vinnero-wineDark via-vinnero-wine to-vinnero-wineDark text-white/90 border-t border-vinnero-gold/40 mt-12 shadow-2xl">
     <div class="max-w-7xl mx-auto px-4 py-10 md:py-12">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
         
         <!-- Coluna 1: Marca & Propósito -->
         <div class="space-y-3">
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-vinnero-gold flex items-center justify-center text-vinnero-charcoal font-bold">
+            <div class="w-8 h-8 rounded-lg bg-vinnero-gold flex items-center justify-center text-vinnero-charcoal font-bold shadow-md">
               🍷
             </div>
             <span class="font-cinzel text-xl font-bold tracking-widest text-vinnero-gold">VINNERO</span>
           </div>
-          <p class="text-xs text-gray-400 leading-relaxed">
+          <p class="text-xs text-white/80 leading-relaxed">
             A mais avançada plataforma de cartas de vinho digitais com inteligência artificial, mapas de terroir e gestão operacional de salão para o mercado enogastronômico.
           </p>
-          <span class="inline-block text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-white/10 text-vinnero-gold border border-white/10">
+          <span class="inline-block text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-black/25 text-vinnero-gold border border-vinnero-gold/30">
             SaaS B2B • Carta Digital
           </span>
         </div>
 
         <!-- Coluna 2: Navegação & Módulos -->
         <div>
-          <h4 class="font-cinzel text-xs font-bold tracking-wider uppercase text-white mb-3">Navegação</h4>
+          <h4 class="font-cinzel text-xs font-bold tracking-wider uppercase text-vinnero-gold mb-3">Navegação</h4>
           <ul class="space-y-2 text-xs">
-            <li><button type="button" onclick="goToHomeHub()" class="hover:text-vinnero-gold transition-colors">Cartas de Restaurantes & Bares</button></li>
-            <li><button type="button" onclick="goToHomeHub(); switchHubVertical('store');" class="hover:text-vinnero-gold transition-colors">Lojas Especializadas & Boutiques</button></li>
-            <li><button type="button" onclick="openSommelierModal()" class="hover:text-vinnero-gold transition-colors">Sommelier Virtual com IA</button></li>
-            <li><button type="button" onclick="openOperacaoModal()" class="hover:text-vinnero-gold transition-colors">Acesso da Equipe (Salão)</button></li>
+            <li><button type="button" onclick="goToHomeHub()" class="text-white/80 hover:text-vinnero-gold transition-colors">Cartas de Restaurantes & Bares</button></li>
+            <li><button type="button" onclick="goToHomeHub(); switchHubVertical('store');" class="text-white/80 hover:text-vinnero-gold transition-colors">Lojas Especializadas & Boutiques</button></li>
+            <li><button type="button" onclick="openSommelierModal()" class="text-white/80 hover:text-vinnero-gold transition-colors">Sommelier Virtual com IA</button></li>
+            <li><button type="button" onclick="openOperacaoModal()" class="text-white/80 hover:text-vinnero-gold transition-colors">Acesso da Equipe (Salão)</button></li>
           </ul>
         </div>
 
         <!-- Coluna 3: Responsabilidade & Legislação -->
         <div>
-          <h4 class="font-cinzel text-xs font-bold tracking-wider uppercase text-white mb-3">Consumo Responsável</h4>
-          <p class="text-xs text-gray-400 leading-relaxed mb-2">
+          <h4 class="font-cinzel text-xs font-bold tracking-wider uppercase text-vinnero-gold mb-3">Consumo Responsável</h4>
+          <p class="text-xs text-white/80 leading-relaxed mb-2">
             Aprecie com moderação. Se beber, não dirija.
           </p>
-          <p class="text-[11px] text-gray-500 leading-tight">
+          <p class="text-[11px] text-white/70 leading-tight">
             Venda e consumo proibidos para menores de 18 anos conforme Lei Federal nº 8.069/1990 (ECA - Art. 243) e Lei nº 13.106/2015.
           </p>
         </div>
 
         <!-- Coluna 4: Área Administrativa Master -->
         <div>
-          <h4 class="font-cinzel text-xs font-bold tracking-wider uppercase text-white mb-3">Administração</h4>
-          <p class="text-xs text-gray-400 mb-3">Painel de controle financeiro, assinaturas e status dos estabelecimentos clientes.</p>
-          <button type="button" onclick="openMasterModal()" class="w-full py-2.5 px-3 bg-white/10 hover:bg-vinnero-gold hover:text-vinnero-charcoal border border-vinnero-gold/40 text-vinnero-gold rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
+          <h4 class="font-cinzel text-xs font-bold tracking-wider uppercase text-vinnero-gold mb-3">Administração</h4>
+          <p class="text-xs text-white/80 mb-3">Painel de controle financeiro, assinaturas e status dos estabelecimentos clientes.</p>
+          <button type="button" onclick="openMasterModal()" class="w-full py-2.5 px-3 bg-white/10 hover:bg-vinnero-gold hover:text-vinnero-charcoal border border-vinnero-gold/50 text-vinnero-gold rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
             <span>Painel Master SaaS</span>
           </button>
@@ -437,8 +435,8 @@
       </div>
 
       <!-- Linha Final de Copyright -->
-      <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-500 gap-2">
-        <span>© 2026 Vinnero Tecnologias Enológicas. Todos os direitos reservados.</span>
+      <div class="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between text-[11px] text-white/70 gap-2">
+        <span>Copyright 2026 Vinnero Web Design Ltda. Todos os direitos reservados.</span>
         <span>Tecnologia com IA Gemini • Hospedado em Cloud de Alta Performance</span>
       </div>
     </div>
