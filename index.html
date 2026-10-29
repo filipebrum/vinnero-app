@@ -701,6 +701,26 @@
           <input type="text" id="formMasterEstSubtitle" placeholder="Ex: Alta gastronomia e harmonizações exclusivas" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">WhatsApp de Contato / Vendas</label>
+            <input type="text" id="formMasterEstWhatsapp" placeholder="Ex: 5531999991111" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
+          </div>
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Senha de Salão da Equipe *</label>
+            <input type="password" id="formMasterEstPassword" placeholder="Ex: 1234" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Plano SaaS Vinnero *</label>
+          <select id="formMasterEstPlan" class="w-full px-3 py-2 border rounded-xl bg-white focus:ring-2 focus:ring-vinnero-wine font-medium">
+            <option value="essencial">Plano Essencial - R$ 197,00/mês</option>
+            <option value="profissional" selected>Plano Profissional - R$ 397,00/mês</option>
+            <option value="black">Plano Black - R$ 697,00/mês</option>
+          </select>
+        </div>
+
         <!-- Horário de Atendimento no Cadastro Master: Almoço e Jantar -->
         <div id="masterRestScheduleBox" class="p-3.5 bg-gray-50 rounded-2xl border border-gray-200 space-y-2">
           <div class="flex items-center justify-between">
@@ -976,9 +996,32 @@
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impvb2FncXJnd2d0eHJtbGR2d2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyMzIzMDcsImV4cCI6MjEwODgwODMwN30.6v9s9gMfQUMQM-CJdcXQdGzGhJdBkYAxDmLxnUmwpsc";
     let supabaseClient = null;
 
+    // Detecta se o ambiente bloqueia WebSockets (como sandboxes, iframes ou Canvas restrito)
+    function isWebSocketAllowed() {
+      try {
+        if (window.self !== window.top) {
+          // Embutido em iframe / preview sandbox
+          return false;
+        }
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
     if (window.supabase) {
       try {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        // Inicializa o cliente Supabase sem abrir WebSocket automático caso esteja em ambiente sandbox
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+          auth: {
+            persistSession: false
+          },
+          realtime: {
+            // Desativa auto-conexão de WebSocket se estiver em ambiente restrito
+            autoRefreshToken: false,
+            heartbeatIntervalMs: 0
+          }
+        });
       } catch (err) {
         console.warn('Erro ao inicializar Supabase:', err);
       }
@@ -1605,10 +1648,19 @@
         establishments = DEFAULT_ESTABLISHMENTS;
       }
 
-      // Conexão com Nuvem Supabase
+      // Conexão com Nuvem Supabase via REST e sincronização periódica
       if (supabaseClient) {
         await syncFromCloud();
-        setupRealtimeSubscription();
+        
+        // Tenta WebSockets apenas se permitido pelo ambiente, com captura de SecurityError
+        if (isWebSocketAllowed()) {
+          setupRealtimeSubscription();
+        }
+
+        // Sincronização periódica suave via HTTPS REST (funciona perfeitamente em qualquer ambiente)
+        setInterval(() => {
+          syncFromCloud();
+        }, 15000);
       }
     }
 
@@ -1644,18 +1696,18 @@
           }
         }
       } catch (err) {
-        console.warn('Falha na sincronização inicial com Supabase:', err);
+        console.warn('Falha na sincronização com Supabase:', err);
       }
     }
 
-    // Escuta alterações em tempo real (Realtime WebSockets)
+    // Escuta alterações em tempo real com blindagem contra SecurityError
     function setupRealtimeSubscription() {
       if (!supabaseClient) return;
       try {
-        supabaseClient
-          .channel('public:establishments')
+        const channel = supabaseClient.channel('public:establishments');
+        channel
           .on('postgres_changes', { event: '*', schema: 'public', table: 'establishments' }, (payload) => {
-            if (payload.new && payload.new.data) {
+            if (payload && payload.new && payload.new.data) {
               const updated = payload.new.data;
               const index = establishments.findIndex(e => e.id === updated.id);
               if (index !== -1) {
@@ -1667,9 +1719,13 @@
               refreshCurrentUI();
             }
           })
-          .subscribe();
+          .subscribe((status, err) => {
+            if (err) {
+              console.warn('Supabase Realtime ignorado pelo ambiente:', err.message || err);
+            }
+          });
       } catch (err) {
-        console.warn('Realtime subscription not active:', err);
+        console.warn('Realtime subscription bypassed due to sandbox environment:', err);
       }
     }
 
@@ -2924,20 +2980,28 @@
 
     /* ==================== CADASTRO / EDIÇÃO DE ESTABELECIMENTO (MASTER) ==================== */
     window.openMasterEstModal = function() {
-      document.getElementById('masterEstModalTitle').innerText = 'Cadastrar Novo Estabelecimento';
-      document.getElementById('formMasterEstId').value = '';
-      document.getElementById('formMasterEstName').value = '';
-      document.getElementById('formMasterEstType').value = 'restaurant';
-      document.getElementById('formMasterEstCity').value = '';
-      document.getElementById('formMasterEstSubtitle').value = '';
-      document.getElementById('formMasterEstWhatsapp').value = '';
-      document.getElementById('formMasterEstPassword').value = '1234';
-      document.getElementById('formMasterEstPlan').value = 'profissional';
-      document.getElementById('formMasterEstStatus').value = 'paid';
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      };
+
+      setVal('masterEstModalTitle', 'Cadastrar Novo Estabelecimento');
+      const titleEl = document.getElementById('masterEstModalTitle');
+      if (titleEl) titleEl.innerText = 'Cadastrar Novo Estabelecimento';
+
+      setVal('formMasterEstId', '');
+      setVal('formMasterEstName', '');
+      setVal('formMasterEstType', 'restaurant');
+      setVal('formMasterEstCity', '');
+      setVal('formMasterEstSubtitle', '');
+      setVal('formMasterEstWhatsapp', '');
+      setVal('formMasterEstPassword', '1234');
+      setVal('formMasterEstPlan', 'profissional');
+      setVal('formMasterEstStatus', 'paid');
       
       const today = new Date();
       const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
-      document.getElementById('formMasterEstLastPayment').value = formattedDate;
+      setVal('formMasterEstLastPayment', formattedDate);
 
       // Renderiza tabela de Almoço e Jantar no Master
       const masterTbody = document.getElementById('masterScheduleTableBody');
@@ -2945,28 +3009,37 @@
         masterTbody.innerHTML = renderScheduleTableHTML('master', null);
       }
 
-      document.getElementById('modalMasterEst').classList.remove('hidden');
+      const modal = document.getElementById('modalMasterEst');
+      if (modal) modal.classList.remove('hidden');
     };
 
     window.closeMasterEstModal = function() {
-      document.getElementById('modalMasterEst').classList.add('hidden');
+      const modal = document.getElementById('modalMasterEst');
+      if (modal) modal.classList.add('hidden');
     };
 
     window.editMasterEst = function(estId) {
       const est = establishments.find(e => e.id === estId);
       if (!est) return;
 
-      document.getElementById('masterEstModalTitle').innerText = 'Editar Estabelecimento';
-      document.getElementById('formMasterEstId').value = est.id;
-      document.getElementById('formMasterEstName').value = est.name || '';
-      document.getElementById('formMasterEstType').value = est.type || 'restaurant';
-      document.getElementById('formMasterEstCity').value = est.city || '';
-      document.getElementById('formMasterEstSubtitle').value = est.subtitle || '';
-      document.getElementById('formMasterEstWhatsapp').value = est.whatsapp || '';
-      document.getElementById('formMasterEstPassword').value = est.password || '1234';
-      document.getElementById('formMasterEstPlan').value = est.plan || 'profissional';
-      document.getElementById('formMasterEstStatus').value = est.paymentStatus || 'paid';
-      document.getElementById('formMasterEstLastPayment').value = est.lastPaymentDate || '';
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      };
+
+      const titleEl = document.getElementById('masterEstModalTitle');
+      if (titleEl) titleEl.innerText = 'Editar Estabelecimento';
+
+      setVal('formMasterEstId', est.id);
+      setVal('formMasterEstName', est.name || '');
+      setVal('formMasterEstType', est.type || 'restaurant');
+      setVal('formMasterEstCity', est.city || '');
+      setVal('formMasterEstSubtitle', est.subtitle || '');
+      setVal('formMasterEstWhatsapp', est.whatsapp || '');
+      setVal('formMasterEstPassword', est.password || '1234');
+      setVal('formMasterEstPlan', est.plan || 'profissional');
+      setVal('formMasterEstStatus', est.paymentStatus || 'paid');
+      setVal('formMasterEstLastPayment', est.lastPaymentDate || '');
 
       const sch = est.operatingHours || {};
       const masterTbody = document.getElementById('masterScheduleTableBody');
@@ -2974,20 +3047,26 @@
         masterTbody.innerHTML = renderScheduleTableHTML('master', sch.dailySchedule);
       }
 
-      document.getElementById('modalMasterEst').classList.remove('hidden');
+      const modal = document.getElementById('modalMasterEst');
+      if (modal) modal.classList.remove('hidden');
     };
 
     window.saveMasterEstRecord = function() {
-      const id = document.getElementById('formMasterEstId').value;
-      const name = document.getElementById('formMasterEstName').value.trim();
-      const type = document.getElementById('formMasterEstType').value;
-      const city = document.getElementById('formMasterEstCity').value.trim();
-      const subtitle = document.getElementById('formMasterEstSubtitle').value.trim();
-      const whatsapp = document.getElementById('formMasterEstWhatsapp').value.trim();
-      const password = document.getElementById('formMasterEstPassword').value.trim();
-      const plan = document.getElementById('formMasterEstPlan').value;
-      const status = document.getElementById('formMasterEstStatus').value;
-      const lastPayment = document.getElementById('formMasterEstLastPayment').value.trim();
+      const getVal = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.value.trim() : '';
+      };
+
+      const id = getVal('formMasterEstId');
+      const name = getVal('formMasterEstName');
+      const type = getVal('formMasterEstType') || 'restaurant';
+      const city = getVal('formMasterEstCity');
+      const subtitle = getVal('formMasterEstSubtitle');
+      const whatsapp = getVal('formMasterEstWhatsapp');
+      const password = getVal('formMasterEstPassword');
+      const plan = getVal('formMasterEstPlan') || 'profissional';
+      const status = getVal('formMasterEstStatus') || 'paid';
+      const lastPayment = getVal('formMasterEstLastPayment');
 
       if (!name || !city) {
         alert('Por favor, informe ao menos o Nome e a Cidade do estabelecimento.');
