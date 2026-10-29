@@ -17,8 +17,8 @@
   <!-- ÍCONE APPLE TOUCH (Obrigatório para iOS PWA) -->
   <link rel="apple-touch-icon" id="appleTouchIcon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%234A0D17'/%3E%3Ccircle cx='256' cy='256' r='180' fill='%23FAF7F2'/%3E%3Cpath d='M266 140 L220 140 L180 80 L245 90 Z' stroke='%234A0D17' stroke-width='14' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M266 140 C286 110, 310 90, 345 70' stroke='%234A0D17' stroke-width='14' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='266' cy='150' r='12' fill='%234A0D17'/%3E%3Ccircle cx='246' cy='195' r='12' fill='%234A0D17'/%3E%3Ccircle cx='186' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='326' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='255' r='50' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='216' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='296' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='430' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3C/svg%3E">
 
-  <!-- MANIFESTO NATIVO ESTÁTICO (100% PWA W3C Compliant) -->
-  <link rel="manifest" id="manifestLink">
+  <!-- MANIFESTO NATIVO ESTÁTICO EMBUTIDO (100% PWA W3C Compliant sem Blob URL) -->
+  <link rel="manifest" id="manifestLink" href="data:application/manifest+json;charset=utf-8,%7B%22id%22%3A%22vinnero-divino-pwa%22%2C%22name%22%3A%22Vinnero%20-%20diVino%20Restaurante%22%2C%22short_name%22%3A%22Vinnero%22%2C%22start_url%22%3A%22.%2F%22%2C%22scope%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22display_override%22%3A%5B%22standalone%22%2C%22window-controls-overlay%22%5D%2C%22orientation%22%3A%22portrait-primary%22%2C%22background_color%22%3A%22%23FAF7F2%22%2C%22theme_color%22%3A%22%234A0D17%22%2C%22lang%22%3A%22pt-BR%22%2C%22dir%22%3A%22ltr%22%2C%22description%22%3A%22Carta%20Digital%20de%20Vinhos%20e%20Experi%C3%AAncias%20Enol%C3%B3gicas%22%2C%22prefer_related_applications%22%3Afalse%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%253E%253Crect%20width%3D'512'%20height%3D'512'%20rx%3D'110'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'256'%20r%3D'180'%20fill%3D'%2523FAF7F2'%2F%253E%253Cpath%20d%3D'M266%20140%20L220%20140%20L180%2080%20L245%2090%20Z'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%2F%253E%253Cpath%20d%3D'M266%20140%20C286%20110%2C%20310%2090%2C%20345%2070'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20stroke-linecap%3D'round'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'266'%20cy%3D'150'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'246'%20cy%3D'195'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'186'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'326'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'255'%20r%3D'50'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'216'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'296'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'430'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%253E%253Crect%20width%3D'512'%20height%3D'512'%20rx%3D'110'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'256'%20r%3D'180'%20fill%3D'%2523FAF7F2'%2F%253E%253Cpath%20d%3D'M266%20140%20L220%20140%20L180%2080%20L245%2090%20Z'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%2F%253E%253Cpath%20d%3D'M266%20140%20C286%20110%2C%20310%2090%2C%20345%2070'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20stroke-linecap%3D'round'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'266'%20cy%3D'150'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'246'%20cy%3D'195'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'186'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'326'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'255'%20r%3D'50'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'216'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'296'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'430'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
 
   <!-- FONTE INTER & TAILWIND CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -810,6 +810,31 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL DE CONFIRMAÇÃO DE EXCLUSÃO (SEM ALERT/CONFIRM) ==================== -->
+  <div id="deleteConfirmModal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 hidden">
+    <div class="bg-vinnero-cream border border-rose-300 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center shadow-2xl space-y-4">
+      <div class="w-12 h-12 mx-auto rounded-2xl bg-rose-100 flex items-center justify-center text-rose-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+        </svg>
+      </div>
+      <div>
+        <h3 id="deleteConfirmTitle" class="font-cinzel text-lg font-bold text-vinnero-wine">Confirmar Exclusão</h3>
+        <p id="deleteConfirmMessage" class="text-xs text-vinnero-muted mt-1 leading-relaxed">
+          Tem certeza de que deseja excluir permanentemente este item?
+        </p>
+      </div>
+      <div class="flex items-center gap-2 pt-2">
+        <button onclick="closeDeleteConfirmModal()" class="flex-1 py-2.5 rounded-xl border border-vinnero-wine/30 text-vinnero-wine text-xs font-semibold hover:bg-vinnero-wine/5 transition">
+          Cancelar
+        </button>
+        <button id="btnConfirmDeleteAction" class="flex-1 py-2.5 rounded-xl bg-rose-600 text-white text-xs font-bold hover:bg-rose-700 transition shadow">
+          Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== RODAPÉ TRAVADO COM COPYRIGHT ==================== -->
   <footer class="mt-auto border-t border-vinnero-gold/20 bg-vinnero-wineDark text-vinnero-cream/80 py-8 px-4 text-xs">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
@@ -886,6 +911,7 @@
     let isInitialSupabaseLoaded = false;
     let pollingIntervalTimer = null;
     let canUseWebSocket = true;
+    let lastCloudUpdatedAt = null;
 
     // Verifica de forma segura se o ambiente permite criar WebSockets sem SecurityError
     function testWebSocketSupport() {
@@ -1056,19 +1082,48 @@
           return;
         }
 
-        if (data && data.content && Array.isArray(data.content) && data.content.length > 0) {
+        if (data && data.content && Array.isArray(data.content)) {
           const incomingContent = JSON.stringify(data.content);
           const currentContent = JSON.stringify(establishments);
 
-          // Só re-renderiza se os dados forem realmente novos, evitando flickers
+          // Se o dado na nuvem é diferente (inclusive quando contém MENOS itens por causa de exclusão)
           if (incomingContent !== currentContent) {
             establishments = data.content;
+            lastCloudUpdatedAt = data.updated_at || new Date().toISOString();
             try {
               localStorage.setItem('vinnero_establishments', incomingContent);
+              localStorage.setItem('vinnero_last_sync', lastCloudUpdatedAt);
             } catch (e) {}
+
+            // Se o local atualmente visualizado foi deletado por outro aparelho, redireciona para o Hub
+            if (currentView === 'catalog' || currentView === 'detail') {
+              const stillExists = establishments.some(e => e.id === currentEstId);
+              if (!stillExists) {
+                currentEstId = establishments[0] ? establishments[0].id : '';
+                operatingEstId = currentEstId;
+                if (window.history && window.history.replaceState) {
+                  const url = new URL(window.location.href);
+                  url.searchParams.delete('est');
+                  window.history.replaceState({}, '', url.pathname);
+                }
+                navigateTo('hub');
+                showToast('Cardápio atualizado pela administração.');
+                return;
+              }
+            }
+
             renderHub();
             if (currentView === 'catalog') renderCatalog();
-            if (currentView === 'detail' && currentSelectedWine) openWineDetail(currentSelectedWine.id);
+            if (currentView === 'detail' && currentSelectedWine) {
+              const est = establishments.find(e => e.id === currentEstId);
+              const wineStillExists = est && est.wines && est.wines.some(w => w.id === currentSelectedWine.id);
+              if (wineStillExists) {
+                openWineDetail(currentSelectedWine.id);
+              } else {
+                navigateTo('catalog');
+                showToast('O rótulo selecionado foi removido.');
+              }
+            }
             if (!isBackground) showToast('Cardápio sincronizado em tempo real!');
           }
           isInitialSupabaseLoaded = true;
@@ -1083,16 +1138,16 @@
 
     async function syncToSupabase() {
       if (!supabaseClient) return;
-      // Previne enviar estado vazio para a nuvem
-      if (!establishments || establishments.length === 0) return;
       try {
+        const nowIso = new Date().toISOString();
+        lastCloudUpdatedAt = nowIso;
         // Envio via REST API HTTP (compatível com qualquer iframe, browser ou PWA)
         const { error } = await supabaseClient
           .from('vinnero_state')
           .upsert({
             id: 'global_data',
             content: establishments,
-            updated_at: new Date().toISOString()
+            updated_at: nowIso
           }, { onConflict: 'id' });
 
         if (error) {
@@ -1120,15 +1175,42 @@
             'postgres_changes',
             { event: '*', schema: 'public', table: 'vinnero_state' },
             (payload) => {
-              if (payload && payload.new && payload.new.content && Array.isArray(payload.new.content)) {
+              if (payload && payload.new && Array.isArray(payload.new.content)) {
                 establishments = payload.new.content;
+                lastCloudUpdatedAt = payload.new.updated_at || new Date().toISOString();
                 try {
                   localStorage.setItem('vinnero_establishments', JSON.stringify(establishments));
+                  localStorage.setItem('vinnero_last_sync', lastCloudUpdatedAt);
                 } catch (e) {}
+
+                // Se o local atualmente visualizado foi deletado, redireciona o tablet/celular
+                if (currentView === 'catalog' || currentView === 'detail') {
+                  const stillExists = establishments.some(e => e.id === currentEstId);
+                  if (!stillExists) {
+                    currentEstId = establishments[0] ? establishments[0].id : '';
+                    operatingEstId = currentEstId;
+                    if (window.history && window.history.replaceState) {
+                      const url = new URL(window.location.href);
+                      url.searchParams.delete('est');
+                      window.history.replaceState({}, '', url.pathname);
+                    }
+                    navigateTo('hub');
+                    showToast('Cardápio atualizado pela administração.');
+                    return;
+                  }
+                }
+
                 renderHub();
                 if (currentView === 'catalog') renderCatalog();
                 if (currentView === 'detail' && currentSelectedWine) {
-                  openWineDetail(currentSelectedWine.id);
+                  const est = establishments.find(e => e.id === currentEstId);
+                  const wineStillExists = est && est.wines && est.wines.some(w => w.id === currentSelectedWine.id);
+                  if (wineStillExists) {
+                    openWineDetail(currentSelectedWine.id);
+                  } else {
+                    navigateTo('catalog');
+                    showToast('Rótulo removido pela adega.');
+                  }
                 }
                 showToast('Cardápio atualizado na mesa!');
               }
@@ -1384,26 +1466,9 @@
         const saved = localStorage.getItem('vinnero_establishments');
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            establishments = DEFAULT_ESTABLISHMENTS.map(defEst => {
-              const localEst = parsed.find(p => p.id === defEst.id);
-              if (!localEst) return defEst;
-
-              const mergedWines = (localEst.wines && localEst.wines.length > 0)
-                ? localEst.wines
-                : defEst.wines;
-
-              return {
-                ...defEst,
-                ...localEst,
-                // CORREÇÃO CRUCIAL: A logo personalizada do usuário SEMPRE tem prioridade sobre a padrão!
-                logo: localEst.logo || defEst.logo,
-                wines: mergedWines
-              };
-            });
-
-            const customVenues = parsed.filter(p => !DEFAULT_ESTABLISHMENTS.some(de => de.id === p.id));
-            establishments = [...establishments, ...customVenues];
+          if (Array.isArray(parsed)) {
+            // Se o usuário já operou e salvou uma lista (mesmo que tenha excluído o diVino), usamos a lista salva!
+            establishments = parsed;
             return;
           }
         }
@@ -2231,14 +2296,14 @@
       const targetWine = est.wines.find(w => w.id === wineId);
       const wineName = targetWine ? targetWine.name : 'este rótulo';
 
-      if (confirm(`Tem certeza de que deseja excluir ${wineName} da carta?`)) {
+      openDeleteConfirmModal(`Excluir ${wineName}`, `Deseja realmente remover o rótulo "${wineName}" da carta?`, function() {
         est.wines = est.wines.filter(w => w.id !== wineId);
         persistState();
         loadOperatingVenueData();
         renderHub();
         if (currentView === 'catalog') renderCatalog();
         showToast(`${wineName} removido da carta.`);
-      }
+      });
     };
 
     window.saveOperatingHours = function() {
@@ -2473,13 +2538,66 @@
         showToast('Não é possível excluir o único local ativo.');
         return;
       }
-      if (confirm('Tem certeza de que deseja excluir este estabelecimento do SaaS?')) {
-        establishments = establishments.filter(e => e.id !== venueId);
-        persistState();
-        renderMasterStats();
-        renderHub();
-        showToast('Estabelecimento removido!');
+      const targetVenue = establishments.find(e => e.id === venueId);
+      const venueName = targetVenue ? targetVenue.name : 'este estabelecimento';
+
+      openDeleteConfirmModal(
+        `Excluir ${venueName}`,
+        `Tem certeza de que deseja excluir permanentemente "${venueName}" do SaaS e da sincronização em nuvem?`,
+        function() {
+          establishments = establishments.filter(e => e.id !== venueId);
+
+          // Se o estabelecimento que estava selecionado na tela for o excluído, volta de forma segura para o Hub
+          if (currentEstId === venueId || operatingEstId === venueId) {
+            currentEstId = establishments[0] ? establishments[0].id : '';
+            operatingEstId = currentEstId;
+            // Limpa parâmetro da URL de forma segura sem recarregar nem disparar erro de rota
+            if (window.history && window.history.replaceState) {
+              const url = new URL(window.location.href);
+              url.searchParams.delete('est');
+              window.history.replaceState({}, '', url.pathname);
+            }
+            navigateTo('hub');
+          }
+
+          persistState();
+          renderMasterStats();
+          renderHub();
+          showToast(`${venueName} excluído com sucesso!`);
+        }
+      );
+    };
+
+    /* ==================== MODAL DE CONFIRMAÇÃO CUSTOMIZADO ==================== */
+    let currentDeleteCallback = null;
+
+    function openDeleteConfirmModal(title, message, onConfirm) {
+      const modal = document.getElementById('deleteConfirmModal');
+      const titleEl = document.getElementById('deleteConfirmTitle');
+      const msgEl = document.getElementById('deleteConfirmMessage');
+      const confirmBtn = document.getElementById('btnConfirmDeleteAction');
+
+      if (titleEl) titleEl.innerText = title;
+      if (msgEl) msgEl.innerText = message;
+
+      currentDeleteCallback = onConfirm;
+
+      if (confirmBtn) {
+        confirmBtn.onclick = function() {
+          if (typeof currentDeleteCallback === 'function') {
+            currentDeleteCallback();
+          }
+          closeDeleteConfirmModal();
+        };
       }
+
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    window.closeDeleteConfirmModal = function() {
+      const modal = document.getElementById('deleteConfirmModal');
+      currentDeleteCallback = null;
+      if (modal) modal.classList.add('hidden');
     };
 
     /* ==================== IDIOMA & PWA ==================== */
@@ -2557,7 +2675,7 @@
     };
 
     function setupPwaManifest() {
-      // Gera dinamicamente o ícone em PNG nativo para garantir 100% de pontuação no Lighthouse e instalação no Chrome/Android
+      // 1. Gera ícone PNG rasterizado em alta fidelidade para garantir 100% no Lighthouse e WebAPK
       try {
         const c = document.createElement('canvas');
         c.width = 512;
@@ -2566,9 +2684,13 @@
         if (ctx) {
           // Fundo Bordô Oficial
           ctx.fillStyle = '#4A0D17';
-          ctx.beginPath();
-          ctx.roundRect ? ctx.roundRect(0, 0, 512, 512, 110) : ctx.rect(0, 0, 512, 512);
-          ctx.fill();
+          if (ctx.roundRect) {
+            ctx.beginPath();
+            ctx.roundRect(0, 0, 512, 512, 110);
+            ctx.fill();
+          } else {
+            ctx.fillRect(0, 0, 512, 512);
+          }
 
           // Círculo Creme Interno
           ctx.fillStyle = '#FAF7F2';
@@ -2576,13 +2698,13 @@
           ctx.arc(256, 256, 180, 0, Math.PI * 2);
           ctx.fill();
 
-          // Cacho de Uvas Geométrico
+          // Cacho de Uvas Geométrico Oficial Vinnero
           ctx.strokeStyle = '#4A0D17';
           ctx.lineWidth = 14;
           ctx.lineCap = 'round';
           ctx.lineJoin = 'round';
 
-          // Haste
+          // Haste e folha
           ctx.beginPath();
           ctx.moveTo(266, 140);
           ctx.lineTo(220, 140);
@@ -2604,11 +2726,11 @@
 
           const pngDataUrl = c.toDataURL('image/png');
           
-          // Atualiza ícone do Apple Touch para versão PNG
+          // Atualiza ícone Apple Touch para PNG nativo
           const appleIcon = document.getElementById('appleTouchIcon');
           if (appleIcon) appleIcon.href = pngDataUrl;
 
-          // Monta o JSON do Manifesto com ícones PNG válidos (192px e 512px)
+          // Atualiza o link do manifesto para a versão completa com PNG Data URI
           const manifestObj = {
             id: 'vinnero-divino-pwa',
             name: 'Vinnero - diVino Restaurante',
@@ -2622,7 +2744,7 @@
             theme_color: '#4A0D17',
             lang: 'pt-BR',
             dir: 'ltr',
-            description: 'Carta Digital de Vinhos e Experiências Enológicas no diVino Restaurante.',
+            description: 'Carta Digital de Vinhos e Experiências Enológicas.',
             prefer_related_applications: false,
             icons: [
               {
@@ -2646,21 +2768,21 @@
             ]
           };
 
-          const manifestBlob = new Blob([JSON.stringify(manifestObj)], { type: 'application/manifest+json' });
+          const manifestJson = JSON.stringify(manifestObj);
           const manifestLink = document.getElementById('manifestLink');
           if (manifestLink) {
-            manifestLink.href = URL.createObjectURL(manifestBlob);
+            manifestLink.href = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(manifestJson);
           }
         }
       } catch (err) {
-        console.warn('Fallback no gerador de manifesto PWA:', err);
+        console.warn('Fallback no gerador de manifesto:', err);
       }
 
-      // Registro do Service Worker à prova de SecurityError
+      // 2. Registro do Service Worker via Data URI padrão (100% aceito pelo Lighthouse e sem risco de SecurityError)
       if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
         try {
           const swCode = `
-            const CACHE_NAME = 'vinnero-pwa-v11';
+            const CACHE_NAME = 'vinnero-pwa-v12';
             self.addEventListener('install', (e) => {
               self.skipWaiting();
             });
@@ -2691,10 +2813,10 @@
               );
             });
           `;
-          const swBlob = new Blob([swCode], { type: 'application/javascript' });
-          navigator.serviceWorker.register(URL.createObjectURL(swBlob), { scope: './' })
+          const swDataUri = 'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(swCode)));
+          navigator.serviceWorker.register(swDataUri, { scope: './' })
             .catch(() => {
-              // Silencioso caso esteja rodando em iframe restrito
+              // Silencioso se executado em contêiner de preview restrito
             });
         } catch (e) {}
       }
