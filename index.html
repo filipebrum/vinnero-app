@@ -149,7 +149,7 @@
       <!-- Banner / Cabeçalho do Local Selecionado -->
       <div class="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="flex items-center gap-4">
-          <div id="estLogoBox" class="w-16 h-16 rounded-2xl bg-vinnero-creamDark border border-vinnero-gold/30 flex items-center justify-center p-2 shrink-0"></div>
+          <div id="estLogoBox" class="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white border border-vinnero-gold/40 shadow-sm flex items-center justify-center p-1.5 shrink-0 overflow-hidden"></div>
           <div>
             <div class="flex items-center gap-2">
               <span id="estTypeBadge" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-vinnero-wine/10 text-vinnero-wine">Restaurante</span>
@@ -1975,10 +1975,10 @@
 
       if (logoBox) {
         if (est.logo && est.logo.trim() !== '') {
-          logoBox.innerHTML = `<img src="${est.logo}" alt="${est.name}" class="w-full h-full object-contain rounded-xl">`;
+          logoBox.innerHTML = `<img src="${est.logo}" alt="${est.name}" class="w-full h-full object-contain">`;
         } else {
           logoBox.innerHTML = `
-            <svg class="w-8 h-8 text-vinnero-wine" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <svg class="w-10 h-10 text-vinnero-wine" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8m0 0l-5-7h10l-5 7zm-7-7h14"/>
             </svg>
           `;
@@ -2021,10 +2021,10 @@
             : `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-800"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Fechado</span>`;
         }
 
-        // Renderização dinâmica da logo do estabelecimento ou ícone padrão
+        // Renderização dinâmica da logo do estabelecimento com tamanho ampliado (w-20 h-20 sm:w-24 sm:h-24)
         const logoContent = (est.logo && est.logo.trim() !== '')
-          ? `<img src="${est.logo}" alt="${est.name}" class="w-full h-full object-contain rounded-xl p-1" onerror="this.parentElement.innerHTML='<svg class=\\\'w-7 h-7 text-vinnero-wine\\\' fill=\\\'none\\\' stroke=\\\'currentColor\\\' stroke-width=\\\'1.5\\\' viewBox=\\\'0 0 24 24\\\'><path stroke-linecap=\\\'round\\\' stroke-linejoin=\\\'round\\\' d=\\\'M12 21v-8m0 0l-5-7h10l-5 7zm-7-7h14\\\'/></svg>'">`
-          : `<svg class="w-7 h-7 text-vinnero-wine" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8m0 0l-5-7h10l-5 7zm-7-7h14"/></svg>`;
+          ? `<img src="${est.logo}" alt="${est.name}" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<svg class=\\\'w-10 h-10 text-vinnero-wine\\\' fill=\\\'none\\\' stroke=\\\'currentColor\\\' stroke-width=\\\'1.5\\\' viewBox=\\\'0 0 24 24\\\'><path stroke-linecap=\\\'round\\\' stroke-linejoin=\\\'round\\\' d=\\\'M12 21v-8m0 0l-5-7h10l-5 7zm-7-7h14\\\'/></svg>'">`
+          : `<svg class="w-10 h-10 text-vinnero-wine" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8m0 0l-5-7h10l-5 7zm-7-7h14"/></svg>`;
 
         return `
           <div onclick="openRestaurantCatalog('${est.id}')" class="bg-white rounded-3xl p-6 border ${!isStore && !isOpen ? 'border-red-200/80 bg-gray-50/50 opacity-90' : 'border-gray-200/90'} shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group hover:-translate-y-1">
@@ -2040,10 +2040,10 @@
               </div>
 
               <div class="flex items-center gap-4 mb-4">
-                <div class="w-14 h-14 rounded-2xl bg-vinnero-creamDark border border-vinnero-gold/30 flex items-center justify-center p-2 shrink-0 overflow-hidden">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white border border-vinnero-gold/40 shadow-sm flex items-center justify-center p-2 shrink-0 overflow-hidden">
                   ${logoContent}
                 </div>
-                <div>
+                <div class="min-w-0 flex-1">
                   <h3 class="font-cinzel text-lg font-bold text-gray-900 group-hover:text-vinnero-wine transition-colors leading-snug">${est.name}</h3>
                   <p class="text-xs text-gray-600 line-clamp-2 mt-0.5">${est.subtitle}</p>
                   ${!isStore ? `<span class="text-[10px] text-gray-400 block mt-1">🕒 ${scheduleInfo}</span>` : ''}
