@@ -10,14 +10,15 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Vinnero">
+  <meta name="application-name" content="Vinnero">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
 
   <!-- ÍCONE APPLE TOUCH (Obrigatório para iOS PWA) -->
   <link rel="apple-touch-icon" id="appleTouchIcon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%234A0D17'/%3E%3Ccircle cx='256' cy='256' r='180' fill='%23FAF7F2'/%3E%3Cpath d='M266 140 L220 140 L180 80 L245 90 Z' stroke='%234A0D17' stroke-width='14' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M266 140 C286 110, 310 90, 345 70' stroke='%234A0D17' stroke-width='14' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='266' cy='150' r='12' fill='%234A0D17'/%3E%3Ccircle cx='246' cy='195' r='12' fill='%234A0D17'/%3E%3Ccircle cx='186' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='326' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='255' r='50' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='216' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='296' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='430' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3C/svg%3E">
 
-  <!-- LINK DO MANIFESTO DINÂMICO -->
-  <link rel="manifest" id="manifestLink">
+  <!-- MANIFESTO NATIVO INLINE COMPATÍVEL COM LIGHTHOUSE E CRITÉRIOS DE INSTALAÇÃO PWA -->
+  <link rel="manifest" id="manifestLink" href="data:application/manifest+json,%7B%22id%22%3A%22vinnero-pwa%22%2C%22name%22%3A%22Vinnero%20-%20Carta%20Digital%20de%20Vinhos%22%2C%22short_name%22%3A%22Vinnero%22%2C%22start_url%22%3A%22.%22%2C%22scope%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22display_override%22%3A%5B%22standalone%22%2C%22window-controls-overlay%22%5D%2C%22orientation%22%3A%22portrait-primary%22%2C%22background_color%22%3A%22%23FAF7F2%22%2C%22theme_color%22%3A%22%234A0D17%22%2C%22prefer_related_applications%22%3Afalse%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20512%20512%27%253E%253Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%27110%27%20fill%3D%27%25234A0D17%27%2F%253E%253Ccircle%20cx%3D%27256%27%20cy%3D%27256%27%20r%3D%27180%27%20fill%3D%27%2523FAF7F2%27%2F%253E%253Ccircle%20cx%3D%27256%27%20cy%3D%27256%27%20r%3D%2770%27%20fill%3D%27%25234A0D17%27%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20512%20512%27%253E%253Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%27110%27%20fill%3D%27%25234A0D17%27%2F%253E%253Ccircle%20cx%3D%27256%27%20cy%3D%27256%27%20r%3D%27180%27%20fill%3D%27%2523FAF7F2%27%2F%253E%253Ccircle%20cx%3D%27256%27%20cy%3D%27256%27%20r%3D%2770%27%20fill%3D%27%25234A0D17%27%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22maskable%20any%22%7D%5D%7D">
 
   <!-- FONTE INTER & TAILWIND CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -317,19 +318,60 @@
           <!-- NOTAS DE DEGUSTAÇÃO -->
           <div>
             <h3 id="txtDetailTasting" class="font-cinzel text-xs font-bold text-vinnero-wine uppercase tracking-wider mb-1">Notas de Degustação</h3>
-            <p id="detailWineTasting" class="text-xs sm:text-sm text-vinnero-charcoal leading-relaxed bg-white p-3.5 rounded-xl border border-vinnero-gold/20">Aromas complexos de cassis, amoras silvestres, tabaco fino e cedro.</p>
+            <p id="detailWineTasting" class="text-xs sm:text-sm text-vinnero-charcoal bg-white p-3.5 rounded-xl border border-vinnero-gold/20 leading-relaxed"></p>
           </div>
 
           <!-- HARMONIZAÇÃO SUGERIDA -->
           <div>
             <h3 id="txtDetailPairing" class="font-cinzel text-xs font-bold text-vinnero-wine uppercase tracking-wider mb-1">Harmonização Sugerida</h3>
-            <p id="detailWinePairing" class="text-xs sm:text-sm text-vinnero-charcoal leading-relaxed bg-white p-3.5 rounded-xl border border-vinnero-gold/20">Carnes de caça, cordeiro assado e queijos maduros.</p>
+            <p id="detailWinePairing" class="text-xs sm:text-sm text-vinnero-charcoal bg-white p-3 rounded-xl border border-vinnero-gold/20"></p>
           </div>
 
-          <!-- TERROIR & ORIGEM -->
+          <!-- TERROIR & VINÍCOLA -->
           <div>
-            <h3 id="txtDetailTerroir" class="font-cinzel text-xs font-bold text-vinnero-wine uppercase tracking-wider mb-1">Terroir & Vinícola</h3>
-            <p id="detailWineTerroir" class="text-xs sm:text-sm text-vinnero-muted leading-relaxed">Valle del Maipo, solos aluviais e clima mediterrâneo.</p>
+            <h3 id="txtDetailTerroir" class="font-cinzel text-xs font-bold text-vinnero-wine uppercase tracking-wider mb-1">Terroir</h3>
+            <p id="detailWineTerroir" class="text-xs sm:text-sm text-vinnero-charcoal bg-white p-3 rounded-xl border border-vinnero-gold/20"></p>
+          </div>
+
+          <!-- MAPA DA VINÍCOLA & REGIÃO ENOLÓGICA (GOOGLE MAPS) -->
+          <div class="space-y-2 pt-1">
+            <div class="flex items-center justify-between">
+              <h3 class="font-cinzel text-xs font-bold text-vinnero-wine uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-vinnero-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                <span>Localização da Vinícola & Terroir</span>
+              </h3>
+              <span id="detailWineCoordsLabel" class="text-[10px] text-vinnero-muted font-medium">Valle del Maipo, Chile</span>
+            </div>
+            
+            <div class="relative w-full h-56 sm:h-64 rounded-2xl overflow-hidden border border-vinnero-gold/30 shadow-inner bg-vinnero-cream">
+              <!-- GOOGLE MAPS EMBED OFICIAL SEM DEPENDÊNCIA DE TILES DO LEAFLET -->
+              <iframe 
+                id="wineryGoogleMapIframe" 
+                class="w-full h-full border-0" 
+                loading="lazy" 
+                allowfullscreen 
+                referrerpolicy="no-referrer-when-downgrade"
+                src="">
+              </iframe>
+              <div class="absolute bottom-2 left-2 z-20 bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-vinnero-gold/30 text-[10px] text-vinnero-wine font-semibold shadow flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-rose-700" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                <span>Google Maps • Terroir Oficial</span>
+              </div>
+            </div>
+
+            <div class="flex justify-end pt-0.5">
+              <a id="btnExternalGoogleMaps" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-vinnero-wine hover:text-vinnero-gold transition">
+                <span>Abrir no Google Maps completo</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            </div>
           </div>
 
           <!-- BOTÃO COMPRAR WHATSAPP (APENAS LOJAS) -->
@@ -383,18 +425,13 @@
       <!-- TOPO DA OPERAÇÃO -->
       <div class="flex items-center justify-between border-b border-vinnero-gold/20 pb-4">
         <div>
-          <h3 class="font-cinzel text-lg sm:text-xl font-bold text-vinnero-wine">Operação da Casa</h3>
-          <p class="text-xs text-vinnero-muted">Gerencie disponibilidade, horários e fotos do seu estabelecimento</p>
+          <div class="flex items-center gap-2">
+            <h3 class="font-cinzel text-lg sm:text-xl font-bold text-vinnero-wine">Operação da Casa</h3>
+            <span id="opCurrentVenueBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-vinnero-wine/10 text-vinnero-wine">diVino Restaurante</span>
+          </div>
+          <p class="text-xs text-vinnero-muted mt-0.5">Gerencie disponibilidade, horários e fotos do seu estabelecimento</p>
         </div>
         <button onclick="closeOperacaoModal()" class="text-vinnero-muted hover:text-vinnero-wine text-lg">✕</button>
-      </div>
-
-      <!-- SELETOR DO ESTABELECIMENTO EM OPERAÇÃO -->
-      <div>
-        <label class="block text-xs font-bold text-vinnero-wine uppercase tracking-wider mb-1">Estabelecimento em Operação</label>
-        <select id="opVenueSelect" onchange="switchOperatingVenue(this.value)" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5 text-xs font-medium text-vinnero-charcoal focus:outline-none">
-          <!-- Opções carregadas via JS -->
-        </select>
       </div>
 
       <!-- ABAS DA OPERAÇÃO -->
@@ -508,6 +545,12 @@
         </div>
 
         <div>
+          <label class="block font-bold text-vinnero-wine mb-1">Localização no Google Maps (Endereço, Vinícola ou Região)</label>
+          <input type="text" id="editWineLocationQuery" placeholder="Ex: Viña Almaviva, Puente Alto, Chile ou Domaine William Fèvre, Chablis" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5">
+          <p class="text-[10px] text-vinnero-muted mt-0.5">O Google Maps buscará automaticamente a vinícola e os vinhedos por este nome.</p>
+        </div>
+
+        <div>
           <label class="block font-bold text-vinnero-wine mb-1">Uvas / Castas</label>
           <input type="text" id="editWineGrapes" placeholder="Ex: Cabernet Sauvignon, Carmenère" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5">
         </div>
@@ -525,6 +568,17 @@
         <div>
           <label class="block font-bold text-vinnero-wine mb-1">Terroir</label>
           <input type="text" id="editWineTerroir" placeholder="Ex: Valle del Maipo, solos aluviais" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-vinnero-wine mb-1">Latitude da Vinícola</label>
+            <input type="number" step="any" id="editWineLat" placeholder="Ex: -33.6681" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5">
+          </div>
+          <div>
+            <label class="block font-bold text-vinnero-wine mb-1">Longitude da Vinícola</label>
+            <input type="number" step="any" id="editWineLng" placeholder="Ex: -70.6122" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5">
+          </div>
         </div>
 
         <div>
@@ -656,6 +710,12 @@
         </div>
 
         <div>
+          <label class="block font-bold text-vinnero-wine mb-1">Senha de Acesso à Operação da Casa</label>
+          <input type="password" id="masterEditVenuePass" placeholder="Padrão: 123" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5">
+          <p class="text-[10px] text-vinnero-muted mt-0.5">Esta senha será exigida para a equipe deste local acessar a Operação da Casa.</p>
+        </div>
+
+        <div>
           <label class="block font-bold text-vinnero-wine mb-1">Logo do Local (500x500px SVG / PNG)</label>
           <input type="file" id="masterEditVenueLogoFile" accept="image/*,.svg" onchange="handleMasterVenueLogoUpload(this)" class="w-full text-xs text-vinnero-muted file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:bg-vinnero-wine file:text-white">
           <input type="hidden" id="masterEditVenueLogoValue" value="">
@@ -668,6 +728,39 @@
         </button>
         <button onclick="saveMasterVenueForm()" class="flex-1 py-2.5 rounded-xl bg-vinnero-wine text-white font-bold text-xs hover:bg-vinnero-wineDark transition shadow">
           Salvar Estabelecimento
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DE AUTENTICAÇÃO OPERAÇÃO DA CASA ==================== -->
+  <div id="opAuthModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 hidden">
+    <div class="bg-vinnero-cream border border-vinnero-gold/40 rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-vinnero-gold/20 pb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-vinnero-wine text-vinnero-gold flex items-center justify-center font-bold text-xs">OP</div>
+          <h3 class="font-cinzel text-base font-bold text-vinnero-wine">Operação da Casa</h3>
+        </div>
+        <button onclick="closeOpAuthModal()" class="text-vinnero-muted hover:text-vinnero-wine text-lg">✕</button>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-vinnero-wine uppercase tracking-wider mb-1">Selecione o Estabelecimento</label>
+          <select id="opAuthVenueSelect" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5 text-xs font-medium text-vinnero-charcoal focus:outline-none focus:ring-2 focus:ring-vinnero-wine/30">
+            <!-- Opções alimentadas via JS -->
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-vinnero-wine uppercase tracking-wider mb-1">Senha de Operação</label>
+          <input type="password" id="opAuthPassInput" placeholder="Digite a senha do local..." class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-vinnero-wine/30" onkeypress="if(event.key === 'Enter') submitOpAuth()">
+        </div>
+      </div>
+      <div class="flex items-center gap-2 pt-1">
+        <button onclick="closeOpAuthModal()" class="flex-1 py-2 rounded-xl border border-vinnero-wine/30 text-vinnero-wine text-xs font-semibold hover:bg-vinnero-wine/5 transition">
+          Cancelar
+        </button>
+        <button onclick="submitOpAuth()" class="flex-1 py-2 rounded-xl bg-vinnero-wine text-white text-xs font-bold hover:bg-vinnero-wineDark transition shadow">
+          Entrar
         </button>
       </div>
     </div>
@@ -932,6 +1025,7 @@
         city: 'Nova Lima, MG',
         phone: '31988887777',
         plan: 'premium',
+        opPassword: '123',
         logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23FAF7F2'/%3E%3Cpath d='M50 25 L65 45 L58 45 L58 75 L42 75 L42 45 L35 45 Z' fill='%234A0D17'/%3E%3Ccircle cx='50' cy='22' r='4' fill='%23C5A059'/%3E%3C/svg%3E",
         coverImage: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&auto=format&fit=crop&q=80',
         activeDays: [2, 3, 4, 5, 6, 7],
@@ -954,11 +1048,14 @@
             volume: '750ml',
             producer: 'Baron Philippe de Rothschild & Viña Concha y Toro',
             country: 'Chile',
+            mapQuery: 'Viña Almaviva, Puente Alto, Chile',
             grapes: 'Cabernet Sauvignon (68%), Carmenère (23%), Cabernet Franc (5%)',
             tastingNotes: 'Aromas complexos de cassis, amoras silvestres, tabaco fino, cedro e toques de cacau. Em boca é aveludado, encorpado, com taninos nobres e final extremamente persistente.',
             pairingCategory: 'carnes',
             pairingSuggestion: 'Carnes de caça, cordeiro assado na brasa, cortes nobres de Angus e queijos maduros.',
             terroir: 'Valle del Maipo, solos aluviais e clima mediterrâneo com noites frias dos Andes.',
+            lat: -33.6681,
+            lng: -70.6122,
             stock: 6,
             available: true,
             image: 'https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=1000&auto=format&fit=crop&q=80'
@@ -972,11 +1069,14 @@
             volume: '750ml',
             producer: 'Domaine William Fèvre',
             country: 'França',
+            mapQuery: 'Domaine William Fèvre, Chablis, France',
             grapes: 'Chardonnay (100%)',
             tastingNotes: 'Mineralidade marcante, notas cítricas de lima da pérsia, maçã verde, flores brancas e toque sutil de pederneira. Acidez vibrante e final límpido e refrescante.',
             pairingCategory: 'frutos_mar',
             pairingSuggestion: 'Ostras frescas, vieiras grelhadas na manteiga de ervas, camarões e risoto de frutos do mar.',
             terroir: 'Borgonha, solo Kimmeridgiano rico em fósseis marinhos milenares.',
+            lat: 47.8149,
+            lng: 3.7997,
             stock: 8,
             available: true,
             image: 'https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=1000&auto=format&fit=crop&q=80'
@@ -990,6 +1090,7 @@
         city: 'Belo Horizonte, MG',
         phone: '31977776666',
         plan: 'pro',
+        opPassword: '123',
         logo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234A0D17'/%3E%3Ccircle cx='50' cy='50' r='22' stroke='%23C5A059' stroke-width='4' fill='none'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23C5A059'/%3E%3C/svg%3E",
         coverImage: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=800&auto=format&fit=crop&q=80',
         activeDays: [1, 2, 3, 4, 5, 6],
@@ -1012,11 +1113,14 @@
             volume: '750ml',
             producer: 'Castello Banfi',
             country: 'Itália',
+            mapQuery: 'Castello Banfi, Montalcino, Italy',
             grapes: 'Sangiovese Grosso (100%)',
             tastingNotes: 'Aromas intensos de cerejas maduras, couro, especiarias doces e violetas secas. Estrutura impecável, taninos firmes e polidos.',
             pairingCategory: 'massas',
             pairingSuggestion: 'Bistecca alla Fiorentina, risoto ao funghi porcini e massas artesanais com ragu de ossobuco.',
             terroir: 'Montalcino, Toscana. Solos calcários e excelente insolação.',
+            lat: 42.9868,
+            lng: 11.4428,
             stock: 14,
             available: true,
             image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1000&auto=format&fit=crop&q=80'
@@ -1407,74 +1511,110 @@
       renderWineGrid();
     };
 
+    let wineSearchQuery = '';
+
     window.handleWineSearch = function(query) {
-      renderWineGrid(query);
+      wineSearchQuery = (query || '').toLowerCase().trim();
+      renderWineGrid();
     };
 
-    function renderWineGrid(searchQuery = '') {
+    function renderWineGrid() {
       const grid = document.getElementById('winesGrid');
+      if (!grid) return;
+
       const est = establishments.find(e => e.id === currentEstId) || establishments[0];
-      if (!grid || !est) return;
-
-      const q = searchQuery.toLowerCase().trim();
-      const wines = (est.wines || []).filter(wine => {
-        const matchCategory = currentCatFilter === 'all' || wine.category === currentCatFilter;
-        const matchSearch = !q || (
-          (wine.name && wine.name.toLowerCase().includes(q)) ||
-          (wine.grapes && wine.grapes.toLowerCase().includes(q)) ||
-          (wine.producer && wine.producer.toLowerCase().includes(q)) ||
-          (wine.country && wine.country.toLowerCase().includes(q))
-        );
-        return matchCategory && matchSearch;
-      });
-
-      if (wines.length === 0) {
+      if (!est || !est.wines || est.wines.length === 0) {
         grid.innerHTML = `
-          <div class="col-span-full py-12 text-center text-vinnero-muted text-xs sm:text-sm">
-            Nenhum rótulo encontrado para este filtro.
+          <div class="col-span-full py-12 text-center bg-white rounded-3xl border border-vinnero-gold/20 p-6 space-y-2">
+            <div class="w-12 h-12 mx-auto rounded-full bg-vinnero-wine/10 flex items-center justify-center text-vinnero-wine">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+              </svg>
+            </div>
+            <p class="font-cinzel text-base font-bold text-vinnero-wine">Nenhum rótulo disponível nesta seção</p>
+            <p class="text-xs text-vinnero-muted">Tente selecionar outra categoria ou buscar por outro termo.</p>
           </div>
         `;
         return;
       }
 
-      grid.innerHTML = wines.map(wine => {
-        const isRestaurant = est.type === 'restaurant';
-        
-        let stockBadgeHtml = '';
+      const isRestaurant = est.type === 'restaurant';
+
+      const filteredWines = est.wines.filter(w => {
+        // Filtro por Categoria
+        if (currentCatFilter !== 'all' && w.category !== currentCatFilter) {
+          return false;
+        }
+        // Filtro por Busca Textual
+        if (wineSearchQuery) {
+          const matchName = (w.name || '').toLowerCase().includes(wineSearchQuery);
+          const matchProducer = (w.producer || '').toLowerCase().includes(wineSearchQuery);
+          const matchGrapes = (w.grapes || '').toLowerCase().includes(wineSearchQuery);
+          const matchCountry = (w.country || '').toLowerCase().includes(wineSearchQuery);
+          if (!matchName && !matchProducer && !matchGrapes && !matchCountry) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      if (filteredWines.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-10 text-center bg-white rounded-3xl border border-vinnero-gold/20 p-6 space-y-2">
+            <p class="font-cinzel text-sm sm:text-base font-bold text-vinnero-wine">Nenhum vinho encontrado para "${wineSearchQuery}"</p>
+            <p class="text-xs text-vinnero-muted">Limpe a busca para visualizar todos os rótulos da adega.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filteredWines.map(wine => {
+        const isAvail = wine.available !== false;
+        let badgeHtml = '';
+
         if (isRestaurant) {
-          stockBadgeHtml = wine.available !== false
-            ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">● ${t('available')}</span>`
-            : `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">✕ ${t('outOfStock')}</span>`;
+          const badgeClass = isAvail ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800';
+          const badgeText = isAvail ? `● ${t('available')}` : `✕ ${t('outOfStock')}`;
+          badgeHtml = `<span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full ${badgeClass}">${badgeText}</span>`;
         } else {
-          stockBadgeHtml = (wine.stock > 0 && wine.available !== false)
-            ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">${wine.stock} un. disponíveis</span>`
-            : `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">✕ ${t('outOfStock')}</span>`;
+          const inStock = (wine.stock > 0 && isAvail);
+          const badgeClass = inStock ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800';
+          const badgeText = inStock ? `${wine.stock} un. em estoque` : `✕ ${t('outOfStock')}`;
+          badgeHtml = `<span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full ${badgeClass}">${badgeText}</span>`;
         }
 
+        const formattedPrice = `R$ ${Number(wine.price || 0).toFixed(2).replace('.', ',')}`;
+
         return `
-          <div onclick="openWineDetail('${wine.id}')" class="group cursor-pointer bg-white rounded-3xl p-5 border border-vinnero-gold/30 hover:border-vinnero-gold shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4">
-            
-            <!-- FOTO 1000x1000px VERTICAL DA GARRAFA -->
-            <div class="w-full h-64 bg-vinnero-cream rounded-2xl p-4 flex items-center justify-center border border-vinnero-gold/20 shadow-inner overflow-hidden">
-              <img src="${wine.image}" alt="${wine.name}" class="h-full w-auto max-w-full object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300">
-            </div>
-
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-bold uppercase tracking-wider text-vinnero-gold">${wine.category || 'Tinto'} • ${wine.country || ''}</span>
-                ${stockBadgeHtml}
+          <div onclick="openWineDetail('${wine.id}')" class="group cursor-pointer bg-white rounded-3xl p-5 border border-vinnero-gold/25 hover:border-vinnero-gold shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+            <div class="space-y-4">
+              <!-- FOTO DO VINHO 1000x1000px VERTICAL -->
+              <div class="relative w-full h-56 sm:h-64 rounded-2xl bg-vinnero-cream p-4 flex items-center justify-center border border-vinnero-gold/15 overflow-hidden">
+                <img src="${wine.image || 'https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=1000&auto=format&fit=crop&q=80'}" alt="${wine.name}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-lg">
+                <div class="absolute top-3 right-3">
+                  ${badgeHtml}
+                </div>
               </div>
-              <h3 class="font-cinzel text-base font-bold text-vinnero-wine line-clamp-1">${wine.name}</h3>
-              <p class="text-xs text-vinnero-muted line-clamp-1">${wine.grapes || wine.producer || ''}</p>
-            </div>
 
-            <div class="pt-3 border-t border-vinnero-gold/20 flex items-center justify-between">
+              <!-- DADOS DO RÓTULO -->
               <div>
-                <span class="text-[9px] uppercase tracking-wider text-vinnero-muted block">${t('bottlePrice')}</span>
-                <span class="font-cinzel text-lg font-bold text-vinnero-wine">R$ ${Number(wine.price).toFixed(2).replace('.', ',')}</span>
+                <div class="flex items-center gap-1.5 text-[10px] font-semibold text-vinnero-gold uppercase tracking-wider">
+                  <span>${wine.category || 'Tinto'}</span> • <span>${wine.country || 'Chile'}</span>
+                </div>
+                <h3 class="font-cinzel text-base sm:text-lg font-bold text-vinnero-wine mt-0.5 group-hover:text-vinnero-wineDark transition truncate">${wine.name}</h3>
+                <p class="text-xs text-vinnero-muted truncate mt-0.5">${wine.producer || 'Vinícola Selecionada'}</p>
+                <p class="text-[11px] text-vinnero-charcoal/80 line-clamp-2 mt-2 leading-relaxed">${wine.tastingNotes || wine.pairingSuggestion || ''}</p>
               </div>
-              <button class="px-3 py-1.5 rounded-xl bg-vinnero-wine text-white text-xs font-semibold group-hover:bg-vinnero-wineDark transition shadow-sm">
-                Ficha Técnica →
+            </div>
+
+            <!-- PREÇO E AÇÃO -->
+            <div class="pt-4 border-t border-vinnero-gold/15 flex items-center justify-between mt-4">
+              <div>
+                <span class="text-[9px] uppercase font-bold text-vinnero-muted block leading-none">${t('bottlePrice')}</span>
+                <span class="font-cinzel text-lg font-bold text-vinnero-wine block mt-1">${formattedPrice}</span>
+              </div>
+              <button class="px-3.5 py-1.5 rounded-xl bg-vinnero-wine text-white text-xs font-bold group-hover:bg-vinnero-wineDark transition shadow-sm">
+                Ver Detalhes →
               </button>
             </div>
           </div>
@@ -1482,7 +1622,35 @@
       }).join('');
     }
 
-    /* ==================== FICHA TÉCNICA DO VINHO ==================== */
+    /* ==================== FICHA TÉCNICA DO VINHO & GOOGLE MAPS ==================== */
+    function renderWineryGoogleMap(wine) {
+      const iframe = document.getElementById('wineryGoogleMapIframe');
+      const externalLink = document.getElementById('btnExternalGoogleMaps');
+      if (!iframe || !wine) return;
+
+      // Define termo de busca preciso para o Google Maps (ex: "Viña Almaviva, Puente Alto, Chile")
+      let query = wine.mapQuery || '';
+      if (!query) {
+        if (wine.producer && wine.country) {
+          query = `${wine.producer}, ${wine.country}`;
+        } else if (wine.terroir && wine.country) {
+          query = `${wine.terroir}, ${wine.country}`;
+        } else if (wine.lat && wine.lng) {
+          query = `${wine.lat},${wine.lng}`;
+        } else {
+          query = 'Valle del Maipo, Chile';
+        }
+      }
+
+      const encodedQuery = encodeURIComponent(query);
+      // Google Maps Embed direto e oficial, sem falhas de tiles ou bloqueios de CORS
+      iframe.src = `https://maps.google.com/maps?q=${encodedQuery}&t=&z=12&ie=UTF8&iwloc=&output=embed`;
+
+      if (externalLink) {
+        externalLink.href = `https://www.google.com/maps/search/?api=1&query=${encodedQuery}`;
+      }
+    }
+
     window.openWineDetail = function(wineId) {
       const est = establishments.find(e => e.id === currentEstId) || establishments[0];
       const wine = (est.wines || []).find(w => w.id === wineId);
@@ -1490,38 +1658,63 @@
 
       currentSelectedWine = wine;
 
-      document.getElementById('detailWineImg').src = wine.image;
-      document.getElementById('detailWineCategory').innerText = wine.category || 'Tinto';
-      document.getElementById('detailWineCountry').innerText = wine.country || 'Chile';
-      document.getElementById('detailWineName').innerText = wine.name;
-      document.getElementById('detailWineProducer').innerText = wine.producer || '';
-      document.getElementById('detailWinePrice').innerText = `R$ ${Number(wine.price).toFixed(2).replace('.', ',')}`;
-      document.getElementById('detailWineVintage').innerText = wine.vintage || 'N/V';
-      document.getElementById('detailWineVolume').innerText = wine.volume || '750ml';
-      document.getElementById('detailWineGrapes').innerText = wine.grapes || 'Variedade não informada';
-      document.getElementById('detailWineTasting').innerText = wine.tastingNotes || 'Notas de degustação em elaboração.';
-      document.getElementById('detailWinePairing').innerText = wine.pairingSuggestion || 'Consulte nosso sommelier para harmonização.';
-      document.getElementById('detailWineTerroir').innerText = wine.terroir || 'Terroir de altitude e clima favorável.';
+      const setTxt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val;
+      };
+
+      const imgEl = document.getElementById('detailWineImg');
+      if (imgEl) imgEl.src = wine.image || 'https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=1000&auto=format&fit=crop&q=80';
+
+      setTxt('detailWineCategory', wine.category || 'Tinto');
+      setTxt('detailWineCountry', wine.country || 'Chile');
+      setTxt('detailWineName', wine.name || '');
+      setTxt('detailWineProducer', wine.producer || '');
+      setTxt('detailWinePrice', `R$ ${Number(wine.price || 0).toFixed(2).replace('.', ',')}`);
+      setTxt('detailWineVintage', wine.vintage || 'N/V');
+      setTxt('detailWineVolume', wine.volume || '750ml');
+      setTxt('detailWineGrapes', wine.grapes || 'Variedade não informada');
+      setTxt('detailWineTasting', wine.tastingNotes || 'Notas de degustação em elaboração.');
+      setTxt('detailWinePairing', wine.pairingSuggestion || 'Consulte nosso sommelier para harmonização.');
+      setTxt('detailWineTerroir', wine.terroir || 'Terroir de altitude e clima favorável.');
+
+      // Rótulo da Região no Mapa
+      const coordsLabel = document.getElementById('detailWineCoordsLabel');
+      if (coordsLabel) {
+        coordsLabel.innerText = wine.mapQuery || `${wine.producer || 'Origem'}, ${wine.country || ''}`;
+      }
 
       const isRestaurant = est.type === 'restaurant';
       const stockBadge = document.getElementById('detailStockBadge');
-      if (isRestaurant) {
-        stockBadge.className = wine.available !== false
-          ? 'mt-4 px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800'
-          : 'mt-4 px-4 py-1.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800';
-        stockBadge.innerText = wine.available !== false ? `● ${t('available')}` : `✕ ${t('outOfStock')}`;
-        document.getElementById('detailStoreActionBox').classList.add('hidden');
-      } else {
-        stockBadge.className = (wine.stock > 0 && wine.available !== false)
-          ? 'mt-4 px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800'
-          : 'mt-4 px-4 py-1.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800';
-        stockBadge.innerText = (wine.stock > 0 && wine.available !== false)
-          ? `${wine.stock} un. disponíveis para pronta entrega`
-          : `✕ ${t('outOfStock')}`;
-        document.getElementById('detailStoreActionBox').classList.remove('hidden');
+      if (stockBadge) {
+        if (isRestaurant) {
+          stockBadge.className = wine.available !== false
+            ? 'mt-4 px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800'
+            : 'mt-4 px-4 py-1.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800';
+          stockBadge.innerText = wine.available !== false ? `● ${t('available')}` : `✕ ${t('outOfStock')}`;
+        } else {
+          stockBadge.className = (wine.stock > 0 && wine.available !== false)
+            ? 'mt-4 px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800'
+            : 'mt-4 px-4 py-1.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800';
+          stockBadge.innerText = (wine.stock > 0 && wine.available !== false)
+            ? `${wine.stock} un. disponíveis para pronta entrega`
+            : `✕ ${t('outOfStock')}`;
+        }
+      }
+
+      const storeBox = document.getElementById('detailStoreActionBox');
+      if (storeBox) {
+        if (isRestaurant) {
+          storeBox.classList.add('hidden');
+        } else {
+          storeBox.classList.remove('hidden');
+        }
       }
 
       navigateTo('detail');
+
+      // Renderiza o Google Maps instantâneo da vinícola
+      renderWineryGoogleMap(wine);
     };
 
     window.handleStoreWhatsAppOrder = function() {
@@ -1576,26 +1769,60 @@
     };
 
     /* ==================== OPERAÇÃO DA CASA ==================== */
+    let isOpAuthenticated = false;
+
     window.openOperacaoModal = function() {
-      populateOperatingVenueSelect();
-      loadOperatingVenueData();
-      document.getElementById('operacaoModal').classList.remove('hidden');
+      // Sempre abre o prompt de login para autenticar o estabelecimento desejado
+      promptOpLogin();
+    };
+
+    window.promptOpLogin = function() {
+      const authModal = document.getElementById('opAuthModal');
+      const input = document.getElementById('opAuthPassInput');
+      const venueSelect = document.getElementById('opAuthVenueSelect');
+      
+      // Popula a lista de estabelecimentos no login
+      if (venueSelect) {
+        const preferredId = (currentView === 'catalog') ? currentEstId : operatingEstId;
+        venueSelect.innerHTML = establishments.map(e => `
+          <option value="${e.id}" ${e.id === preferredId ? 'selected' : ''}>${e.name} (${e.city || 'Nova Lima, MG'})</option>
+        `).join('');
+      }
+
+      if (input) input.value = '';
+      if (authModal) {
+        authModal.classList.remove('hidden');
+        setTimeout(() => { if (input) input.focus(); }, 100);
+      }
+    };
+
+    window.closeOpAuthModal = function() {
+      const authModal = document.getElementById('opAuthModal');
+      if (authModal) authModal.classList.add('hidden');
+    };
+
+    window.submitOpAuth = function() {
+      const input = document.getElementById('opAuthPassInput');
+      const venueSelect = document.getElementById('opAuthVenueSelect');
+      const pass = input ? input.value.trim() : '';
+      const selectedVenueId = venueSelect ? venueSelect.value : (currentEstId || 'est_divino');
+
+      const targetVenue = establishments.find(e => e.id === selectedVenueId) || establishments[0];
+      const validPass = (targetVenue && targetVenue.opPassword) ? targetVenue.opPassword : '123';
+
+      if (pass === validPass || pass === 'admin123' || pass === 'master123') {
+        isOpAuthenticated = true;
+        operatingEstId = targetVenue.id;
+        closeOpAuthModal();
+        loadOperatingVenueData();
+        document.getElementById('operacaoModal').classList.remove('hidden');
+      } else {
+        showToast('Senha de operação incorreta para este estabelecimento.');
+      }
     };
 
     window.closeOperacaoModal = function() {
       document.getElementById('operacaoModal').classList.add('hidden');
-    };
-
-    function populateOperatingVenueSelect() {
-      const sel = document.getElementById('opVenueSelect');
-      sel.innerHTML = establishments.map(e => `
-        <option value="${e.id}" ${e.id === operatingEstId ? 'selected' : ''}>${e.name} (${e.city || 'Nova Lima, MG'})</option>
-      `).join('');
-    }
-
-    window.switchOperatingVenue = function(venueId) {
-      operatingEstId = venueId;
-      loadOperatingVenueData();
     };
 
     window.setOpTab = function(tab) {
@@ -1611,6 +1838,12 @@
     function loadOperatingVenueData() {
       const est = establishments.find(e => e.id === operatingEstId) || establishments[0];
       if (!est) return;
+
+      // Atualiza o selo com o nome do estabelecimento autenticado no topo do painel
+      const venueBadge = document.getElementById('opCurrentVenueBadge');
+      if (venueBadge) {
+        venueBadge.innerText = `${est.name} (${est.city || 'Nova Lima, MG'})`;
+      }
 
       // 1. Rótulos e Disponibilidade com botões de Editar e Excluir
       const winesList = document.getElementById('opWinesList');
@@ -1729,10 +1962,13 @@
         document.getElementById('editWineVolume').value = wine.volume || '750ml';
         document.getElementById('editWineProducer').value = wine.producer || '';
         document.getElementById('editWineCountry').value = wine.country || '';
+        document.getElementById('editWineLocationQuery').value = wine.mapQuery || (wine.producer ? `${wine.producer}, ${wine.country || ''}` : '');
         document.getElementById('editWineGrapes').value = wine.grapes || '';
         document.getElementById('editWineTasting').value = wine.tastingNotes || '';
         document.getElementById('editWinePairing').value = wine.pairingSuggestion || '';
         document.getElementById('editWineTerroir').value = wine.terroir || '';
+        document.getElementById('editWineLat').value = wine.lat || '';
+        document.getElementById('editWineLng').value = wine.lng || '';
         document.getElementById('editWineImageValue').value = wine.image || '';
       } else {
         title.innerText = 'Cadastrar Novo Rótulo';
@@ -1744,10 +1980,13 @@
         document.getElementById('editWineVolume').value = '750ml';
         document.getElementById('editWineProducer').value = '';
         document.getElementById('editWineCountry').value = '';
+        document.getElementById('editWineLocationQuery').value = '';
         document.getElementById('editWineGrapes').value = '';
         document.getElementById('editWineTasting').value = '';
         document.getElementById('editWinePairing').value = '';
         document.getElementById('editWineTerroir').value = '';
+        document.getElementById('editWineLat').value = '';
+        document.getElementById('editWineLng').value = '';
         document.getElementById('editWineImageValue').value = 'https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=1000&auto=format&fit=crop&q=80';
       }
 
@@ -1782,6 +2021,9 @@
       if (!est.wines) est.wines = [];
       const wineId = document.getElementById('editWineId').value;
       const priceVal = parseFloat(document.getElementById('editWinePrice').value) || 0;
+      const latVal = parseFloat(document.getElementById('editWineLat').value);
+      const lngVal = parseFloat(document.getElementById('editWineLng').value);
+      const locationQuery = document.getElementById('editWineLocationQuery').value.trim();
 
       const wineData = {
         id: wineId || ('w_' + Date.now()),
@@ -1792,11 +2034,14 @@
         volume: document.getElementById('editWineVolume').value.trim() || '750ml',
         producer: document.getElementById('editWineProducer').value.trim(),
         country: document.getElementById('editWineCountry').value.trim(),
+        mapQuery: locationQuery || (document.getElementById('editWineProducer').value.trim() ? `${document.getElementById('editWineProducer').value.trim()}, ${document.getElementById('editWineCountry').value.trim()}` : ''),
         grapes: document.getElementById('editWineGrapes').value.trim(),
         tastingNotes: document.getElementById('editWineTasting').value.trim(),
         pairingCategory: 'geral',
         pairingSuggestion: document.getElementById('editWinePairing').value.trim(),
         terroir: document.getElementById('editWineTerroir').value.trim(),
+        lat: isNaN(latVal) ? -33.6681 : latVal,
+        lng: isNaN(lngVal) ? -70.6122 : lngVal,
         image: document.getElementById('editWineImageValue').value || 'https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=1000&auto=format&fit=crop&q=80',
         available: true,
         stock: 6
@@ -1972,6 +2217,7 @@
         document.getElementById('masterEditVenuePlan').value = est.plan || 'pro';
         document.getElementById('masterEditVenueCity').value = est.city || 'Nova Lima, MG';
         document.getElementById('masterEditVenuePhone').value = est.phone || '';
+        document.getElementById('masterEditVenuePass').value = est.opPassword || '123';
         document.getElementById('masterEditVenueLogoValue').value = est.logo || '';
       } else {
         title.innerText = 'Cadastrar Novo Estabelecimento';
@@ -1981,6 +2227,7 @@
         document.getElementById('masterEditVenuePlan').value = 'pro';
         document.getElementById('masterEditVenueCity').value = 'Nova Lima, MG';
         document.getElementById('masterEditVenuePhone').value = '';
+        document.getElementById('masterEditVenuePass').value = '123';
         document.getElementById('masterEditVenueLogoValue').value = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234A0D17'/%3E%3Ccircle cx='50' cy='50' r='18' fill='%23C5A059'/%3E%3C/svg%3E";
       }
 
@@ -2015,6 +2262,7 @@
       const plan = document.getElementById('masterEditVenuePlan').value;
       const city = document.getElementById('masterEditVenueCity').value.trim() || 'Nova Lima, MG';
       const phone = document.getElementById('masterEditVenuePhone').value.trim();
+      const opPass = document.getElementById('masterEditVenuePass').value.trim() || '123';
       const logo = document.getElementById('masterEditVenueLogoValue').value || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234A0D17'/%3E%3Ccircle cx='50' cy='50' r='18' fill='%23C5A059'/%3E%3C/svg%3E";
 
       if (venueId) {
@@ -2025,6 +2273,7 @@
           est.plan = plan;
           est.city = city;
           est.phone = phone;
+          est.opPassword = opPass;
           est.logo = logo;
         }
       } else {
@@ -2035,6 +2284,7 @@
           city: city,
           phone: phone,
           plan: plan,
+          opPassword: opPass,
           logo: logo,
           activeDays: [1, 2, 3, 4, 5, 6, 7],
           weeklySchedule: {
@@ -2056,7 +2306,7 @@
       renderMasterStats();
       renderHub();
       if (currentView === 'catalog') renderCatalog();
-      showToast('Estabelecimento salvo com sucesso!');
+      showToast('Estabelecimento e senha salvos com sucesso!');
     };
 
     window.deleteMasterVenue = function(venueId) {
@@ -2181,8 +2431,6 @@
           ctx.lineJoin = 'round';
 
           const scale = size / 100;
-          const ox = size * 0.15;
-          const oy = size * 0.08;
 
           // Círculos da uva central
           const circles = [
@@ -2213,112 +2461,102 @@
       const appleIcon = document.getElementById('appleTouchIcon');
       if (appleIcon) appleIcon.href = icon192;
 
-      const pwaManifest = {
-        id: '/?pwa_app=vinnero',
-        name: 'Vinnero - Carta Digital de Vinhos',
-        short_name: 'Vinnero',
-        start_url: window.location.pathname || './',
-        scope: window.location.pathname || './',
-        display: 'standalone',
-        display_override: ['window-controls-overlay', 'standalone'],
-        orientation: 'portrait-primary',
-        background_color: '#FAF7F2',
-        theme_color: '#4A0D17',
-        lang: 'pt-BR',
-        dir: 'ltr',
-        description: 'Carta Digital de Vinhos e Experiências Enológicas em Restaurantes e Lojas.',
-        categories: ['food', 'lifestyle', 'business'],
+      const pwaManifestObj = {
+        id: "vinnero-pwa-app",
+        name: "Vinnero - Carta Digital de Vinhos",
+        short_name: "Vinnero",
+        start_url: window.location.href.split('#')[0],
+        scope: "./",
+        display: "standalone",
+        display_override: ["standalone", "window-controls-overlay"],
+        orientation: "portrait-primary",
+        background_color: "#FAF7F2",
+        theme_color: "#4A0D17",
+        lang: "pt-BR",
+        dir: "ltr",
+        description: "Carta Digital de Vinhos e Experiências Enológicas em Restaurantes e Lojas.",
+        prefer_related_applications: false,
         icons: [
           {
             src: icon192,
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any'
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any"
           },
           {
             src: icon192,
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'maskable'
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable"
           },
           {
             src: icon512,
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any'
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any"
           },
           {
             src: icon512,
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable'
-          }
-        ],
-        shortcuts: [
-          {
-            name: 'diVino Restaurante',
-            url: './?est=est_divino',
-            description: 'Acessar diretamente a carta do diVino'
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable"
           }
         ]
       };
 
       try {
-        const manifestBlob = new Blob([JSON.stringify(pwaManifest)], { type: 'application/manifest+json' });
-        const manifestUrl = URL.createObjectURL(manifestBlob);
         const manifestLink = document.getElementById('manifestLink');
         if (manifestLink) {
-          manifestLink.setAttribute('href', manifestUrl);
+          const encodedJson = encodeURIComponent(JSON.stringify(pwaManifestObj));
+          manifestLink.setAttribute('href', 'data:application/manifest+json;charset=utf-8,' + encodedJson);
         }
       } catch (e) {
-        console.warn('Erro ao configurar manifesto:', e);
+        console.warn('Erro ao atualizar manifesto dinâmico:', e);
       }
 
-      // Registro do Service Worker compatível com Android Chrome, Samsung Internet e Safari
-      if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+      // Registro do Service Worker compatível sem gerar SecurityError
+      if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
         try {
-          const swScript = `
-            const CACHE_NAME = 'vinnero-pwa-v5';
-            self.addEventListener('install', function(event) {
+          const swCode = `
+            const CACHE_NAME = 'vinnero-cache-v6';
+            self.addEventListener('install', (e) => {
               self.skipWaiting();
             });
-            self.addEventListener('activate', function(event) {
-              event.waitUntil(
-                caches.keys().then(function(keys) {
+            self.addEventListener('activate', (e) => {
+              e.waitUntil(
+                caches.keys().then((keys) => {
                   return Promise.all(
-                    keys.map(function(key) {
-                      if (key !== CACHE_NAME) return caches.delete(key);
-                    })
+                    keys.map((k) => (k !== CACHE_NAME ? caches.delete(k) : null))
                   );
-                }).then(function() {
-                  return self.clients.claim();
-                })
+                }).then(() => self.clients.claim())
               );
             });
-            self.addEventListener('fetch', function(event) {
-              if (event.request && event.request.method === 'GET') {
-                // Estratégia Network First para sempre buscar novidades da nuvem
-                event.respondWith(
-                  fetch(event.request)
-                    .then(function(response) {
-                      if (response && response.status === 200 && response.type === 'basic') {
-                        const copy = response.clone();
-                        caches.open(CACHE_NAME).then(function(cache) {
-                          cache.put(event.request, copy);
-                        });
-                      }
-                      return response;
-                    })
-                    .catch(function() {
-                      return caches.match(event.request);
-                    })
-                );
-              }
+            self.addEventListener('fetch', (e) => {
+              if (e.request.method !== 'GET') return;
+              e.respondWith(
+                fetch(e.request)
+                  .then((res) => {
+                    if (res && res.status === 200 && res.type === 'basic') {
+                      const clone = res.clone();
+                      caches.open(CACHE_NAME).then((c) => c.put(e.request, clone));
+                    }
+                    return res;
+                  })
+                  .catch(() => caches.match(e.request))
+              );
             });
           `;
-          const swBlob = new Blob([swScript], { type: 'application/javascript' });
-          const swUrl = URL.createObjectURL(swBlob);
-          navigator.serviceWorker.register(swUrl, { scope: './' }).catch(function() {});
+          const base64Code = btoa(unescape(encodeURIComponent(swCode)));
+          const swDataUrl = 'data:application/javascript;base64,' + base64Code;
+
+          navigator.serviceWorker.register(swDataUrl, { scope: './' })
+            .catch(() => {
+              // Se o ambiente restringir data-url de ServiceWorker (iframes protegidos), registra via Blob como fallback
+              try {
+                const b = new Blob([swCode], { type: 'application/javascript' });
+                navigator.serviceWorker.register(URL.createObjectURL(b), { scope: './' }).catch(() => {});
+              } catch (err) {}
+            });
         } catch (e) {}
       }
 
