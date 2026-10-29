@@ -2283,28 +2283,38 @@ ${wineSummaries}`;
       const manifestUrl = URL.createObjectURL(blob);
       document.getElementById('manifestLink').setAttribute('href', manifestUrl);
 
-      // Registro do Service Worker com Cache Offline resiliente (exigência do Google Lighthouse para 100% PWA)
-      if ('serviceWorker' in navigator) {
-        const swScript = `
-          const CACHE_NAME = 'vinnero-cache-v1';
-          self.addEventListener('install', (event) => {
-            self.skipWaiting();
-          });
-          self.addEventListener('activate', (event) => {
-            event.waitUntil(self.clients.claim());
-          });
-          self.addEventListener('fetch', (event) => {
-            if (event.request.method !== 'GET') return;
-            event.respondWith(
-              fetch(event.request).catch(() => caches.match(event.request))
-            );
-          });
-        `;
-        const swBlob = new Blob([swScript], { type: 'application/javascript' });
-        const swUrl = URL.createObjectURL(swBlob);
-        navigator.serviceWorker.register(swUrl).catch(() => {
-          // Fallback silencioso caso ambiente restrinja workers de blob
-        });
+      // Registro seguro do Service Worker (evita InvalidStateError em iframes/previews)
+      if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+        try {
+          const swScript = `
+            const CACHE_NAME = 'vinnero-cache-v2';
+            self.addEventListener('install', (event) => {
+              self.skipWaiting();
+            });
+            self.addEventListener('activate', (event) => {
+              event.waitUntil(
+                caches.keys().then((keys) => {
+                  return Promise.all(
+                    keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+                  );
+                }).then(() => self.clients.claim())
+              );
+            });
+            self.addEventListener('fetch', (event) => {
+              if (event.request.method !== 'GET') return;
+              event.respondWith(
+                fetch(event.request)
+                  .then((response) => response)
+                  .catch(() => caches.match(event.request))
+              );
+            });
+          `;
+          const swBlob = new Blob([swScript], { type: 'application/javascript' });
+          const swUrl = URL.createObjectURL(swBlob);
+          navigator.serviceWorker.register(swUrl).catch(() => {});
+        } catch (e) {
+          // Ignora silenciosamente em ambientes restritos (iframes/sandbox)
+        }
       }
 
       // Oculta botão se já estiver rodando em standalone
@@ -2333,6 +2343,23 @@ ${wineSummaries}`;
       checkAgeGateOnLoad();
       loadStateFromLocal();
       setupPwaManifest();
+
+      // Verificação segura de atualização de Service Worker protegida contra InvalidStateError
+      if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+        try {
+          navigator.serviceWorker.getRegistrations()
+            .then(regs => {
+              if (Array.isArray(regs)) {
+                regs.forEach(reg => {
+                  try { reg.update(); } catch (_) {}
+                });
+              }
+            })
+            .catch(() => {
+              // Previne UnhandledRejection em documentos em estado transitório ou iframes restritos
+            });
+        } catch (_) {}
+      }
 
       // Suporte a QR Code Direto via URL (?est=id_estabelecimento)
       const urlParams = new URLSearchParams(window.location.search);
