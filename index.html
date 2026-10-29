@@ -2021,6 +2021,11 @@
             : `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-800"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Fechado</span>`;
         }
 
+        // Renderização dinâmica da logo do estabelecimento ou ícone padrão
+        const logoContent = (est.logo && est.logo.trim() !== '')
+          ? `<img src="${est.logo}" alt="${est.name}" class="w-full h-full object-contain rounded-xl p-1" onerror="this.parentElement.innerHTML='<svg class=\\\'w-7 h-7 text-vinnero-wine\\\' fill=\\\'none\\\' stroke=\\\'currentColor\\\' stroke-width=\\\'1.5\\\' viewBox=\\\'0 0 24 24\\\'><path stroke-linecap=\\\'round\\\' stroke-linejoin=\\\'round\\\' d=\\\'M12 21v-8m0 0l-5-7h10l-5 7zm-7-7h14\\\'/></svg>'">`
+          : `<svg class="w-7 h-7 text-vinnero-wine" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8m0 0l-5-7h10l-5 7zm-7-7h14"/></svg>`;
+
         return `
           <div onclick="openRestaurantCatalog('${est.id}')" class="bg-white rounded-3xl p-6 border ${!isStore && !isOpen ? 'border-red-200/80 bg-gray-50/50 opacity-90' : 'border-gray-200/90'} shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group hover:-translate-y-1">
             <div>
@@ -2035,10 +2040,8 @@
               </div>
 
               <div class="flex items-center gap-4 mb-4">
-                <div class="w-14 h-14 rounded-2xl bg-vinnero-creamDark border border-vinnero-gold/30 flex items-center justify-center p-2 shrink-0">
-                  <svg class="w-7 h-7 text-vinnero-wine" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8m0 0l-5-7h10l-5 7zm-7-7h14"/>
-                  </svg>
+                <div class="w-14 h-14 rounded-2xl bg-vinnero-creamDark border border-vinnero-gold/30 flex items-center justify-center p-2 shrink-0 overflow-hidden">
+                  ${logoContent}
                 </div>
                 <div>
                   <h3 class="font-cinzel text-lg font-bold text-gray-900 group-hover:text-vinnero-wine transition-colors leading-snug">${est.name}</h3>
