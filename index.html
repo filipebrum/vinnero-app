@@ -154,6 +154,19 @@
         </div>
       </div>
 
+      <!-- Barra de Filtros: Todos / Restaurantes / Lojas Especializadas -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scroll" id="hubFilterWrap">
+        <button onclick="filterHubEstablishments('all')" id="btnHubFilterAll" class="hub-pill px-4 py-2 rounded-xl text-xs font-bold transition-all bg-vinnero-wine text-white shadow-sm shrink-0">
+          <span id="txtHubFilterAll">Todos</span>
+        </button>
+        <button onclick="filterHubEstablishments('restaurant')" id="btnHubFilterRestaurant" class="hub-pill px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 shrink-0">
+          <span id="txtHubFilterRestaurant">Restaurantes & Bares</span>
+        </button>
+        <button onclick="filterHubEstablishments('store')" id="btnHubFilterStore" class="hub-pill px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 shrink-0">
+          <span id="txtHubFilterStore">Lojas Especializadas</span>
+        </button>
+      </div>
+
       <!-- Grid de Estabelecimentos -->
       <div>
         <div class="flex items-center justify-between mb-4">
@@ -1176,6 +1189,7 @@
     let establishments = [];
     let currentEstId = 'est_divino';
     let currentCategoryFilter = 'all';
+    let currentHubFilter = 'all';
     let currentSearchTerm = '';
     let currentWineDetailId = null;
     let currentLang = 'pt';
@@ -1186,6 +1200,9 @@
     const I18N = {
       pt: {
         all: 'Todos',
+        hubFilterAll: 'Todos',
+        hubFilterRestaurant: 'Restaurantes & Bares',
+        hubFilterStore: 'Lojas Especializadas',
         hubBannerBadge: 'Carta Digital de Vinhos',
         hubBannerTitle: 'Descubra Nossos Rótulos & Experiências',
         hubBannerDesc: 'Escolha o estabelecimento para explorar a carta de vinhos curada com harmonizações e fichas técnicas completas.',
@@ -1222,6 +1239,9 @@
       },
       en: {
         all: 'All',
+        hubFilterAll: 'All',
+        hubFilterRestaurant: 'Restaurants & Bars',
+        hubFilterStore: 'Specialty Stores',
         hubBannerBadge: 'Digital Wine List',
         hubBannerTitle: 'Discover Our Labels & Experiences',
         hubBannerDesc: 'Choose an establishment to explore our curated wine list with pairings and complete technical sheets.',
@@ -1258,6 +1278,9 @@
       },
       es: {
         all: 'Todos',
+        hubFilterAll: 'Todos',
+        hubFilterRestaurant: 'Restaurantes y Bares',
+        hubFilterStore: 'Tiendas Especializadas',
         hubBannerBadge: 'Carta Digital de Vinos',
         hubBannerTitle: 'Descubra Nuestras Etiquetas y Experiencias',
         hubBannerDesc: 'Elija el establecimiento para explorar la carta de vinos seleccionada con maridajes y fichas técnicas completas.',
@@ -1446,11 +1469,46 @@
     }
 
     /* ==================== RENDERIZAÇÃO DO HUB DE ESTABELECIMENTOS ==================== */
+    window.filterHubEstablishments = function(type) {
+      currentHubFilter = type;
+      const pills = [
+        { id: 'btnHubFilterAll', type: 'all' },
+        { id: 'btnHubFilterRestaurant', type: 'restaurant' },
+        { id: 'btnHubFilterStore', type: 'store' }
+      ];
+
+      pills.forEach(p => {
+        const btn = document.getElementById(p.id);
+        if (!btn) return;
+        if (p.type === type) {
+          btn.className = 'hub-pill px-4 py-2 rounded-xl text-xs font-bold transition-all bg-vinnero-wine text-white shadow-sm shrink-0';
+        } else {
+          btn.className = 'hub-pill px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 shrink-0';
+        }
+      });
+
+      renderHubGrid();
+    };
+
     function renderHubGrid() {
       const grid = document.getElementById('hubGrid');
       if (!grid) return;
 
-      grid.innerHTML = establishments.map(est => {
+      let list = establishments;
+      if (currentHubFilter !== 'all') {
+        list = list.filter(e => e.type === currentHubFilter);
+      }
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-12 text-center bg-white rounded-3xl border border-gray-200 text-xs text-gray-500 font-semibold">
+            Nenhum estabelecimento encontrado nesta categoria.
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map(est => {
         const isRestaurant = est.type === 'restaurant';
         const openStatus = isEstablishmentOpen(est);
         const isOpen = openStatus.open;
@@ -1925,6 +1983,16 @@
 
       const hubTitle = document.getElementById('hubTitle');
       if (hubTitle) hubTitle.innerText = t('hubTitle');
+
+      // Tradução da nova barra de filtros do Hub
+      const txtAll = document.getElementById('txtHubFilterAll');
+      if (txtAll) txtAll.innerText = t('hubFilterAll');
+
+      const txtRest = document.getElementById('txtHubFilterRestaurant');
+      if (txtRest) txtRest.innerText = t('hubFilterRestaurant');
+
+      const txtStore = document.getElementById('txtHubFilterStore');
+      if (txtStore) txtStore.innerText = t('hubFilterStore');
 
       // Tradução dos botões da Carta e Ficha Técnica
       const btnBackVenues = document.getElementById('btnBackToVenues');
