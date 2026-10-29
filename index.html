@@ -388,9 +388,32 @@
               <input type="text" id="opInputRestWhatsapp" placeholder="Ex: 5511999998888" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-300 rounded-xl text-xs focus:ring-2 focus:ring-vinnero-wine">
             </div>
 
-            <div>
-              <label class="block text-xs font-semibold text-gray-700 mb-1">URL da Logo (ou deixe vazio para o ícone padrão)</label>
-              <input type="text" id="opInputRestLogo" placeholder="https://..." class="w-full px-3.5 py-2 bg-gray-50 border border-gray-300 rounded-xl text-xs focus:ring-2 focus:ring-vinnero-wine">
+            <!-- Upload da Logo do Estabelecimento com Preview -->
+            <div class="p-3.5 bg-amber-50/50 rounded-2xl border border-amber-200/60 space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <label class="block font-bold text-gray-800 text-xs">Logotipo do Estabelecimento</label>
+                  <span class="text-[10px] text-gray-500">Faça o upload da imagem da sua marca (PNG, JPG, SVG ou WebP)</span>
+                </div>
+                <button type="button" id="btnRemoveRestLogo" onclick="removeRestLogo()" class="hidden text-[10px] font-bold text-red-600 hover:underline">
+                  Remover Logo
+                </button>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <!-- Preview da Logo -->
+                <div id="restLogoPreviewBox" class="w-16 h-16 rounded-2xl bg-white border border-gray-200 flex items-center justify-center overflow-hidden shrink-0 shadow-sm relative">
+                  <span id="restLogoPlaceholderText" class="text-[9px] text-gray-400 text-center px-1">Ícone Padrão</span>
+                  <img id="restLogoPreviewImg" class="hidden w-full h-full object-contain p-1.5" alt="Preview da logo">
+                </div>
+
+                <!-- Input de Upload de Arquivo -->
+                <div class="flex-1 w-full">
+                  <input type="file" id="opInputRestLogoFile" accept="image/*" onchange="handleRestLogoUpload(event)" class="block w-full text-[11px] text-gray-600 file:mr-2.5 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-[11px] file:font-bold file:bg-vinnero-wine file:text-white hover:file:bg-vinnero-wineDark file:cursor-pointer cursor-pointer">
+                  <span class="text-[10px] text-gray-400 block mt-1">Otimização automática de resolução mantendo fundo e transparência.</span>
+                </div>
+              </div>
+              <input type="hidden" id="opInputRestLogoData">
             </div>
 
             <div>
@@ -563,7 +586,7 @@
 
         <!-- Dashboard Master -->
         <div id="masterDashboard" class="hidden space-y-6">
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
             <div class="p-4 bg-gray-50 rounded-2xl border border-gray-200">
               <span class="text-xs text-gray-500 block">Total de Estabelecimentos</span>
               <span id="masterStatTotal" class="font-cinzel text-2xl font-bold text-gray-900 mt-1 block">0</span>
@@ -571,6 +594,11 @@
             <div class="p-4 bg-gray-50 rounded-2xl border border-gray-200">
               <span class="text-xs text-gray-500 block">MRR Estimado</span>
               <span id="masterStatMRR" class="font-cinzel text-2xl font-bold text-emerald-700 mt-1 block">R$ 0,00</span>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-2xl border border-gray-200 col-span-2 sm:col-span-1 flex items-center justify-end">
+              <button onclick="openMasterEstModal()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-vinnero-wine hover:bg-vinnero-wineDark text-white text-xs font-bold transition-all shadow-sm">
+                + Novo Estabelecimento
+              </button>
             </div>
           </div>
 
@@ -583,7 +611,7 @@
                   <th class="p-3">Plano</th>
                   <th class="p-3">Status</th>
                   <th class="p-3">Último Pagamento</th>
-                  <th class="p-3 text-right">Ação</th>
+                  <th class="p-3 text-right">Ações</th>
                 </tr>
               </thead>
               <tbody id="masterTableBody" class="divide-y divide-gray-100"></tbody>
@@ -592,6 +620,85 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: CADASTRO / EDIÇÃO DE ESTABELECIMENTO (MASTER SAAS) ==================== -->
+  <div id="modalMasterEst" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-gray-200 overflow-hidden">
+      <div class="px-6 py-4 bg-gray-950 text-white flex items-center justify-between">
+        <h4 id="masterEstModalTitle" class="font-cinzel text-sm font-bold">Novo Estabelecimento</h4>
+        <button onclick="closeMasterEstModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-xs">✕</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs">
+        <input type="hidden" id="formMasterEstId">
+
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Nome do Estabelecimento *</label>
+          <input type="text" id="formMasterEstName" placeholder="Ex: Bistrô do Porto ou Adega São Bento" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Tipo de Local *</label>
+            <select id="formMasterEstType" class="w-full px-3 py-2 border rounded-xl bg-white focus:ring-2 focus:ring-vinnero-wine">
+              <option value="restaurant">🍷 Restaurante & Bar</option>
+              <option value="store">🏪 Loja Especializada</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Cidade / UF *</label>
+            <input type="text" id="formMasterEstCity" placeholder="Ex: Belo Horizonte, MG" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Subtítulo / Descrição</label>
+          <input type="text" id="formMasterEstSubtitle" placeholder="Ex: Alta gastronomia e harmonizações exclusivas" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">WhatsApp Comercial (com DDD)</label>
+            <input type="text" id="formMasterEstWhatsapp" placeholder="Ex: 5531999998888" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
+          </div>
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Senha de Salão *</label>
+            <input type="text" id="formMasterEstPassword" placeholder="Ex: 1234" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
+          </div>
+        </div>
+
+        <!-- Seletor dos Planos Oficiais Vinnero -->
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Plano SaaS Vinnero *</label>
+          <select id="formMasterEstPlan" class="w-full px-3 py-2 border rounded-xl bg-white font-semibold text-vinnero-wine focus:ring-2 focus:ring-vinnero-wine">
+            <option value="essencial">Plano Essencial - R$ 197,00 / mês</option>
+            <option value="profissional" selected>Plano Profissional - R$ 397,00 / mês</option>
+            <option value="black">Plano Black - R$ 697,00 / mês</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Status da Assinatura *</label>
+            <select id="formMasterEstStatus" class="w-full px-3 py-2 border rounded-xl bg-white focus:ring-2 focus:ring-vinnero-wine">
+              <option value="paid">Pago / Ativo</option>
+              <option value="pending">Pendente</option>
+              <option value="overdue">Atrasado</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Data do Último Pagamento</label>
+            <input type="text" id="formMasterEstLastPayment" placeholder="Ex: 15/10/2026" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 bg-gray-50 border-t border-gray-200 flex justify-end gap-2 text-xs">
+        <button onclick="closeMasterEstModal()" class="px-4 py-2 rounded-xl bg-gray-200 text-gray-800 font-semibold">Cancelar</button>
+        <button onclick="saveMasterEstRecord()" class="px-4 py-2 rounded-xl bg-vinnero-wine hover:bg-vinnero-wineDark text-white font-bold shadow-sm">Salvar Estabelecimento</button>
+      </div>
     </div>
   </div>
 
@@ -854,10 +961,10 @@
         city: 'Belo Horizonte, MG',
         logo: '',
         password: '1234',
-        plan: 'Pro (R$ 299/mês)',
+        plan: 'profissional',
         paymentStatus: 'paid',
         lastPaymentDate: '15/10/2026',
-        monthlyFee: 299.00,
+        monthlyFee: 397.00,
         whatsapp: '5531999991111',
         wines: [
           {
@@ -1002,10 +1109,10 @@
         city: 'São Paulo, SP',
         logo: '',
         password: '1234',
-        plan: 'Pro (R$ 299/mês)',
+        plan: 'black',
         paymentStatus: 'paid',
         lastPaymentDate: '10/10/2026',
-        monthlyFee: 299.00,
+        monthlyFee: 697.00,
         whatsapp: '5511999998888',
         wines: [
           {
@@ -2226,8 +2333,12 @@
       const est = getActiveEstablishment();
       document.getElementById('opInputRestName').value = est.name || '';
       document.getElementById('opInputRestSubtitle').value = est.subtitle || '';
-      document.getElementById('opInputRestLogo').value = est.logo || '';
       document.getElementById('opInputRestPassword').value = '';
+
+      // Configuração do preview de logo no carregamento
+      setRestLogoPreview(est.logo || '');
+      const fileInput = document.getElementById('opInputRestLogoFile');
+      if (fileInput) fileInput.value = '';
 
       const zapField = document.getElementById('opStoreWhatsappFieldWrap');
       const zapInput = document.getElementById('opInputRestWhatsapp');
@@ -2239,26 +2350,109 @@
       }
     }
 
+    /* Manipulação e Upload da Logo do Estabelecimento */
+    window.handleRestLogoUpload = function(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          // Limita a até 500x500 preservando a proporção e transparência
+          const MAX_SIZE = 500;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_SIZE) {
+              height = Math.round((height * MAX_SIZE) / width);
+              width = MAX_SIZE;
+            }
+          } else {
+            if (height > MAX_SIZE) {
+              width = Math.round((width * MAX_SIZE) / height);
+              height = MAX_SIZE;
+            }
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Gera imagem em PNG/WebP para preservar transparência de marcas
+          const optimizedDataUrl = canvas.toDataURL('image/png');
+          setRestLogoPreview(optimizedDataUrl);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    function setRestLogoPreview(src) {
+      const img = document.getElementById('restLogoPreviewImg');
+      const placeholder = document.getElementById('restLogoPlaceholderText');
+      const btnRemove = document.getElementById('btnRemoveRestLogo');
+      const hiddenInput = document.getElementById('opInputRestLogoData');
+
+      if (src && src.trim() !== '') {
+        if (img) {
+          img.src = src;
+          img.classList.remove('hidden');
+        }
+        if (placeholder) placeholder.classList.add('hidden');
+        if (btnRemove) btnRemove.classList.remove('hidden');
+        if (hiddenInput) hiddenInput.value = src;
+      } else {
+        if (img) {
+          img.src = '';
+          img.classList.add('hidden');
+        }
+        if (placeholder) placeholder.classList.remove('hidden');
+        if (btnRemove) btnRemove.classList.add('hidden');
+        if (hiddenInput) hiddenInput.value = '';
+      }
+    }
+
+    window.removeRestLogo = function() {
+      setRestLogoPreview('');
+      const fileInput = document.getElementById('opInputRestLogoFile');
+      if (fileInput) fileInput.value = '';
+    };
+
     window.saveRestSettings = function() {
       const est = getActiveEstablishment();
       const name = document.getElementById('opInputRestName').value.trim();
       const subtitle = document.getElementById('opInputRestSubtitle').value.trim();
-      const logo = document.getElementById('opInputRestLogo').value.trim();
+      const logo = document.getElementById('opInputRestLogoData').value.trim();
       const newPass = document.getElementById('opInputRestPassword').value.trim();
-      const zap = document.getElementById('opInputRestWhatsapp').value.trim();
+      const zap = document.getElementById('opInputRestWhatsapp') ? document.getElementById('opInputRestWhatsapp').value.trim() : '';
 
       if (name) est.name = name;
       if (subtitle) est.subtitle = subtitle;
-      if (logo !== undefined) est.logo = logo;
+      est.logo = logo || '';
       if (newPass && newPass.length >= 4) est.password = newPass;
       if (est.type === 'store' && zap) est.whatsapp = zap;
 
       saveState();
       updateCatalogHeader();
       renderHubGrid('all');
+      alert('Dados da casa e logotipo atualizados com sucesso!');
     };
 
     /* ==================== GESTÃO MASTER SAAS ==================== */
+    const SAAS_PLANS = {
+      essencial: { name: 'Plano Essencial', price: 197.00 },
+      profissional: { name: 'Plano Profissional', price: 397.00 },
+      black: { name: 'Plano Black', price: 697.00 }
+    };
+
+    function getPlanInfo(planKey) {
+      return SAAS_PLANS[planKey] || { name: 'Plano Profissional', price: 397.00 };
+    }
+
     window.openMasterModal = function() {
       document.getElementById('modalMaster').classList.remove('hidden');
       if (masterAuthenticated) {
@@ -2295,45 +2489,198 @@
 
       let totalMRR = 0;
       establishments.forEach(e => {
-        totalMRR += (Number(e.monthlyFee) || 299.00);
+        const planData = getPlanInfo(e.plan);
+        const fee = e.monthlyFee || planData.price;
+        if (e.paymentStatus === 'paid') {
+          totalMRR += Number(fee);
+        }
       });
 
       document.getElementById('masterStatTotal').innerText = establishments.length;
       document.getElementById('masterStatMRR').innerText = `R$ ${totalMRR.toFixed(2).replace('.', ',')} /mês`;
 
-      tbody.innerHTML = establishments.map(est => `
-        <tr class="hover:bg-gray-50 transition-colors">
-          <td class="p-3">
-            <span class="font-bold text-gray-900 block">${est.name}</span>
-            <span class="text-gray-500">${est.city}</span>
-          </td>
-          <td class="p-3">
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${est.type === 'store' ? 'bg-amber-100 text-amber-800' : 'bg-vinnero-wine/10 text-vinnero-wine'}">
-              ${est.type === 'store' ? t('typeStore') : t('typeRest')}
-            </span>
-          </td>
-          <td class="p-3 font-semibold text-gray-800">${est.plan || 'Pro (R$ 299/mês)'}</td>
-          <td class="p-3">
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${est.paymentStatus === 'paid' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
-              ${est.paymentStatus === 'paid' ? 'Pago / Ativo' : 'Pendente'}
-            </span>
-          </td>
-          <td class="p-3 text-gray-600">${est.lastPaymentDate || '15/10/2026'}</td>
-          <td class="p-3 text-right">
-            <button onclick="togglePaymentStatus('${est.id}')" class="px-2.5 py-1 text-xs rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold">
-              Alterar Status
-            </button>
-          </td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = establishments.map(est => {
+        const planData = getPlanInfo(est.plan);
+        const isPaid = est.paymentStatus === 'paid';
+        const isOverdue = est.paymentStatus === 'overdue';
+        
+        let statusBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Pago / Ativo</span>`;
+        if (isOverdue) {
+          statusBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-100 text-red-800">Atrasado</span>`;
+        } else if (!isPaid) {
+          statusBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">Pendente</span>`;
+        }
+
+        return `
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="p-3">
+              <span class="font-bold text-gray-900 block">${est.name}</span>
+              <span class="text-gray-500">${est.city}</span>
+            </td>
+            <td class="p-3">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${est.type === 'store' ? 'bg-amber-100 text-amber-800' : 'bg-vinnero-wine/10 text-vinnero-wine'}">
+                ${est.type === 'store' ? t('typeStore') : t('typeRest')}
+              </span>
+            </td>
+            <td class="p-3">
+              <span class="font-bold text-gray-900 block">${planData.name}</span>
+              <span class="text-vinnero-wine font-semibold">R$ ${planData.price.toFixed(2).replace('.', ',')}/mês</span>
+            </td>
+            <td class="p-3">
+              ${statusBadge}
+            </td>
+            <td class="p-3 text-gray-600">${est.lastPaymentDate || 'Não informado'}</td>
+            <td class="p-3 text-right space-x-1">
+              <button onclick="togglePaymentStatus('${est.id}')" title="Alternar entre Pago, Pendente e Atrasado" class="px-2 py-1 text-xs rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold">
+                Status
+              </button>
+              <button onclick="editMasterEst('${est.id}')" title="Editar dados e plano" class="px-2 py-1 text-xs rounded-lg bg-vinnero-wine/10 hover:bg-vinnero-wine text-vinnero-wine hover:text-white font-semibold transition-colors">
+                Editar
+              </button>
+              ${establishments.length > 1 ? `
+              <button onclick="deleteMasterEst('${est.id}')" title="Excluir estabelecimento" class="px-2 py-1 text-xs rounded-lg bg-red-50 hover:bg-red-100 text-red-700 font-semibold transition-colors">
+                ✕
+              </button>
+              ` : ''}
+            </td>
+          </tr>
+        `;
+      }).join('');
     }
 
     window.togglePaymentStatus = function(estId) {
       const target = establishments.find(e => e.id === estId);
       if (target) {
-        target.paymentStatus = (target.paymentStatus === 'paid') ? 'pending' : 'paid';
+        if (target.paymentStatus === 'paid') {
+          target.paymentStatus = 'pending';
+        } else if (target.paymentStatus === 'pending') {
+          target.paymentStatus = 'overdue';
+        } else {
+          target.paymentStatus = 'paid';
+        }
         saveState();
         renderMasterTable();
+      }
+    };
+
+    /* ==================== CADASTRO / EDIÇÃO DE ESTABELECIMENTO (MASTER) ==================== */
+    window.openMasterEstModal = function() {
+      document.getElementById('masterEstModalTitle').innerText = 'Cadastrar Novo Estabelecimento';
+      document.getElementById('formMasterEstId').value = '';
+      document.getElementById('formMasterEstName').value = '';
+      document.getElementById('formMasterEstType').value = 'restaurant';
+      document.getElementById('formMasterEstCity').value = '';
+      document.getElementById('formMasterEstSubtitle').value = '';
+      document.getElementById('formMasterEstWhatsapp').value = '';
+      document.getElementById('formMasterEstPassword').value = '1234';
+      document.getElementById('formMasterEstPlan').value = 'profissional';
+      document.getElementById('formMasterEstStatus').value = 'paid';
+      
+      const today = new Date();
+      const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
+      document.getElementById('formMasterEstLastPayment').value = formattedDate;
+
+      document.getElementById('modalMasterEst').classList.remove('hidden');
+    };
+
+    window.closeMasterEstModal = function() {
+      document.getElementById('modalMasterEst').classList.add('hidden');
+    };
+
+    window.editMasterEst = function(estId) {
+      const est = establishments.find(e => e.id === estId);
+      if (!est) return;
+
+      document.getElementById('masterEstModalTitle').innerText = 'Editar Estabelecimento';
+      document.getElementById('formMasterEstId').value = est.id;
+      document.getElementById('formMasterEstName').value = est.name || '';
+      document.getElementById('formMasterEstType').value = est.type || 'restaurant';
+      document.getElementById('formMasterEstCity').value = est.city || '';
+      document.getElementById('formMasterEstSubtitle').value = est.subtitle || '';
+      document.getElementById('formMasterEstWhatsapp').value = est.whatsapp || '';
+      document.getElementById('formMasterEstPassword').value = est.password || '1234';
+      document.getElementById('formMasterEstPlan').value = est.plan || 'profissional';
+      document.getElementById('formMasterEstStatus').value = est.paymentStatus || 'paid';
+      document.getElementById('formMasterEstLastPayment').value = est.lastPaymentDate || '';
+
+      document.getElementById('modalMasterEst').classList.remove('hidden');
+    };
+
+    window.saveMasterEstRecord = function() {
+      const id = document.getElementById('formMasterEstId').value;
+      const name = document.getElementById('formMasterEstName').value.trim();
+      const type = document.getElementById('formMasterEstType').value;
+      const city = document.getElementById('formMasterEstCity').value.trim();
+      const subtitle = document.getElementById('formMasterEstSubtitle').value.trim();
+      const whatsapp = document.getElementById('formMasterEstWhatsapp').value.trim();
+      const password = document.getElementById('formMasterEstPassword').value.trim();
+      const plan = document.getElementById('formMasterEstPlan').value;
+      const status = document.getElementById('formMasterEstStatus').value;
+      const lastPayment = document.getElementById('formMasterEstLastPayment').value.trim();
+
+      if (!name || !city) {
+        alert('Por favor, informe ao menos o Nome e a Cidade do estabelecimento.');
+        return;
+      }
+
+      const planData = getPlanInfo(plan);
+
+      if (id) {
+        // Atualiza existente
+        const target = establishments.find(e => e.id === id);
+        if (target) {
+          target.name = name;
+          target.type = type;
+          target.city = city;
+          target.subtitle = subtitle || 'Carta de vinhos e experiências selecionadas';
+          target.whatsapp = whatsapp;
+          target.password = password || '1234';
+          target.plan = plan;
+          target.monthlyFee = planData.price;
+          target.paymentStatus = status;
+          target.lastPaymentDate = lastPayment || target.lastPaymentDate;
+        }
+      } else {
+        // Cria novo
+        const newEst = {
+          id: 'est_' + Date.now(),
+          name,
+          subtitle: subtitle || (type === 'store' ? 'Loja de vinhos de autor e pronta entrega' : 'Alta gastronomia & curadoria de vinhos'),
+          type,
+          city,
+          logo: '',
+          password: password || '1234',
+          plan,
+          monthlyFee: planData.price,
+          paymentStatus: status,
+          lastPaymentDate: lastPayment || '15/10/2026',
+          whatsapp: whatsapp || '5531999991111',
+          wines: []
+        };
+        establishments.push(newEst);
+      }
+
+      saveState();
+      closeMasterEstModal();
+      renderMasterTable();
+      renderHubGrid('all');
+      updateCatalogHeader();
+    };
+
+    window.deleteMasterEst = function(estId) {
+      if (establishments.length <= 1) {
+        alert('É necessário manter ao menos um estabelecimento ativo.');
+        return;
+      }
+      if (confirm('Tem certeza de que deseja remover este estabelecimento do sistema?')) {
+        establishments = establishments.filter(e => e.id !== estId);
+        if (currentEstId === estId) {
+          currentEstId = establishments[0].id;
+        }
+        saveState();
+        renderMasterTable();
+        renderHubGrid('all');
+        updateCatalogHeader();
       }
     };
 
