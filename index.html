@@ -477,6 +477,37 @@
           <input type="text" id="formWineGrapes" placeholder="Ex: 100% Malbec" class="w-full px-3 py-2 border rounded-xl">
         </div>
 
+        <!-- Foto da Garrafa / Rótulo: Upload de Arquivo (Máx 1000x1000px) e URL -->
+        <div class="p-3.5 bg-amber-50/50 rounded-2xl border border-amber-200/60 space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <label class="block font-bold text-gray-800 text-xs">Foto da Garrafa / Rótulo</label>
+              <span class="text-[10px] text-gray-500">Faça o upload do seu dispositivo (redimensionamento automático para até 1000x1000 px)</span>
+            </div>
+            <button type="button" id="btnRemoveWinePhoto" onclick="removeWinePhoto()" class="hidden text-[10px] font-bold text-red-600 hover:underline">
+              Remover Foto
+            </button>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center gap-4">
+            <!-- Preview da Foto -->
+            <div id="winePhotoPreviewBox" class="w-20 h-28 rounded-xl bg-white border border-gray-200 flex items-center justify-center overflow-hidden shrink-0 shadow-sm relative">
+              <span id="winePhotoPlaceholderText" class="text-[9px] text-gray-400 text-center px-1">Sem foto personalizada</span>
+              <img id="winePhotoPreviewImg" class="hidden w-full h-full object-contain p-1" alt="Preview da garrafa">
+            </div>
+
+            <!-- Controles de Upload -->
+            <div class="flex-1 w-full space-y-2">
+              <input type="file" id="formWinePhotoFile" accept="image/*" onchange="handleWinePhotoUpload(event)" class="block w-full text-[11px] text-gray-600 file:mr-2.5 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-[11px] file:font-bold file:bg-vinnero-wine file:text-white hover:file:bg-vinnero-wineDark file:cursor-pointer cursor-pointer">
+              
+              <div class="relative flex items-center">
+                <input type="text" id="formWinePhotoUrl" oninput="handleWinePhotoUrlChange(this.value)" placeholder="Ou cole a URL da imagem (https://...)" class="w-full px-3 py-1.5 border border-gray-300 rounded-xl text-[11px] focus:ring-2 focus:ring-vinnero-wine">
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="formWinePhotoData">
+        </div>
+
         <div>
           <label class="block font-semibold text-gray-700 mb-1">Notas de Degustação</label>
           <textarea id="formWineNotes" rows="2" placeholder="Frutas maduras, taninos sedosos..." class="w-full px-3 py-2 border rounded-xl"></textarea>
@@ -1410,6 +1441,17 @@
       return dict[key] || I18N.pt[key] || '';
     }
 
+    /* ==================== RENDERIZADOR DE GARRAFA / FOTO PERSONALIZADA ==================== */
+    function renderWineBottle(wine, isLarge = false) {
+      if (wine.photo && wine.photo.trim() !== '') {
+        const hClass = isLarge ? 'max-h-[360px]' : 'max-h-[130px]';
+        return `
+          <img src="${wine.photo}" alt="${wine.name}" class="w-auto ${hClass} object-contain drop-shadow-md mx-auto" onerror="this.outerHTML=generateBottleSvg('${wine.category}', ${isLarge})">
+        `;
+      }
+      return generateBottleSvg(wine.category, isLarge);
+    }
+
     /* ==================== GERADOR DE GARRAFA SVG ==================== */
     function generateBottleSvg(category, isLarge = false) {
       let liquidColor = '#58111A'; // Tinto
@@ -1668,9 +1710,9 @@
         <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
           
           <div onclick="openWineDetail('${wine.id}')" class="p-4 md:p-5 flex gap-4 cursor-pointer">
-            <!-- Miniatura da Garrafa em Estúdio (Vertical) -->
+            <!-- Miniatura da Garrafa em Estúdio (Vertical ou Foto 1000x1000) -->
             <div class="w-24 h-36 bg-gradient-to-b from-gray-50 via-amber-50/20 to-vinnero-creamDark/40 rounded-xl flex items-center justify-center p-2 shrink-0 border border-gray-100 overflow-hidden relative group-hover:scale-105 transition-transform">
-              ${generateBottleSvg(wine.category, false)}
+              ${renderWineBottle(wine, false)}
               <span class="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${wine.category === 'tinto' ? 'bg-vinnero-wine text-white' : 'bg-gray-800 text-white'}">${categoryLabel}</span>
             </div>
 
@@ -1750,7 +1792,7 @@
       document.getElementById('detailPairingText').innerText = pairingTextTranslated || 'Consulte os pratos principais da casa para a melhor experiência.';
       document.getElementById('detailTerroir').innerText = terroirTranslated || 'Terroir nobre cultivado sob rigoroso padrão enológico.';
 
-      document.getElementById('detailBottleRender').innerHTML = generateBottleSvg(wine.category, true);
+      document.getElementById('detailBottleRender').innerHTML = renderWineBottle(wine, true);
       document.getElementById('detailBadgeType').innerText = getWineCategoryLabel(wine.category);
 
       const stockBadge = document.getElementById('detailStockBadge');
@@ -2003,11 +2045,94 @@
       document.getElementById('formWinePairingTag').value = '';
       document.getElementById('formWinePairingText').value = '';
       document.getElementById('formWineTerroir').value = '';
+
+      // Reset dos campos de foto
+      setWinePhotoPreview('');
+      document.getElementById('formWinePhotoFile').value = '';
+      document.getElementById('formWinePhotoUrl').value = '';
+
       document.getElementById('modalWineForm').classList.remove('hidden');
     };
 
     window.closeWineFormModal = function() {
       document.getElementById('modalWineForm').classList.add('hidden');
+    };
+
+    /* Manipulação e Redimensionamento da Foto (Máx 1000x1000px) */
+    window.handleWinePhotoUpload = function(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          // Processamento Canvas para limitar a no máximo 1000x1000 mantendo a proporção
+          const MAX_SIZE = 1000;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_SIZE) {
+              height = Math.round((height * MAX_SIZE) / width);
+              width = MAX_SIZE;
+            }
+          } else {
+            if (height > MAX_SIZE) {
+              width = Math.round((width * MAX_SIZE) / height);
+              height = MAX_SIZE;
+            }
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Gera imagem otimizada em WebP/JPEG
+          const optimizedDataUrl = canvas.toDataURL('image/webp', 0.88);
+          setWinePhotoPreview(optimizedDataUrl);
+          document.getElementById('formWinePhotoUrl').value = '';
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.handleWinePhotoUrlChange = function(url) {
+      if (url && url.trim() !== '') {
+        setWinePhotoPreview(url.trim());
+      } else {
+        setWinePhotoPreview('');
+      }
+    };
+
+    function setWinePhotoPreview(src) {
+      const img = document.getElementById('winePhotoPreviewImg');
+      const placeholder = document.getElementById('winePhotoPlaceholderText');
+      const btnRemove = document.getElementById('btnRemoveWinePhoto');
+      const hiddenInput = document.getElementById('formWinePhotoData');
+
+      if (src && src.trim() !== '') {
+        img.src = src;
+        img.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        btnRemove.classList.remove('hidden');
+        hiddenInput.value = src;
+      } else {
+        img.src = '';
+        img.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+        btnRemove.classList.add('hidden');
+        hiddenInput.value = '';
+      }
+    }
+
+    window.removeWinePhoto = function() {
+      setWinePhotoPreview('');
+      document.getElementById('formWinePhotoFile').value = '';
+      document.getElementById('formWinePhotoUrl').value = '';
     };
 
     window.editWineRecord = function(wineId) {
@@ -2024,13 +2149,18 @@
       document.getElementById('formWineVolume').value = wine.volume || '750ml';
       document.getElementById('formWineStock').value = wine.stock;
       document.getElementById('formWinePrice').value = wine.price;
-      document.getElementById('formWineCountry').value = wine.country;
-      document.getElementById('formWineRegion').value = wine.region;
-      document.getElementById('formWineGrapes').value = wine.grapes || '';
-      document.getElementById('formWineNotes').value = wine.tastingNotes || '';
-      document.getElementById('formWinePairingTag').value = wine.pairingCategory || '';
-      document.getElementById('formWinePairingText').value = wine.pairingSuggestion || '';
-      document.getElementById('formWineTerroir').value = wine.terroir || '';
+      document.getElementById('formWineCountry').value = typeof wine.country === 'object' ? (wine.country.pt || '') : (wine.country || '');
+      document.getElementById('formWineRegion').value = wine.region || '';
+      document.getElementById('formWineGrapes').value = typeof wine.grapes === 'object' ? (wine.grapes.pt || '') : (wine.grapes || '');
+      document.getElementById('formWineNotes').value = typeof wine.tastingNotes === 'object' ? (wine.tastingNotes.pt || '') : (wine.tastingNotes || '');
+      document.getElementById('formWinePairingTag').value = typeof wine.pairingCategory === 'object' ? (wine.pairingCategory.pt || '') : (wine.pairingCategory || '');
+      document.getElementById('formWinePairingText').value = typeof wine.pairingSuggestion === 'object' ? (wine.pairingSuggestion.pt || '') : (wine.pairingSuggestion || '');
+      document.getElementById('formWineTerroir').value = typeof wine.terroir === 'object' ? (wine.terroir.pt || '') : (wine.terroir || '');
+
+      // Carrega foto existente no preview
+      setWinePhotoPreview(wine.photo || '');
+      document.getElementById('formWinePhotoUrl').value = (wine.photo && !wine.photo.startsWith('data:')) ? wine.photo : '';
+      document.getElementById('formWinePhotoFile').value = '';
 
       document.getElementById('modalWineForm').classList.remove('hidden');
     };
@@ -2041,6 +2171,7 @@
       const name = document.getElementById('formWineName').value.trim();
       const producer = document.getElementById('formWineProducer').value.trim();
       const price = parseFloat(document.getElementById('formWinePrice').value) || 0;
+      const photo = document.getElementById('formWinePhotoData').value.trim();
 
       if (!name || !producer || price <= 0) {
         return;
@@ -2050,6 +2181,7 @@
         id: id || ('w_' + Date.now()),
         name,
         producer,
+        photo: photo || '',
         category: document.getElementById('formWineCategory').value,
         vintage: document.getElementById('formWineVintage').value.trim() || 'NV',
         volume: document.getElementById('formWineVolume').value.trim() || '750ml',
@@ -2076,6 +2208,9 @@
       renderOpWineTable();
       renderOpStockList();
       renderWineGrid();
+      if (currentWineDetailId === wineData.id) {
+        openWineDetail(wineData.id);
+      }
     };
 
     window.deleteWineRecord = function(wineId) {
