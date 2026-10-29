@@ -382,6 +382,44 @@
               <input type="text" id="opInputRestSubtitle" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-300 rounded-xl text-xs focus:ring-2 focus:ring-vinnero-wine">
             </div>
 
+            <!-- Horários de Funcionamento (Exclusivo para Restaurantes: Almoço e Jantar) -->
+            <div id="opRestScheduleWrap" class="p-4 bg-amber-50/70 rounded-2xl border border-amber-200/80 space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <label class="block font-bold text-gray-900 text-xs">Horário de Funcionamento do Salão</label>
+                  <span class="text-[10px] text-gray-500">Configure os turnos de Almoço e Jantar para cada dia da semana.</span>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-vinnero-wine/10 text-vinnero-wine">Almoço & Jantar</span>
+              </div>
+
+              <!-- Tabela Semanal de Almoço e Jantar -->
+              <div class="border border-amber-200/80 rounded-xl overflow-hidden bg-white shadow-sm">
+                <div class="max-h-60 overflow-y-auto">
+                  <table class="w-full text-left text-[11px]">
+                    <thead class="bg-amber-100/60 border-b border-amber-200/80 text-gray-700 font-bold sticky top-0">
+                      <tr>
+                        <th class="p-2 w-24">Dia</th>
+                        <th class="p-2 text-center bg-amber-50/50">Almoço (Abre / Fecha)</th>
+                        <th class="p-2 text-center">Jantar (Abre / Fecha)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="opScheduleTableBody" class="divide-y divide-gray-100">
+                      <!-- Renderizado via script com inputs de almoço e jantar -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="pt-1">
+                <label class="block text-[11px] font-medium text-gray-600 mb-0.5">Controle de Abertura da Carta</label>
+                <select id="opManualStatus" class="w-full px-2.5 py-1.5 bg-white border border-gray-300 rounded-xl text-xs font-medium">
+                  <option value="auto">Automático (obedece turnos de almoço e jantar acima)</option>
+                  <option value="forced_open">Forçar Salão Aberto Agora</option>
+                  <option value="forced_closed">Forçar Salão Fechado Agora</option>
+                </select>
+              </div>
+            </div>
+
             <!-- Campo WhatsApp Exclusivo para Lojas -->
             <div id="opStoreWhatsappFieldWrap" class="hidden">
               <label class="block text-xs font-semibold text-gray-700 mb-1">WhatsApp de Vendas da Loja (com DDD)</label>
@@ -421,9 +459,14 @@
               <input type="password" id="opInputRestPassword" placeholder="Deixe em branco para manter a atual" class="w-full px-3.5 py-2 bg-gray-50 border border-gray-300 rounded-xl text-xs focus:ring-2 focus:ring-vinnero-wine">
             </div>
 
-            <button onclick="saveRestSettings()" class="px-4 py-2.5 rounded-xl bg-vinnero-wine hover:bg-vinnero-wineDark text-white text-xs font-bold transition-all shadow-sm">
-              Salvar Alterações
-            </button>
+            <div class="flex items-center gap-3 pt-2">
+              <button id="btnSaveRestSettings" type="button" onclick="saveRestSettings()" class="px-5 py-2.5 rounded-xl bg-vinnero-wine hover:bg-vinnero-wineDark text-white text-xs font-bold transition-all shadow-md flex items-center gap-2">
+                <span>Salvar Alterações</span>
+              </button>
+              <span id="opSaveFeedback" class="hidden text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+                ✓ Salvo com sucesso!
+              </span>
+            </div>
           </div>
 
         </div>
@@ -658,25 +701,25 @@
           <input type="text" id="formMasterEstSubtitle" placeholder="Ex: Alta gastronomia e harmonizações exclusivas" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="block font-semibold text-gray-700 mb-1">WhatsApp Comercial (com DDD)</label>
-            <input type="text" id="formMasterEstWhatsapp" placeholder="Ex: 5531999998888" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
+        <!-- Horário de Atendimento no Cadastro Master: Almoço e Jantar -->
+        <div id="masterRestScheduleBox" class="p-3.5 bg-gray-50 rounded-2xl border border-gray-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block font-semibold text-gray-800 text-xs">Horário de Salão (Almoço & Jantar)</label>
+            <span class="text-[10px] text-gray-500">Dias e turnos de salão aberto</span>
           </div>
-          <div>
-            <label class="block font-semibold text-gray-700 mb-1">Senha de Salão *</label>
-            <input type="text" id="formMasterEstPassword" placeholder="Ex: 1234" class="w-full px-3 py-2 border rounded-xl focus:ring-2 focus:ring-vinnero-wine">
-          </div>
-        </div>
 
-        <!-- Seletor dos Planos Oficiais Vinnero -->
-        <div>
-          <label class="block font-semibold text-gray-700 mb-1">Plano SaaS Vinnero *</label>
-          <select id="formMasterEstPlan" class="w-full px-3 py-2 border rounded-xl bg-white font-semibold text-vinnero-wine focus:ring-2 focus:ring-vinnero-wine">
-            <option value="essencial">Plano Essencial - R$ 197,00 / mês</option>
-            <option value="profissional" selected>Plano Profissional - R$ 397,00 / mês</option>
-            <option value="black">Plano Black - R$ 697,00 / mês</option>
-          </select>
+          <div class="border border-gray-200 rounded-xl overflow-hidden bg-white max-h-52 overflow-y-auto">
+            <table class="w-full text-left text-[11px]">
+              <thead class="bg-gray-100 text-gray-700 font-semibold sticky top-0">
+                <tr>
+                  <th class="p-2 w-20">Dia</th>
+                  <th class="p-2 text-center bg-gray-50/70">Almoço</th>
+                  <th class="p-2 text-center">Jantar</th>
+                </tr>
+              </thead>
+              <tbody id="masterScheduleTableBody" class="divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -748,24 +791,54 @@
           </div>
           <div>
             <h3 class="font-cinzel text-base font-bold">Sommelier Virtual Vinnero</h3>
-            <span class="text-[11px] text-vinnero-goldLight">Consultoria Enológica em Tempo Real</span>
+            <p class="text-[11px] text-vinnero-goldLight">Dicas de harmonização em tempo real</p>
           </div>
         </div>
         <button onclick="closeSommelierModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all">✕</button>
       </div>
 
-      <div id="sommelierChatBox" class="flex-1 p-4 overflow-y-auto space-y-3 bg-gray-50 text-xs">
+      <div id="sommelierChatBox" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50/50 text-xs">
         <div class="flex gap-2.5 items-start">
           <div class="w-7 h-7 rounded-full bg-vinnero-wine text-white flex items-center justify-center font-bold text-[10px] shrink-0">V</div>
           <div class="p-3 rounded-2xl rounded-tl-none bg-white border border-gray-200 text-gray-800 shadow-sm max-w-[85%]">
-            Olá! Sou o Sommelier Inteligente da casa. O que você planeja saborear hoje? Me conte seu prato ou preferência de uva para eu indicar o vinho perfeito!
+            Olá! Sou o sommelier virtual do Vinnero. O que você gostaria de harmonizar hoje ou qual estilo de vinho você prefere?
           </div>
         </div>
       </div>
 
       <div class="p-3 bg-white border-t border-gray-200 flex gap-2">
-        <input type="text" id="sommelierInput" placeholder="Ex: Vou pedir um bife de chorizo, o que sugere?" onkeydown="if(event.key==='Enter') sendSommelierMessage()" class="flex-1 px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-xl text-xs focus:ring-2 focus:ring-vinnero-wine">
-        <button onclick="sendSommelierMessage()" class="px-4 py-2.5 rounded-xl bg-vinnero-wine hover:bg-vinnero-wineDark text-white text-xs font-bold transition-all shadow-sm">Enviar</button>
+        <input type="text" id="sommelierInput" placeholder="Ex: Que vinho combina com carne vermelha?" onkeydown="if(event.key==='Enter') sendSommelierMessage()" class="flex-1 px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-vinnero-wine">
+        <button onclick="sendSommelierMessage()" class="px-4 py-2 rounded-xl bg-vinnero-wine hover:bg-vinnero-wineDark text-white text-xs font-bold transition-all shadow-sm">
+          Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: RESTAURANTE FECHADO (BLOQUEIO DE CARTA) ==================== -->
+  <div id="modalClosedNotice" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl border border-vinnero-gold/30">
+      <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-red-100 text-red-700 flex items-center justify-center shadow-inner">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+
+      <span class="text-[10px] tracking-widest font-bold uppercase text-red-600 block mb-1">Salão Fechado no Momento</span>
+      <h3 id="closedEstName" class="font-cinzel text-lg font-bold text-gray-900 mb-1">diVino Restaurante</h3>
+      <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+        A carta de vinhos digital deste restaurante só fica disponível aos clientes durante o horário de funcionamento do salão.
+      </p>
+
+      <div class="bg-gray-50 rounded-2xl p-3 mb-5 border border-gray-200 text-xs text-gray-700 space-y-1">
+        <div class="font-bold text-gray-900" id="closedEstScheduleSummary">Terça a Domingo: 19:00 às 00:00</div>
+        <div class="text-[11px] text-gray-500">Agradecemos sua compreensão e esperamos sua visita em breve!</div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <button onclick="closeClosedNotice()" class="w-full py-2.5 rounded-xl bg-vinnero-wine hover:bg-vinnero-wineDark text-white text-xs font-bold transition-all shadow-sm">
+          Ver Outros Locais Abertos
+        </button>
       </div>
     </div>
   </div>
@@ -872,6 +945,32 @@
 
   <!-- ==================== JAVASCRIPT AUTOCONTIDO & RESILIENTE ==================== -->
   <script>
+    /* ==================== VERIFICAÇÃO DE IDADE (+18 ECA) - ESCOPO GLOBAL IMEDIATO ==================== */
+    window.confirmAge = function(isOver18) {
+      const modal = document.getElementById('modalAgeGate');
+      const err = document.getElementById('ageGateError');
+      if (isOver18) {
+        localStorage.setItem('vinnero_age_verified', 'true');
+        if (modal) {
+          modal.classList.add('opacity-0', 'pointer-events-none');
+          setTimeout(() => modal.classList.add('hidden'), 250);
+        }
+      } else {
+        if (err) err.classList.remove('hidden');
+      }
+    };
+
+    window.checkAgeGateOnLoad = function() {
+      const modal = document.getElementById('modalAgeGate');
+      if (!modal) return;
+      const isVerified = localStorage.getItem('vinnero_age_verified') === 'true';
+      if (isVerified) {
+        modal.classList.add('hidden');
+      } else {
+        modal.classList.remove('hidden');
+      }
+    };
+
     /* ==================== SUPABASE CLOUD DATABASE CONFIG ==================== */
     const SUPABASE_URL = "https://jooagqrgwgtxrmldvwcf.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impvb2FncXJnd2d0eHJtbGR2d2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyMzIzMDcsImV4cCI6MjEwODgwODMwN30.6v9s9gMfQUMQM-CJdcXQdGzGhJdBkYAxDmLxnUmwpsc";
@@ -966,6 +1065,19 @@
         lastPaymentDate: '15/10/2026',
         monthlyFee: 397.00,
         whatsapp: '5531999991111',
+        // Horários de funcionamento com Almoço e Jantar para cada dia da semana (0=Dom, 1=Seg... 6=Sáb)
+        operatingHours: {
+          manualOverride: 'auto',
+          dailySchedule: {
+            0: { enabled: true, lunchOpen: '12:00', lunchClose: '16:30', dinnerOpen: '19:00', dinnerClose: '23:00' }, // Domingo
+            1: { enabled: false, lunchOpen: '11:30', lunchClose: '15:00', dinnerOpen: '18:30', dinnerClose: '23:00' }, // Segunda (Fechado)
+            2: { enabled: true, lunchOpen: '11:45', lunchClose: '15:00', dinnerOpen: '18:30', dinnerClose: '23:45' }, // Terça
+            3: { enabled: true, lunchOpen: '11:45', lunchClose: '15:00', dinnerOpen: '18:30', dinnerClose: '23:45' }, // Quarta
+            4: { enabled: true, lunchOpen: '11:45', lunchClose: '15:00', dinnerOpen: '18:30', dinnerClose: '23:45' }, // Quinta
+            5: { enabled: true, lunchOpen: '11:45', lunchClose: '15:30', dinnerOpen: '18:30', dinnerClose: '00:30' }, // Sexta
+            6: { enabled: true, lunchOpen: '12:00', lunchClose: '16:30', dinnerOpen: '19:00', dinnerClose: '00:30' }  // Sábado
+          }
+        },
         wines: [
           {
             id: 'w1',
@@ -1114,6 +1226,18 @@
         lastPaymentDate: '10/10/2026',
         monthlyFee: 697.00,
         whatsapp: '5511999998888',
+        operatingHours: {
+          manualOverride: 'auto',
+          dailySchedule: {
+            0: { enabled: false, lunchOpen: '10:00', lunchClose: '14:00', dinnerOpen: '', dinnerClose: '' },
+            1: { enabled: true, lunchOpen: '09:00', lunchClose: '13:00', dinnerOpen: '14:00', dinnerClose: '20:00' },
+            2: { enabled: true, lunchOpen: '09:00', lunchClose: '13:00', dinnerOpen: '14:00', dinnerClose: '20:00' },
+            3: { enabled: true, lunchOpen: '09:00', lunchClose: '13:00', dinnerOpen: '14:00', dinnerClose: '20:00' },
+            4: { enabled: true, lunchOpen: '09:00', lunchClose: '13:00', dinnerOpen: '14:00', dinnerClose: '20:00' },
+            5: { enabled: true, lunchOpen: '09:00', lunchClose: '13:00', dinnerOpen: '14:00', dinnerClose: '20:00' },
+            6: { enabled: true, lunchOpen: '09:30', lunchClose: '13:30', dinnerOpen: '14:00', dinnerClose: '19:00' }
+          }
+        },
         wines: [
           {
             id: 'w5',
@@ -1417,6 +1541,57 @@
     let masterAuthenticated = false;
     let currentWineDetailId = null;
 
+    function getActiveEstablishment() {
+      return establishments.find(e => e.id === currentEstId) || establishments[0] || DEFAULT_ESTABLISHMENTS[0];
+    }
+
+    function t(key) {
+      const dict = I18N[currentLang] || I18N.pt;
+      return dict[key] || (I18N.pt && I18N.pt[key]) || key;
+    }
+
+    /* ==================== RENDERIZADOR DE GARRAFA / FOTO DO VINHO ==================== */
+    function generateBottleSvg(wineCategory, isLarge) {
+      const colors = {
+        tinto: { cap: '#4A0D17', wine: '#6B1724', glow: '#8B2635' },
+        branco: { cap: '#C5A059', wine: '#D4AF37', glow: '#F3E5AB' },
+        rose: { cap: '#C46D77', wine: '#E89AA6', glow: '#FAD2D8' },
+        espumante: { cap: '#D4AF37', wine: '#C5A059', glow: '#FFF4CC' },
+        sobremesa: { cap: '#3D1C06', wine: '#5E2B08', glow: '#8B4513' }
+      };
+
+      const c = colors[wineCategory] || colors.tinto;
+      const hClass = isLarge ? 'h-72' : 'h-32';
+
+      return `
+        <svg class="${hClass} w-auto filter drop-shadow-md select-none" viewBox="0 0 100 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Gargalo e Cápsula -->
+          <rect x="42" y="10" width="16" height="42" rx="3" fill="${c.cap}" stroke="#222" stroke-width="2"/>
+          <rect x="40" y="8" width="20" height="7" rx="2" fill="#E2C889" stroke="#9E7D3B" stroke-width="1.5"/>
+          <!-- Ombro da Garrafa -->
+          <path d="M42 52 C42 80 20 95 20 120 L20 290 C20 305 30 310 50 310 C70 310 80 305 80 290 L80 120 C80 95 58 80 58 52 Z" fill="#1C1817" stroke="#111" stroke-width="2"/>
+          <!-- Brilho de Reflexo do Vidro -->
+          <path d="M25 125 L25 285 C25 292 27 296 32 298" stroke="rgba(255,255,255,0.22)" stroke-width="3" stroke-linecap="round"/>
+          <!-- Rótulo Nobre Minimalista -->
+          <rect x="26" y="145" width="48" height="90" rx="3" fill="#FAF7F2" stroke="#C5A059" stroke-width="1.5"/>
+          <line x1="32" y1="160" x2="68" y2="160" stroke="#6B1724" stroke-width="1.5"/>
+          <line x1="36" y1="172" x2="64" y2="172" stroke="#9E7D3B" stroke-width="1"/>
+          <circle cx="50" cy="195" r="8" fill="none" stroke="#C5A059" stroke-width="1.2"/>
+          <line x1="34" y1="218" x2="66" y2="218" stroke="#ccc" stroke-width="1"/>
+        </svg>
+      `;
+    }
+
+    function renderWineBottle(wine, isLarge) {
+      if (wine && wine.photo && wine.photo.trim() !== '') {
+        const heightClass = isLarge ? 'h-72 max-w-[240px]' : 'h-32 max-w-[80px]';
+        return `
+          <img src="${wine.photo}" alt="${wine.name}" class="${heightClass} w-auto object-contain drop-shadow-md select-none transition-transform" onerror="this.outerHTML=generateBottleSvg('${wine.category}', ${isLarge})">
+        `;
+      }
+      return generateBottleSvg(wine ? wine.category : 'tinto', isLarge);
+    }
+
     // Carregamento persistente via LocalStorage e sincronização com a Nuvem Supabase
     async function initDatabase() {
       try {
@@ -1539,93 +1714,157 @@
       }
     }
 
-    function getActiveEstablishment() {
-      return establishments.find(e => e.id === currentEstId) || establishments[0];
+    /* ==================== VERIFICAÇÃO DE HORÁRIO DE FUNCIONAMENTO (ALMOÇO & JANTAR) ==================== */
+    const DAY_NAMES_FULL = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const DAY_NAMES_SHORT = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+    // Auxiliar para testar se os minutos atuais estão dentro de uma faixa aberta (com suporte a cruzar meia-noite)
+    function isTimeInRange(currentMinutes, openStr, closeStr) {
+      if (!openStr || !closeStr) return false;
+      const [oH, oM] = openStr.split(':').map(Number);
+      const [cH, cM] = closeStr.split(':').map(Number);
+      if (isNaN(oH) || isNaN(cH)) return false;
+
+      const openMin = oH * 60 + oM;
+      const closeMin = cH * 60 + cM;
+
+      if (closeMin > openMin) {
+        return currentMinutes >= openMin && currentMinutes <= closeMin;
+      }
+      // Vira a noite (ex: 19:00 às 01:00)
+      return currentMinutes >= openMin || currentMinutes <= closeMin;
     }
 
-    function t(key) {
-      const dict = I18N[currentLang] || I18N.pt;
-      return dict[key] || I18N.pt[key] || '';
+    function isEstablishmentOpen(est) {
+      if (est.type === 'store') return true;
+
+      const schedule = est.operatingHours;
+      if (!schedule) return true;
+
+      if (schedule.manualOverride === 'forced_open') return true;
+      if (schedule.manualOverride === 'forced_closed') return false;
+
+      const now = new Date();
+      const currentDay = now.getDay();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+      // Formato detalhado com Almoço e Jantar
+      if (schedule.dailySchedule && schedule.dailySchedule[currentDay]) {
+        const dayRule = schedule.dailySchedule[currentDay];
+        if (!dayRule.enabled) return false;
+
+        const inLunch = isTimeInRange(currentMinutes, dayRule.lunchOpen, dayRule.lunchClose);
+        const inDinner = isTimeInRange(currentMinutes, dayRule.dinnerOpen, dayRule.dinnerClose);
+
+        return inLunch || inDinner;
+      }
+
+      // Fallback para estabelecimentos com formato antigo (apenas dias)
+      const legacyDays = schedule.days || [0, 1, 2, 3, 4, 5, 6];
+      if (!legacyDays.includes(currentDay)) return false;
+      if (!schedule.openTime || !schedule.closeTime) return true;
+
+      return isTimeInRange(currentMinutes, schedule.openTime, schedule.closeTime);
     }
 
-    /* ==================== RENDERIZADOR DE GARRAFA / FOTO PERSONALIZADA ==================== */
-    function renderWineBottle(wine, isLarge = false) {
-      if (wine.photo && wine.photo.trim() !== '') {
-        const hClass = isLarge ? 'max-h-[360px]' : 'max-h-[130px]';
+    function formatScheduleSummary(est) {
+      const schedule = est.operatingHours;
+      if (!schedule) return 'Horário sob consulta';
+
+      const now = new Date();
+      const today = now.getDay();
+
+      if (schedule.dailySchedule && schedule.dailySchedule[today]) {
+        const todayRule = schedule.dailySchedule[today];
+        if (!todayRule.enabled) {
+          return `Hoje (${DAY_NAMES_SHORT[today]}): Fechado`;
+        }
+
+        const parts = [];
+        if (todayRule.lunchOpen && todayRule.lunchClose) {
+          parts.push(`Almoço: ${todayRule.lunchOpen}-${todayRule.lunchClose}`);
+        }
+        if (todayRule.dinnerOpen && todayRule.dinnerClose) {
+          parts.push(`Jantar: ${todayRule.dinnerOpen}-${todayRule.dinnerClose}`);
+        }
+        return `Hoje: ${parts.join(' | ') || 'Aberto'}`;
+      }
+
+      if (schedule.days && schedule.days.length > 0) {
+        const daysText = schedule.days.map(d => DAY_NAMES_SHORT[d]).join(', ');
+        return `${daysText} • ${schedule.openTime || '18:00'} às ${schedule.closeTime || '23:30'}`;
+      }
+
+      return 'Almoço & Jantar • Consulte a casa';
+    }
+
+    function renderScheduleTableHTML(prefix, dailySchedule) {
+      const defaultSch = {
+        0: { enabled: true, lunchOpen: '12:00', lunchClose: '16:00', dinnerOpen: '19:00', dinnerClose: '23:00' },
+        1: { enabled: false, lunchOpen: '11:30', lunchClose: '15:00', dinnerOpen: '18:30', dinnerClose: '23:00' },
+        2: { enabled: true, lunchOpen: '11:45', lunchClose: '15:00', dinnerOpen: '18:30', dinnerClose: '23:45' },
+        3: { enabled: true, lunchOpen: '11:45', lunchClose: '15:00', dinnerOpen: '18:30', dinnerClose: '23:45' },
+        4: { enabled: true, lunchOpen: '11:45', lunchClose: '15:00', dinnerOpen: '18:30', dinnerClose: '23:45' },
+        5: { enabled: true, lunchOpen: '11:45', lunchClose: '15:30', dinnerOpen: '18:30', dinnerClose: '00:30' },
+        6: { enabled: true, lunchOpen: '12:00', lunchClose: '16:30', dinnerOpen: '19:00', dinnerClose: '00:30' }
+      };
+
+      const sch = dailySchedule || defaultSch;
+
+      return DAY_NAMES_FULL.map((name, i) => {
+        const item = sch[i] || { enabled: false, lunchOpen: '', lunchClose: '', dinnerOpen: '', dinnerClose: '' };
         return `
-          <img src="${wine.photo}" alt="${wine.name}" class="w-auto ${hClass} object-contain drop-shadow-md mx-auto" onerror="this.outerHTML=generateBottleSvg('${wine.category}', ${isLarge})">
+          <tr class="hover:bg-amber-50/30 transition-colors">
+            <td class="p-2 font-medium text-gray-800 whitespace-nowrap">
+              <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                <input type="checkbox" id="${prefix}DayEnabled-${i}" ${item.enabled ? 'checked' : ''} class="rounded text-vinnero-wine focus:ring-vinnero-wine">
+                <span>${DAY_NAMES_SHORT[i]}</span>
+              </label>
+            </td>
+            <td class="p-1.5 text-center bg-amber-50/30">
+              <div class="inline-flex items-center gap-1">
+                <input type="time" id="${prefix}LunchOpen-${i}" value="${item.lunchOpen || ''}" class="w-16 px-1 py-0.5 border rounded text-[10px] bg-white">
+                <span class="text-gray-400 text-[10px]">às</span>
+                <input type="time" id="${prefix}LunchClose-${i}" value="${item.lunchClose || ''}" class="w-16 px-1 py-0.5 border rounded text-[10px] bg-white">
+              </div>
+            </td>
+            <td class="p-1.5 text-center">
+              <div class="inline-flex items-center gap-1">
+                <input type="time" id="${prefix}DinnerOpen-${i}" value="${item.dinnerOpen || ''}" class="w-16 px-1 py-0.5 border rounded text-[10px] bg-white">
+                <span class="text-gray-400 text-[10px]">às</span>
+                <input type="time" id="${prefix}DinnerClose-${i}" value="${item.dinnerClose || ''}" class="w-16 px-1 py-0.5 border rounded text-[10px] bg-white">
+              </div>
+            </td>
+          </tr>
         `;
-      }
-      return generateBottleSvg(wine.category, isLarge);
+      }).join('');
     }
 
-    /* ==================== GERADOR DE GARRAFA SVG ==================== */
-    function generateBottleSvg(category, isLarge = false) {
-      let liquidColor = '#58111A'; // Tinto
-      let capsuleColor = '#C5A059';
-
-      if (category === 'branco') {
-        liquidColor = '#E8D27C';
-        capsuleColor = '#D4AF37';
-      } else if (category === 'rose') {
-        liquidColor = '#F4A7B9';
-        capsuleColor = '#C5A059';
-      } else if (category === 'espumante') {
-        liquidColor = '#DFCF87';
-        capsuleColor = '#C5A059';
-      } else if (category === 'sobremesa') {
-        liquidColor = '#8A3324';
-        capsuleColor = '#2F2F2F';
+    function collectScheduleFromTable(prefix) {
+      const dailySchedule = {};
+      for (let i = 0; i <= 6; i++) {
+        const chk = document.getElementById(`${prefix}DayEnabled-${i}`);
+        const lOpen = document.getElementById(`${prefix}LunchOpen-${i}`);
+        const lClose = document.getElementById(`${prefix}LunchClose-${i}`);
+        const dOpen = document.getElementById(`${prefix}DinnerOpen-${i}`);
+        const dClose = document.getElementById(`${prefix}DinnerClose-${i}`);
+        dailySchedule[i] = {
+          enabled: chk ? Boolean(chk.checked) : false,
+          lunchOpen: lOpen ? lOpen.value : '',
+          lunchClose: lClose ? lClose.value : '',
+          dinnerOpen: dOpen ? dOpen.value : '',
+          dinnerClose: dClose ? dClose.value : ''
+        };
       }
-
-      const h = isLarge ? '360' : '130';
-      const w = isLarge ? '90' : '36';
-
-      return `
-        <svg width="${w}" height="${h}" viewBox="0 0 100 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Gargalo -->
-          <rect x="42" y="30" width="16" height="85" rx="3" fill="${liquidColor}" opacity="0.95"/>
-          <!-- Cápsula / Lacre Nobre -->
-          <rect x="40" y="20" width="20" height="45" rx="4" fill="${capsuleColor}"/>
-          <rect x="38" y="22" width="24" height="6" rx="2" fill="#EAD99B"/>
-          <!-- Ombros da Garrafa -->
-          <path d="M42 110C42 140 18 160 18 190V365C18 375 26 385 36 385H64C74 385 82 375 82 365V190C82 160 58 140 58 110H42Z" fill="${liquidColor}"/>
-          <!-- Brilho de Reflexo no Vidro -->
-          <path d="M25 190C25 168 38 148 45 130V355C32 355 25 345 25 330V190Z" fill="white" opacity="0.18"/>
-          <!-- Rótulo Frontal Nobre -->
-          <rect x="23" y="200" width="54" height="110" rx="4" fill="#FAF6ED" stroke="#C5A059" stroke-width="1.5"/>
-          <line x1="30" y1="220" x2="70" y2="220" stroke="#C5A059" stroke-width="1"/>
-          <rect x="35" y="235" width="30" height="3" rx="1.5" fill="#4A0D17"/>
-          <rect x="32" y="244" width="36" height="2" rx="1" fill="#7A6843"/>
-          <rect x="40" y="252" width="20" height="2" rx="1" fill="#7A6843"/>
-          <line x1="30" y1="285" x2="70" y2="285" stroke="#C5A059" stroke-width="1"/>
-        </svg>
-      `;
+      return dailySchedule;
     }
 
-    /* ==================== VERIFICAÇÃO LEGAL DE IDADE (+18) ==================== */
-    window.confirmAge = function(isOver18) {
-      if (isOver18) {
-        const modal = document.getElementById('modalAgeGate');
-        if (modal) modal.classList.add('hidden');
-        sessionStorage.setItem('vinnero_age_verified', 'true');
-      } else {
-        const err = document.getElementById('ageGateError');
-        if (err) err.classList.remove('hidden');
-      }
+    window.closeClosedNotice = function() {
+      const modal = document.getElementById('modalClosedNotice');
+      if (modal) modal.classList.add('hidden');
     };
-    function confirmAge(isOver18) {
-      window.confirmAge(isOver18);
-    }
 
-    function checkAgeGateOnLoad() {
-      if (sessionStorage.getItem('vinnero_age_verified') === 'true') {
-        const modal = document.getElementById('modalAgeGate');
-        if (modal) modal.classList.add('hidden');
-      }
-    }
-
-    /* ==================== NAVEGAÇÃO DE TELAS ==================== */
+    /* ==================== NAVEGAÇÃO DE TELAS COM BLOQUEIO DE RESTAURANTE FECHADO ==================== */
     window.goToHomeHub = function() {
       currentWineDetailId = null;
       document.getElementById('viewWineDetail').classList.add('hidden');
@@ -1636,6 +1875,16 @@
     };
 
     window.openRestaurantCatalog = function(estId) {
+      const est = establishments.find(e => e.id === estId) || getActiveEstablishment();
+
+      // Bloqueio de restaurantes fechados para clientes
+      if (est.type === 'restaurant' && !isEstablishmentOpen(est)) {
+        document.getElementById('closedEstName').innerText = est.name;
+        document.getElementById('closedEstScheduleSummary').innerText = formatScheduleSummary(est);
+        document.getElementById('modalClosedNotice').classList.remove('hidden');
+        return;
+      }
+
       currentEstId = estId;
       currentWineDetailId = null;
       document.getElementById('viewHub').classList.add('hidden');
@@ -1706,14 +1955,27 @@
 
       grid.innerHTML = list.map(est => {
         const isStore = est.type === 'store';
+        const isOpen = isEstablishmentOpen(est);
+        const scheduleInfo = formatScheduleSummary(est);
+
+        let statusBadge = '';
+        if (!isStore) {
+          statusBadge = isOpen
+            ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Aberto Agora</span>`
+            : `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-800"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Fechado</span>`;
+        }
+
         return `
-          <div onclick="openRestaurantCatalog('${est.id}')" class="bg-white rounded-3xl p-6 border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group hover:-translate-y-1">
+          <div onclick="openRestaurantCatalog('${est.id}')" class="bg-white rounded-3xl p-6 border ${!isStore && !isOpen ? 'border-red-200/80 bg-gray-50/50 opacity-90' : 'border-gray-200/90'} shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group hover:-translate-y-1">
             <div>
               <div class="flex items-center justify-between mb-4">
                 <span class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full ${isStore ? 'bg-amber-100 text-amber-800' : 'bg-vinnero-wine/10 text-vinnero-wine'}">
                   ${isStore ? t('typeStore') : t('typeRest')}
                 </span>
-                <span class="text-xs text-gray-500 font-medium">${est.city}</span>
+                <div class="flex items-center gap-2">
+                  ${statusBadge}
+                  <span class="text-xs text-gray-500 font-medium">${est.city}</span>
+                </div>
               </div>
 
               <div class="flex items-center gap-4 mb-4">
@@ -1725,12 +1987,13 @@
                 <div>
                   <h3 class="font-cinzel text-lg font-bold text-gray-900 group-hover:text-vinnero-wine transition-colors leading-snug">${est.name}</h3>
                   <p class="text-xs text-gray-600 line-clamp-2 mt-0.5">${est.subtitle}</p>
+                  ${!isStore ? `<span class="text-[10px] text-gray-400 block mt-1">🕒 ${scheduleInfo}</span>` : ''}
                 </div>
               </div>
             </div>
 
-            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-vinnero-wine">
-              <span>${t('openWineList')}</span>
+            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold ${!isStore && !isOpen ? 'text-red-700' : 'text-vinnero-wine'}">
+              <span>${!isStore && !isOpen ? 'Salão Fechado • Ver Horários' : t('openWineList')}</span>
               <span class="group-hover:translate-x-1 transition-transform">→</span>
             </div>
           </div>
@@ -2335,6 +2598,20 @@
       document.getElementById('opInputRestSubtitle').value = est.subtitle || '';
       document.getElementById('opInputRestPassword').value = '';
 
+      // Configuração de Horários (Restaurantes: Tabela de Almoço e Jantar)
+      const scheduleWrap = document.getElementById('opRestScheduleWrap');
+      const tableBody = document.getElementById('opScheduleTableBody');
+      if (est.type === 'restaurant') {
+        if (scheduleWrap) scheduleWrap.classList.remove('hidden');
+        const sch = est.operatingHours || {};
+        if (tableBody) {
+          tableBody.innerHTML = renderScheduleTableHTML('op', sch.dailySchedule);
+        }
+        document.getElementById('opManualStatus').value = sch.manualOverride || 'auto';
+      } else {
+        if (scheduleWrap) scheduleWrap.classList.add('hidden');
+      }
+
       // Configuração do preview de logo no carregamento
       setRestLogoPreview(est.logo || '');
       const fileInput = document.getElementById('opInputRestLogoFile');
@@ -2423,23 +2700,82 @@
     };
 
     window.saveRestSettings = function() {
-      const est = getActiveEstablishment();
-      const name = document.getElementById('opInputRestName').value.trim();
-      const subtitle = document.getElementById('opInputRestSubtitle').value.trim();
-      const logo = document.getElementById('opInputRestLogoData').value.trim();
-      const newPass = document.getElementById('opInputRestPassword').value.trim();
-      const zap = document.getElementById('opInputRestWhatsapp') ? document.getElementById('opInputRestWhatsapp').value.trim() : '';
+      try {
+        const est = getActiveEstablishment();
+        if (!est) {
+          console.error("Estabelecimento ativo não encontrado");
+          return;
+        }
 
-      if (name) est.name = name;
-      if (subtitle) est.subtitle = subtitle;
-      est.logo = logo || '';
-      if (newPass && newPass.length >= 4) est.password = newPass;
-      if (est.type === 'store' && zap) est.whatsapp = zap;
+        const nameInput = document.getElementById('opInputRestName');
+        const subtitleInput = document.getElementById('opInputRestSubtitle');
+        const logoInput = document.getElementById('opInputRestLogoData');
+        const passInput = document.getElementById('opInputRestPassword');
+        const zapInput = document.getElementById('opInputRestWhatsapp');
+        const statusSelect = document.getElementById('opManualStatus');
 
-      saveState();
-      updateCatalogHeader();
-      renderHubGrid('all');
-      alert('Dados da casa e logotipo atualizados com sucesso!');
+        if (nameInput && nameInput.value.trim()) {
+          est.name = nameInput.value.trim();
+        }
+        if (subtitleInput) {
+          est.subtitle = subtitleInput.value.trim();
+        }
+        if (logoInput) {
+          est.logo = logoInput.value.trim();
+        }
+        if (passInput && passInput.value.trim().length >= 4) {
+          est.password = passInput.value.trim();
+        }
+        if (zapInput && zapInput.value.trim()) {
+          est.whatsapp = zapInput.value.trim();
+        }
+
+        // Gravação dos Horários se for Restaurante
+        if (est.type === 'restaurant') {
+          try {
+            const dailySchedule = collectScheduleFromTable('op');
+            const selectedDays = [];
+            for (let i = 0; i <= 6; i++) {
+              if (dailySchedule[i] && dailySchedule[i].enabled) {
+                selectedDays.push(i);
+              }
+            }
+
+            est.operatingHours = {
+              days: selectedDays,
+              dailySchedule: dailySchedule,
+              manualOverride: statusSelect ? statusSelect.value : (est.operatingHours ? est.operatingHours.manualOverride : 'auto')
+            };
+          } catch (errSched) {
+            console.warn("Erro ao coletar horários do salão:", errSched);
+          }
+        }
+
+        // 1. Salvar no cache e na Nuvem Supabase
+        saveState();
+
+        // 2. Atualizar UI
+        updateCatalogHeader();
+        renderHubGrid('all');
+
+        // 3. Feedback visual sem usar alert()
+        const feedback = document.getElementById('opSaveFeedback');
+        const btnSave = document.getElementById('btnSaveRestSettings');
+        if (feedback) {
+          feedback.classList.remove('hidden');
+          if (btnSave) {
+            btnSave.classList.add('bg-emerald-700');
+            setTimeout(() => {
+              btnSave.classList.remove('bg-emerald-700');
+            }, 1000);
+          }
+          setTimeout(() => {
+            feedback.classList.add('hidden');
+          }, 3500);
+        }
+      } catch (err) {
+        console.error("Falha ao salvar configurações:", err);
+      }
     };
 
     /* ==================== GESTÃO MASTER SAAS ==================== */
@@ -2580,6 +2916,12 @@
       const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
       document.getElementById('formMasterEstLastPayment').value = formattedDate;
 
+      // Renderiza tabela de Almoço e Jantar no Master
+      const masterTbody = document.getElementById('masterScheduleTableBody');
+      if (masterTbody) {
+        masterTbody.innerHTML = renderScheduleTableHTML('master', null);
+      }
+
       document.getElementById('modalMasterEst').classList.remove('hidden');
     };
 
@@ -2603,6 +2945,12 @@
       document.getElementById('formMasterEstStatus').value = est.paymentStatus || 'paid';
       document.getElementById('formMasterEstLastPayment').value = est.lastPaymentDate || '';
 
+      const sch = est.operatingHours || {};
+      const masterTbody = document.getElementById('masterScheduleTableBody');
+      if (masterTbody) {
+        masterTbody.innerHTML = renderScheduleTableHTML('master', sch.dailySchedule);
+      }
+
       document.getElementById('modalMasterEst').classList.remove('hidden');
     };
 
@@ -2625,6 +2973,19 @@
 
       const planData = getPlanInfo(plan);
 
+      // Coleta Almoço e Jantar do painel Master
+      const masterDailySchedule = collectScheduleFromTable('master');
+      const masterDays = [];
+      for (let i = 0; i <= 6; i++) {
+        if (masterDailySchedule[i].enabled) masterDays.push(i);
+      }
+
+      const operatingHours = {
+        days: masterDays,
+        dailySchedule: masterDailySchedule,
+        manualOverride: 'auto'
+      };
+
       if (id) {
         // Atualiza existente
         const target = establishments.find(e => e.id === id);
@@ -2639,6 +3000,7 @@
           target.monthlyFee = planData.price;
           target.paymentStatus = status;
           target.lastPaymentDate = lastPayment || target.lastPaymentDate;
+          target.operatingHours = operatingHours;
         }
       } else {
         // Cria novo
@@ -2655,6 +3017,7 @@
           paymentStatus: status,
           lastPaymentDate: lastPayment || '15/10/2026',
           whatsapp: whatsapp || '5531999991111',
+          operatingHours,
           wines: []
         };
         establishments.push(newEst);
