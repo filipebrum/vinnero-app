@@ -2039,6 +2039,23 @@
       }
     }
 
+    function getWineCategoryBadgeClasses(category) {
+      switch (category) {
+        case 'tinto':
+          return 'bg-vinnero-wine text-white shadow-sm';
+        case 'branco':
+          return 'bg-amber-600 text-white shadow-sm';
+        case 'rose':
+          return 'bg-rose-400 text-white shadow-sm';
+        case 'espumante':
+          return 'bg-gradient-to-r from-amber-300 to-yellow-400 text-yellow-950 font-bold shadow-sm';
+        case 'sobremesa':
+          return 'bg-amber-900 text-amber-100 shadow-sm';
+        default:
+          return 'bg-gray-800 text-white';
+      }
+    }
+
     function renderWineGrid() {
       const est = getActiveEstablishment();
       const grid = document.getElementById('wineGrid');
@@ -2075,6 +2092,7 @@
         const categoryLabel = getWineCategoryLabel(wine.category);
         const countryLabel = translateDynamicText(wine.country, currentLang);
         const notesPreview = translateDynamicText(wine.tastingNotes, currentLang);
+        const badgeClasses = getWineCategoryBadgeClasses(wine.category);
 
         return `
         <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
@@ -2083,7 +2101,7 @@
             <!-- Miniatura da Garrafa em Estúdio (Vertical ou Foto 1000x1000) -->
             <div class="w-24 h-36 bg-gradient-to-b from-gray-50 via-amber-50/20 to-vinnero-creamDark/40 rounded-xl flex items-center justify-center p-2 shrink-0 border border-gray-100 overflow-hidden relative group-hover:scale-105 transition-transform">
               ${renderWineBottle(wine, false)}
-              <span class="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${wine.category === 'tinto' ? 'bg-vinnero-wine text-white' : 'bg-gray-800 text-white'}">${categoryLabel}</span>
+              <span class="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${badgeClasses}">${categoryLabel}</span>
             </div>
 
             <!-- Dados Textuais do Rótulo -->
@@ -2163,7 +2181,12 @@
       document.getElementById('detailTerroir').innerText = terroirTranslated || 'Terroir nobre cultivado sob rigoroso padrão enológico.';
 
       document.getElementById('detailBottleRender').innerHTML = renderWineBottle(wine, true);
-      document.getElementById('detailBadgeType').innerText = getWineCategoryLabel(wine.category);
+      
+      const detailBadge = document.getElementById('detailBadgeType');
+      if (detailBadge) {
+        detailBadge.innerText = getWineCategoryLabel(wine.category);
+        detailBadge.className = `text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full ${getWineCategoryBadgeClasses(wine.category)}`;
+      }
 
       const stockBadge = document.getElementById('detailStockBadge');
       if (wine.stock > 0) {
