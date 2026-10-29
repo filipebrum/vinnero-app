@@ -13,6 +13,9 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
 
+  <!-- ÍCONE APPLE TOUCH (Obrigatório para iOS PWA) -->
+  <link rel="apple-touch-icon" id="appleTouchIcon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%234A0D17'/%3E%3Ccircle cx='256' cy='256' r='180' fill='%23FAF7F2'/%3E%3Cpath d='M266 140 L220 140 L180 80 L245 90 Z' stroke='%234A0D17' stroke-width='14' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M266 140 C286 110, 310 90, 345 70' stroke='%234A0D17' stroke-width='14' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='266' cy='150' r='12' fill='%234A0D17'/%3E%3Ccircle cx='246' cy='195' r='12' fill='%234A0D17'/%3E%3Ccircle cx='186' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='326' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='255' r='50' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='216' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='296' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='430' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3C/svg%3E">
+
   <!-- LINK DO MANIFESTO DINÂMICO -->
   <link rel="manifest" id="manifestLink">
 
@@ -779,14 +782,19 @@
     let currentSelectedWine = null;
     let deferredInstallPrompt = null;
 
+    /* ==================== CONFIGURAÇÃO PADRÃO SUPABASE (NÃO PRECISA RECONFIGURAR) ==================== */
+    // Pode preencher diretamente aqui caso queira deixar fixo no GitHub:
+    const DEFAULT_SUPABASE_URL = window.__SUPABASE_URL || '';
+    const DEFAULT_SUPABASE_KEY = window.__SUPABASE_KEY || '';
+
     /* ==================== CONFIGURAÇÃO SUPABASE ==================== */
     let supabaseClient = null;
     let supabaseRealtimeChannel = null;
 
     function initSupabase() {
       try {
-        const storedUrl = localStorage.getItem('vinnero_supabase_url') || window.__SUPABASE_URL || '';
-        const storedKey = localStorage.getItem('vinnero_supabase_key') || window.__SUPABASE_KEY || '';
+        const storedUrl = localStorage.getItem('vinnero_supabase_url') || DEFAULT_SUPABASE_URL;
+        const storedKey = localStorage.getItem('vinnero_supabase_key') || DEFAULT_SUPABASE_KEY;
 
         const urlInput = document.getElementById('supabaseUrlInput');
         const keyInput = document.getElementById('supabaseKeyInput');
@@ -2148,21 +2156,49 @@
           canvas.height = size;
           const ctx = canvas.getContext('2d');
           
-          // Fundo Creme Vinnero
-          ctx.fillStyle = '#FAF7F2';
+          // Fundo Bordô Oficial Vinnero
+          ctx.fillStyle = '#4A0D17';
           ctx.fillRect(0, 0, size, size);
 
-          // Círculo decorativo Bordô
+          // Círculo central Creme
           ctx.beginPath();
-          ctx.arc(size / 2, size / 2, size * 0.38, 0, Math.PI * 2);
-          ctx.fillStyle = '#4A0D17';
+          ctx.arc(size / 2, size / 2, size * 0.40, 0, Math.PI * 2);
+          ctx.fillStyle = '#FAF7F2';
           ctx.fill();
 
-          // Detalhe Dourado
+          // Círculo decorativo Dourado
           ctx.beginPath();
-          ctx.arc(size / 2, size / 2, size * 0.16, 0, Math.PI * 2);
-          ctx.fillStyle = '#C5A059';
-          ctx.fill();
+          ctx.arc(size / 2, size / 2, size * 0.36, 0, Math.PI * 2);
+          ctx.lineWidth = Math.max(2, size * 0.015);
+          ctx.strokeStyle = '#C5A059';
+          ctx.stroke();
+
+          // Símbolo Vinnero em Vetor no Canvas
+          ctx.fillStyle = '#4A0D17';
+          ctx.strokeStyle = '#4A0D17';
+          ctx.lineWidth = Math.max(2, size * 0.025);
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+
+          const scale = size / 100;
+          const ox = size * 0.15;
+          const oy = size * 0.08;
+
+          // Círculos da uva central
+          const circles = [
+            { x: 36, y: 48, r: 10.5 },
+            { x: 64, y: 48, r: 10.5 },
+            { x: 50, y: 51, r: 10 },
+            { x: 42, y: 69, r: 10.5 },
+            { x: 58, y: 69, r: 10.5 },
+            { x: 50, y: 88, r: 10.5 }
+          ];
+
+          circles.forEach(c => {
+            ctx.beginPath();
+            ctx.arc((c.x * 0.7 + 15) * scale, (c.y * 0.7 + 15) * scale, c.r * 0.7 * scale, 0, Math.PI * 2);
+            ctx.stroke();
+          });
 
           return canvas.toDataURL('image/png');
         } catch (e) {
@@ -2173,16 +2209,23 @@
       const icon192 = generateCanvasIcon(192);
       const icon512 = generateCanvasIcon(512);
 
+      // Atualiza o apple touch icon com a imagem rasterizada perfeita
+      const appleIcon = document.getElementById('appleTouchIcon');
+      if (appleIcon) appleIcon.href = icon192;
+
       const pwaManifest = {
-        id: 'vinnero-pwa-app-2026',
+        id: '/?pwa_app=vinnero',
         name: 'Vinnero - Carta Digital de Vinhos',
         short_name: 'Vinnero',
-        start_url: './',
-        scope: './',
+        start_url: window.location.pathname || './',
+        scope: window.location.pathname || './',
         display: 'standalone',
+        display_override: ['window-controls-overlay', 'standalone'],
         orientation: 'portrait-primary',
         background_color: '#FAF7F2',
         theme_color: '#4A0D17',
+        lang: 'pt-BR',
+        dir: 'ltr',
         description: 'Carta Digital de Vinhos e Experiências Enológicas em Restaurantes e Lojas.',
         categories: ['food', 'lifestyle', 'business'],
         icons: [
@@ -2213,16 +2256,16 @@
         ],
         shortcuts: [
           {
-            name: 'Carta de Vinhos',
+            name: 'diVino Restaurante',
             url: './?est=est_divino',
-            description: 'Acessar diretamente a carta do restaurante'
+            description: 'Acessar diretamente a carta do diVino'
           }
         ]
       };
 
       try {
-        const blob = new Blob([JSON.stringify(pwaManifest)], { type: 'application/manifest+json' });
-        const manifestUrl = URL.createObjectURL(blob);
+        const manifestBlob = new Blob([JSON.stringify(pwaManifest)], { type: 'application/manifest+json' });
+        const manifestUrl = URL.createObjectURL(manifestBlob);
         const manifestLink = document.getElementById('manifestLink');
         if (manifestLink) {
           manifestLink.setAttribute('href', manifestUrl);
@@ -2231,10 +2274,11 @@
         console.warn('Erro ao configurar manifesto:', e);
       }
 
+      // Registro do Service Worker compatível com Android Chrome, Samsung Internet e Safari
       if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
         try {
           const swScript = `
-            const CACHE_NAME = 'vinnero-offline-v4';
+            const CACHE_NAME = 'vinnero-pwa-v5';
             self.addEventListener('install', function(event) {
               self.skipWaiting();
             });
@@ -2253,10 +2297,11 @@
             });
             self.addEventListener('fetch', function(event) {
               if (event.request && event.request.method === 'GET') {
+                // Estratégia Network First para sempre buscar novidades da nuvem
                 event.respondWith(
                   fetch(event.request)
                     .then(function(response) {
-                      if (response && response.status === 200) {
+                      if (response && response.status === 200 && response.type === 'basic') {
                         const copy = response.clone();
                         caches.open(CACHE_NAME).then(function(cache) {
                           cache.put(event.request, copy);
@@ -2273,7 +2318,7 @@
           `;
           const swBlob = new Blob([swScript], { type: 'application/javascript' });
           const swUrl = URL.createObjectURL(swBlob);
-          navigator.serviceWorker.register(swUrl).catch(function() {});
+          navigator.serviceWorker.register(swUrl, { scope: './' }).catch(function() {});
         } catch (e) {}
       }
 
