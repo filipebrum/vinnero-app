@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="h-full">
+<html lang="pt-BR" class="h-full overflow-x-hidden">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -15,7 +15,7 @@
   <meta name="format-detection" content="telephone=no">
 
   <!-- ÍCONE APPLE TOUCH (Obrigatório para iOS PWA) -->
-  <link rel="apple-touch-icon" id="appleTouchIcon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%234A0D17'/%3E%3Ccircle cx='256' cy='256' r='180' fill='%23FAF7F2'/%3E%3Cpath d='M266 140 L220 140 L180 80 L245 90 Z' stroke='%234A0D17' stroke-width='14' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M266 140 C286 110, 310 90, 345 70' stroke='%234A0D17' stroke-width='14' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='266' cy='150' r='12' fill='%234A0D17'/%3E%3Ccircle cx='246' cy='195' r='12' fill='%234A0D17'/%3E%3Ccircle cx='186' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='326' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='255' r='50' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='216' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='296' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='430' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" id="appleTouchIcon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%234A0D17'/%3E%3Ccircle cx='256' cy='256' r='180' fill='%23FAF7F2'/%3E%3Cpath d='M266 140 L220 140 L180 80 L245 90 Z' stroke='%234A0D17' stroke-width='14' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M266 140 C286 110, 310 90, 345 70' stroke='%234A0D17' stroke-width='14' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='266' cy='150' r='12' fill='%234A0D17'/%3E%3Ccircle cx='246' cy='195' r='12' fill='%234A0D17'/%3E%3Ccircle cx='186' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='326' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='255' r='50' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='216' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='296' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='430' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3C/svg%3E">
 
   <!-- MANIFESTO NATIVO ESTÁTICO EMBUTIDO (100% PWA W3C Compliant sem Blob URL) -->
   <link rel="manifest" id="manifestLink" href="data:application/manifest+json;charset=utf-8,%7B%22id%22%3A%22vinnero-divino-pwa%22%2C%22name%22%3A%22Vinnero%20-%20diVino%20Restaurante%22%2C%22short_name%22%3A%22Vinnero%22%2C%22start_url%22%3A%22.%2F%22%2C%22scope%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22display_override%22%3A%5B%22standalone%22%2C%22window-controls-overlay%22%5D%2C%22orientation%22%3A%22portrait-primary%22%2C%22background_color%22%3A%22%23FAF7F2%22%2C%22theme_color%22%3A%22%234A0D17%22%2C%22lang%22%3A%22pt-BR%22%2C%22dir%22%3A%22ltr%22%2C%22description%22%3A%22Carta%20Digital%20de%20Vinhos%20e%20Experi%C3%AAncias%20Enol%C3%B3gicas%22%2C%22prefer_related_applications%22%3Afalse%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%253E%253Crect%20width%3D'512'%20height%3D'512'%20rx%3D'110'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'256'%20r%3D'180'%20fill%3D'%2523FAF7F2'%2F%253E%253Cpath%20d%3D'M266%20140%20L220%20140%20L180%2080%20L245%2090%20Z'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%2F%253E%253Cpath%20d%3D'M266%20140%20C286%20110%2C%20310%2090%2C%20345%2070'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20stroke-linecap%3D'round'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'266'%20cy%3D'150'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'246'%20cy%3D'195'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'186'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'326'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'255'%20r%3D'50'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'216'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'296'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'430'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%253E%253Crect%20width%3D'512'%20height%3D'512'%20rx%3D'110'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'256'%20r%3D'180'%20fill%3D'%2523FAF7F2'%2F%253E%253Cpath%20d%3D'M266%20140%20L220%20140%20L180%2080%20L245%2090%20Z'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%2F%253E%253Cpath%20d%3D'M266%20140%20C286%20110%2C%20310%2090%2C%20345%2070'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20stroke-linecap%3D'round'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'266'%20cy%3D'150'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'246'%20cy%3D'195'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'186'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'326'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'255'%20r%3D'50'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'216'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'296'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'430'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
@@ -54,40 +54,66 @@
   </script>
 
   <style>
-    body {
+    html, body {
       background-color: #FAF7F2;
       color: #1A1A1A;
       font-family: 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      width: 100%;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
     }
     .font-cinzel { font-family: 'Cinzel', serif; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    /* Previne bordas/linhas extras causadas por padding e safe-area no topo e base do mobile */
+    header {
+      padding-top: max(env(safe-area-inset-top), 0px);
+    }
+    footer {
+      padding-bottom: max(env(safe-area-inset-bottom), 1.5rem);
+    }
   </style>
 </head>
-<body class="min-h-full flex flex-col bg-vinnero-cream text-vinnero-charcoal selection:bg-vinnero-wine selection:text-white">
+<body class="min-h-full flex flex-col bg-vinnero-cream text-vinnero-charcoal selection:bg-vinnero-wine selection:text-white overflow-x-hidden">
 
-  <!-- ==================== MODAL DE MAIORIDADE (+18 ECA) ==================== -->
-  <div id="ageGateModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 hidden">
-    <div class="bg-vinnero-cream border border-vinnero-gold/50 rounded-3xl p-6 sm:p-8 max-w-md w-full text-center shadow-2xl space-y-6">
-      <div class="w-16 h-16 mx-auto rounded-full bg-vinnero-wine/10 flex items-center justify-center border border-vinnero-gold/40">
-        <svg class="w-8 h-8 text-vinnero-wine" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+  <!-- ==================== POP-UP BLOQUEANTE: VERIFICAÇÃO DE MAIORIDADE (+18 ECA) ==================== -->
+  <div id="ageGateModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 transition-all duration-300">
+    <div class="bg-vinnero-cream border border-vinnero-gold/40 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center shadow-2xl space-y-4">
+      <div class="w-14 h-14 mx-auto rounded-2xl bg-vinnero-wine flex items-center justify-center text-vinnero-gold shadow-md">
+        <svg class="w-7 h-7" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M52 28 L43 28 L35 15 L48 17 Z" stroke-width="3" fill="none"/>
+          <path d="M52 28 C56 22, 60 18, 68 14" stroke-width="3"/>
+          <circle cx="52" cy="30" r="2.5" fill="currentColor"/>
+          <circle cx="48" cy="39" r="2.5" fill="currentColor"/>
+          <path d="M52 30 L48 39" stroke-width="3"/>
+          <circle cx="36" cy="48" r="10.5" stroke-width="3"/>
+          <circle cx="64" cy="48" r="10.5" stroke-width="3"/>
+          <circle cx="50" cy="51" r="10" stroke-width="3"/>
+          <circle cx="42" cy="69" r="10.5" stroke-width="3"/>
+          <circle cx="58" cy="69" r="10.5" stroke-width="3"/>
+          <circle cx="50" cy="88" r="10.5" stroke-width="3"/>
         </svg>
       </div>
-      <div>
-        <span class="text-[10px] font-bold uppercase tracking-wider text-vinnero-gold block mb-1">Verificação Obrigatória</span>
-        <h3 class="font-cinzel text-xl sm:text-2xl font-bold text-vinnero-wine">Você tem 18 anos ou mais?</h3>
-        <p class="text-xs sm:text-sm text-vinnero-muted mt-2 leading-relaxed">
-          O acesso a esta carta de vinhos e bebidas alcoólicas é restrito a maiores de 18 anos, em cumprimento à Lei Federal nº 8.069/1990 (ECA) e ao Código de Autorregulamentação Publicitária.
+
+      <div class="space-y-1.5">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-vinnero-gold block">Acesso Responsável</span>
+        <h2 class="font-cinzel text-xl font-bold text-vinnero-wine">Você tem 18 anos ou mais?</h2>
+        <p class="text-xs text-vinnero-muted leading-relaxed">
+          Este catálogo contém bebidas alcoólicas. A venda e o consumo são proibidos para menores de 18 anos (Art. 81, II do ECA e Lei Federal nº 13.106/2015).
         </p>
       </div>
+
       <div class="flex flex-col sm:flex-row gap-3 pt-2">
         <button onclick="confirmAge(false)" class="flex-1 py-3 px-4 rounded-xl border border-vinnero-wine/30 text-vinnero-wine text-xs font-semibold hover:bg-vinnero-wine/5 transition">
-          Não, sou menor de 18
+          Não, sou menor
         </button>
-        <button onclick="confirmAge(true)" class="flex-1 py-3 px-4 rounded-xl bg-vinnero-wine text-white text-xs font-semibold hover:bg-vinnero-wineDark transition shadow-md">
+        <button onclick="confirmAge(true)" class="flex-1 py-3 px-4 rounded-xl bg-vinnero-wine text-white text-xs font-bold hover:bg-vinnero-wineDark transition shadow-md">
           Sim, sou maior de 18
         </button>
       </div>
@@ -913,6 +939,21 @@
     let canUseWebSocket = true;
     let lastCloudUpdatedAt = null;
 
+    // Detecta se estamos rodando em ambiente sandbox/Canvas onde WebSockets são proibidos
+    function isWebSocketPermitted() {
+      try {
+        // Se estiver dentro de um iframe com restrição ou sandbox sem conexão permitida
+        if (window.self !== window.top) {
+          // No iframe do Canvas, conexões wss:// disparam SecurityError imediato
+          return false;
+        }
+        if (typeof WebSocket === 'undefined') return false;
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
     // Higieniza qualquer URL de Supabase para evitar o erro "Invalid path specified in request URL"
     function sanitizeSupabaseUrl(rawUrl) {
       if (!rawUrl) return '';
@@ -983,34 +1024,42 @@
         if (keyInput && key) keyInput.value = key;
 
         if (url && key && window.supabase && window.supabase.createClient) {
+          canUseWebSocket = isWebSocketPermitted();
+
           try {
-            supabaseClient = window.supabase.createClient(url, key, {
-              auth: { persistSession: false },
-              realtime: {
-                params: {
-                  eventsPerSecond: 10
-                }
-              }
-            });
+            const clientOptions = {
+              auth: { persistSession: false }
+            };
+
+            // Só habilita realtime via socket se o ambiente permitir conexões seguras sem SecurityError
+            if (canUseWebSocket) {
+              clientOptions.realtime = {
+                params: { eventsPerSecond: 10 }
+              };
+            }
+
+            supabaseClient = window.supabase.createClient(url, key, clientOptions);
           } catch (initErr) {
             console.warn('Fallback Supabase client:', initErr);
             supabaseClient = window.supabase.createClient(url, key, {
               auth: { persistSession: false }
             });
+            canUseWebSocket = false;
           }
 
           updateSyncIndicator(true);
 
-          try {
-            setupSupabaseRealtime();
-          } catch (realtimeErr) {
-            canUseWebSocket = false;
-            console.info('Modo HTTP Polling ativo (WebSockets restritos no ambiente de preview).');
+          if (canUseWebSocket) {
+            try {
+              setupSupabaseRealtime();
+            } catch (realtimeErr) {
+              canUseWebSocket = false;
+            }
           }
 
           syncFromSupabase();
 
-          // Sincronização contínua resiliente via HTTP/REST a cada 8 segundos
+          // Sincronização contínua resiliente via HTTP/REST a cada 8 segundos (zero erros em Canvas e PWA)
           if (!pollingIntervalTimer) {
             pollingIntervalTimer = setInterval(() => {
               if (supabaseClient) syncFromSupabase(true);
@@ -1069,7 +1118,13 @@
             showToast('Banco na nuvem inicializado com sucesso!');
           }
 
-          setupSupabaseRealtime();
+          if (canUseWebSocket) {
+            try {
+              setupSupabaseRealtime();
+            } catch (err) {
+              canUseWebSocket = false;
+            }
+          }
           updateSyncIndicator(true);
         }
       } catch (e) {
@@ -1186,7 +1241,7 @@
     }
 
     function setupSupabaseRealtime() {
-      if (!supabaseClient || !canUseWebSocket) return;
+      if (!supabaseClient || !canUseWebSocket || !isWebSocketPermitted()) return;
       try {
         if (supabaseRealtimeChannel) {
           try {
@@ -1244,13 +1299,11 @@
             if (status === 'SUBSCRIBED') {
               updateSyncIndicator(true);
             } else if (err || status === 'CHANNEL_ERROR') {
-              // Se o socket for bloqueado pelas políticas de segurança do container, desativa silenciosamente e mantém via HTTP Polling
               canUseWebSocket = false;
             }
           });
       } catch (e) {
         canUseWebSocket = false;
-        console.info('Transição automática para sincronização via HTTP Polling.');
       }
     }
 
@@ -1597,6 +1650,11 @@
     };
 
     window.openEstablishment = function(estId) {
+      const est = establishments.find(e => e.id === estId);
+      if (est && est.type === 'restaurant' && !isVenueOpen(est)) {
+        showToast('Restaurante fechado no momento. Consulte os horários de funcionamento.');
+        return;
+      }
       currentEstId = estId;
       navigateTo('catalog');
     };
@@ -1647,9 +1705,16 @@
         }
 
         const typeText = isStore ? 'Loja Especializada' : 'Restaurante & Bar';
+        const isClickable = isStore || open;
+        const cardCursorClass = isClickable 
+          ? 'cursor-pointer hover:border-vinnero-gold hover:shadow-xl' 
+          : 'cursor-not-allowed opacity-75';
+        const btnStyleClass = isClickable
+          ? 'bg-vinnero-wine text-white group-hover:bg-vinnero-wineDark'
+          : 'bg-stone-300 text-stone-500 cursor-not-allowed';
 
         return `
-          <div onclick="openEstablishment('${est.id}')" class="group cursor-pointer bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-vinnero-gold/30 hover:border-vinnero-gold shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between h-full">
+          <div onclick="${isClickable ? `openEstablishment('${est.id}')` : `showToast('Restaurante fechado no momento. Horário: ${scheduleText}')`}" class="group ${cardCursorClass} bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-vinnero-gold/30 shadow-sm transition-all duration-300 flex flex-col justify-between h-full">
             <div class="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
               <div class="w-14 h-14 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl bg-vinnero-cream p-1.5 sm:p-2 border border-vinnero-gold/40 flex items-center justify-center shrink-0 shadow-inner overflow-hidden mx-auto sm:mx-0">
                 <img src="${est.logo}" alt="${est.name}" class="w-full h-full object-contain">
@@ -1666,8 +1731,8 @@
             </div>
 
             <div class="pt-3 border-t border-vinnero-gold/15 flex items-center justify-center sm:justify-end mt-4">
-              <button class="w-full sm:w-auto px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-vinnero-wine text-white text-11px sm:text-xs font-bold group-hover:bg-vinnero-wineDark transition shadow-sm">
-                ${actionBtnText} →
+              <button class="w-full sm:w-auto px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-11px sm:text-xs font-bold transition shadow-sm ${btnStyleClass}">
+                ${actionBtnText} ${isClickable ? '→' : '🔒'}
               </button>
             </div>
           </div>
@@ -2802,11 +2867,11 @@
         console.warn('Fallback no gerador de manifesto:', err);
       }
 
-      // 2. Registro do Service Worker via Data URI padrão (100% aceito pelo Lighthouse e sem risco de SecurityError)
+      // 2. Registro do Service Worker 100% PWA via Blob seguro com Fallback
       if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
         try {
           const swCode = `
-            const CACHE_NAME = 'vinnero-pwa-v12';
+            const CACHE_NAME = 'vinnero-pwa-v14';
             self.addEventListener('install', (e) => {
               self.skipWaiting();
             });
@@ -2837,10 +2902,11 @@
               );
             });
           `;
-          const swDataUri = 'data:text/javascript;base64,' + btoa(unescape(encodeURIComponent(swCode)));
-          navigator.serviceWorker.register(swDataUri, { scope: './' })
+          const swBlob = new Blob([swCode], { type: 'application/javascript' });
+          const swBlobUrl = URL.createObjectURL(swBlob);
+          navigator.serviceWorker.register(swBlobUrl, { scope: './' })
             .catch(() => {
-              // Silencioso se executado em contêiner de preview restrito
+              // Se o navegador rejeitar o blob url por restrição de sandbox, não afeta a aplicação
             });
         } catch (e) {}
       }
@@ -2868,6 +2934,11 @@
       if (estParam) {
         const found = establishments.find(e => e.id === estParam);
         if (found) {
+          if (found.type === 'restaurant' && !isVenueOpen(found)) {
+            showToast('O restaurante está fechado neste momento.');
+            navigateTo('hub');
+            return;
+          }
           openEstablishment(found.id);
         }
       }
