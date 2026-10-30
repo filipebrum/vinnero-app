@@ -890,7 +890,7 @@
   <!-- ==================== LÓGICA JAVASCRIPT INTEGRAL ==================== -->
   <script>
     /* ==================== ESTADO GLOBAL DA APLICAÇÃO ==================== */
-    const VINNERO_BUILD_VERSION = 'vinnero_build_2026_v3';
+    const VINNERO_BUILD_VERSION = 'vinnero_build_2026_v4';
     let currentView = 'hub';
     let currentEstId = 'est_divino';
     let currentLang = 'pt';
@@ -901,7 +901,7 @@
     let deferredInstallPrompt = null;
 
     /* ==================== CONFIGURAÇÃO PADRÃO SUPABASE (NÃO PRECISA RECONFIGURAR) ==================== */
-    // Credenciais oficiais do projeto Supabase vinculadas diretamente:
+    // Credenciais oficiais do projeto Supabase vinculadas diretamente à raiz (sem /rest/v1/):
     const DEFAULT_SUPABASE_URL = 'https://jooagqrgwgtxrmldvwcf.supabase.co';
     const DEFAULT_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impvb2FncXJnd2d0eHJtbGR2d2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyMzIzMDcsImV4cCI6MjEwODgwODMwN30.6v9s9gMfQUMQM-CJdcXQdGzGhJdBkYAxDmLxnUmwpsc';
 
@@ -913,11 +913,23 @@
     let canUseWebSocket = true;
     let lastCloudUpdatedAt = null;
 
+    // Higieniza qualquer URL de Supabase para evitar o erro "Invalid path specified in request URL"
+    function sanitizeSupabaseUrl(rawUrl) {
+      if (!rawUrl) return '';
+      let clean = rawUrl.trim();
+      // Remove barras finais
+      clean = clean.replace(/\/+$/, '');
+      // Se tiver /rest/v1 ou subrotas, remove e mantém apenas o domínio principal
+      clean = clean.replace(/\/rest\/v1\/?.*$/i, '');
+      clean = clean.replace(/\/auth\/v1\/?.*$/i, '');
+      clean = clean.replace(/\/realtime\/v1\/?.*$/i, '');
+      return clean.trim();
+    }
+
     // Verifica de forma segura se o ambiente permite criar WebSockets sem SecurityError
     function testWebSocketSupport() {
       try {
         if (typeof WebSocket === 'undefined') return false;
-        // Alguns iframes de preview bloqueiam wss e disparam SecurityError imediatamente
         return true;
       } catch (e) {
         return false;
@@ -942,14 +954,22 @@
           storedUrl = decodeURIComponent(queryUrl);
           storedKey = decodeURIComponent(queryKey);
           try {
-            localStorage.setItem('vinnero_supabase_url', storedUrl);
-            localStorage.setItem('vinnero_supabase_key', storedKey);
+            localStorage.setItem('vinnero_supabase_url', sanitizeSupabaseUrl(storedUrl));
+            localStorage.setItem('vinnero_supabase_key', storedKey.trim());
           } catch (e) {}
         }
       }
 
-      const finalUrl = (storedUrl || DEFAULT_SUPABASE_URL || '').trim();
-      const finalKey = (storedKey || DEFAULT_SUPABASE_KEY || '').trim();
+      // Higieniza e limpa o localStorage se ele tinha o caminho /rest/v1/ salvo
+      let finalUrl = sanitizeSupabaseUrl(storedUrl || DEFAULT_SUPABASE_URL || '');
+      let finalKey = (storedKey || DEFAULT_SUPABASE_KEY || '').trim();
+
+      if (storedUrl && storedUrl !== finalUrl) {
+        try {
+          localStorage.setItem('vinnero_supabase_url', finalUrl);
+        } catch (e) {}
+      }
+
       return { url: finalUrl, key: finalKey };
     }
 
@@ -963,7 +983,6 @@
         if (keyInput && key) keyInput.value = key;
 
         if (url && key && window.supabase && window.supabase.createClient) {
-          // Criação resiliente: caso o ambiente restrinja WebSockets, a sincronização roda 100% via REST API
           try {
             supabaseClient = window.supabase.createClient(url, key, {
               auth: { persistSession: false },
@@ -982,7 +1001,6 @@
 
           updateSyncIndicator(true);
 
-          // Tenta assinar Realtime de forma segura, capturando qualquer SecurityError de iframe sandbox
           try {
             setupSupabaseRealtime();
           } catch (realtimeErr) {
@@ -1000,7 +1018,6 @@
           }
         } else {
           updateSyncIndicator(false);
-          console.info('Aviso Vinnero: Para sincronizar entre celular e computador, o celular precisa ter as credenciais do Supabase.');
         }
       } catch (e) {
         console.warn('Erro ao inicializar Supabase:', e);
@@ -1009,15 +1026,22 @@
     }
 
     window.saveSupabaseConfig = async function() {
-      const url = document.getElementById('supabaseUrlInput').value.trim();
-      const key = document.getElementById('supabaseKeyInput').value.trim();
-      if (!url || !key) {
+      const rawUrl = document.getElementById('supabaseUrlInput').value.trim();
+      const rawKey = document.getElementById('supabaseKeyInput').value.trim();
+      if (!rawUrl || !rawKey) {
         showToast('Preencha a URL e a Anon Key do Supabase.');
         return;
       }
+
+      // Remove automaticamente qualquer /rest/v1/ ou barras excedentes
+      const url = sanitizeSupabaseUrl(rawUrl);
+      const key = rawKey;
+
       try {
         localStorage.setItem('vinnero_supabase_url', url);
         localStorage.setItem('vinnero_supabase_key', key);
+        document.getElementById('supabaseUrlInput').value = url;
+
         if (window.supabase && window.supabase.createClient) {
           supabaseClient = window.supabase.createClient(url, key, {
             auth: { persistSession: false }
