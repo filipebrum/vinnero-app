@@ -14,18 +14,21 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
 
+  <!-- FAVICON OFICIAL DA PÁGINA (Aba do Navegador) -->
+  <link rel="icon" type="image/svg+xml" id="faviconLink" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23606060'/%3E%3Cg transform='translate(0, -25)' stroke='%23FFFFFF' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M210 120 L260 120 L230 65 L165 55 Z' stroke-width='14'/%3E%3Cpath d='M260 120 C280 92, 312 80, 350 65' stroke-width='14'/%3E%3Ccircle cx='260' cy='130' r='10' fill='%23FFFFFF' stroke='none'/%3E%3Ccircle cx='246' cy='172' r='10' fill='%23FFFFFF' stroke='none'/%3E%3Cpath d='M260 130 L246 172' stroke-width='14'/%3E%3Ccircle cx='180' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='320' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='250' cy='228' r='44' stroke-width='14'/%3E%3Ccircle cx='214' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='294' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='254' cy='398' r='46' stroke-width='14'/%3E%3C/g%3E%3Ctext x='256' y='425' font-family='Montserrat, Inter, sans-serif' font-size='44' font-weight='800' fill='%23FFFFFF' text-anchor='middle' letter-spacing='3'%3ECARTA DE%3C/text%3E%3Ctext x='256' y='472' font-family='Montserrat, Inter, sans-serif' font-size='44' font-weight='800' fill='%23FFFFFF' text-anchor='middle' letter-spacing='3'%3EVINHOS%3C/text%3E%3C/svg%3E">
+
   <!-- ÍCONE APPLE TOUCH (Obrigatório para iOS PWA) -->
-  <link rel="apple-touch-icon" id="appleTouchIcon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%234A0D17'/%3E%3Ccircle cx='256' cy='256' r='180' fill='%23FAF7F2'/%3E%3Cpath d='M266 140 L220 140 L180 80 L245 90 Z' stroke='%234A0D17' stroke-width='14' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M266 140 C286 110, 310 90, 345 70' stroke='%234A0D17' stroke-width='14' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='266' cy='150' r='12' fill='%234A0D17'/%3E%3Ccircle cx='246' cy='195' r='12' fill='%234A0D17'/%3E%3Ccircle cx='186' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='326' cy='240' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='255' r='50' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='216' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='296' cy='345' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3Ccircle cx='256' cy='430' r='52' stroke='%234A0D17' stroke-width='14' fill='none'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" id="appleTouchIcon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23606060'/%3E%3Cg transform='translate(0, -25)' stroke='%23FFFFFF' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M210 120 L260 120 L230 65 L165 55 Z' stroke-width='14'/%3E%3Cpath d='M260 120 C280 92, 312 80, 350 65' stroke-width='14'/%3E%3Ccircle cx='260' cy='130' r='10' fill='%23FFFFFF' stroke='none'/%3E%3Ccircle cx='246' cy='172' r='10' fill='%23FFFFFF' stroke='none'/%3E%3Cpath d='M260 130 L246 172' stroke-width='14'/%3E%3Ccircle cx='180' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='320' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='250' cy='228' r='44' stroke-width='14'/%3E%3Ccircle cx='214' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='294' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='254' cy='398' r='46' stroke-width='14'/%3E%3C/g%3E%3Ctext x='256' y='425' font-family='Montserrat, Inter, sans-serif' font-size='44' font-weight='800' fill='%23FFFFFF' text-anchor='middle' letter-spacing='3'%3ECARTA DE%3C/text%3E%3Ctext x='256' y='472' font-family='Montserrat, Inter, sans-serif' font-size='44' font-weight='800' fill='%23FFFFFF' text-anchor='middle' letter-spacing='3'%3EVINHOS%3C/text%3E%3C/svg%3E">
 
   <!-- MANIFESTO NATIVO ESTÁTICO EMBUTIDO (100% PWA W3C Compliant sem Blob URL) -->
-  <link rel="manifest" id="manifestLink" href="data:application/manifest+json;charset=utf-8,%7B%22id%22%3A%22vinnero-divino-pwa%22%2C%22name%22%3A%22Vinnero%20-%20diVino%20Restaurante%22%2C%22short_name%22%3A%22Vinnero%22%2C%22start_url%22%3A%22.%2F%22%2C%22scope%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22display_override%22%3A%5B%22standalone%22%2C%22window-controls-overlay%22%5D%2C%22orientation%22%3A%22portrait-primary%22%2C%22background_color%22%3A%22%23FAF7F2%22%2C%22theme_color%22%3A%22%234A0D17%22%2C%22lang%22%3A%22pt-BR%22%2C%22dir%22%3A%22ltr%22%2C%22description%22%3A%22Carta%20Digital%20de%20Vinhos%20e%20Experi%C3%AAncias%20Enol%C3%B3gicas%22%2C%22prefer_related_applications%22%3Afalse%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%253E%253Crect%20width%3D'512'%20height%3D'512'%20rx%3D'110'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'256'%20r%3D'180'%20fill%3D'%2523FAF7F2'%2F%253E%253Cpath%20d%3D'M266%20140%20L220%20140%20L180%2080%20L245%2090%20Z'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%2F%253E%253Cpath%20d%3D'M266%20140%20C286%20110%2C%20310%2090%2C%20345%2070'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20stroke-linecap%3D'round'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'266'%20cy%3D'150'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'246'%20cy%3D'195'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'186'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'326'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'255'%20r%3D'50'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'216'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'296'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'430'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%253E%253Crect%20width%3D'512'%20height%3D'512'%20rx%3D'110'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'256'%20r%3D'180'%20fill%3D'%2523FAF7F2'%2F%253E%253Cpath%20d%3D'M266%20140%20L220%20140%20L180%2080%20L245%2090%20Z'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%2F%253E%253Cpath%20d%3D'M266%20140%20C286%20110%2C%20310%2090%2C%20345%2070'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20stroke-linecap%3D'round'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'266'%20cy%3D'150'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'246'%20cy%3D'195'%20r%3D'12'%20fill%3D'%25234A0D17'%2F%253E%253Ccircle%20cx%3D'186'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'326'%20cy%3D'240'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'255'%20r%3D'50'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'216'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'296'%20cy%3D'345'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253Ccircle%20cx%3D'256'%20cy%3D'430'%20r%3D'52'%20stroke%3D'%25234A0D17'%20stroke-width%3D'14'%20fill%3D'none'%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+  <link rel="manifest" id="manifestLink" href="data:application/manifest+json;charset=utf-8,%7B%22id%22%3A%22vinnero-divino-pwa%22%2C%22name%22%3A%22Vinnero%20-%20diVino%20Restaurante%22%2C%22short_name%22%3A%22Vinnero%22%2C%22start_url%22%3A%22.%2F%22%2C%22scope%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22display_override%22%3A%5B%22standalone%22%2C%22window-controls-overlay%22%5D%2C%22orientation%22%3A%22portrait-primary%22%2C%22background_color%22%3A%22%23FAF7F2%22%2C%22theme_color%22%3A%22%234A0D17%22%2C%22lang%22%3A%22pt-BR%22%2C%22dir%22%3A%22ltr%22%2C%22description%22%3A%22Carta%20Digital%20de%20Vinhos%20e%20Experi%C3%AAncias%20Enol%C3%B3gicas%22%2C%22prefer_related_applications%22%3Afalse%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%253E%253Crect%20width%3D'512'%20height%3D'512'%20rx%3D'110'%20fill%3D'%2523606060'%2F%253E%253Cg%20transform%3D'translate(0%2C%20-25)'%20stroke%3D'%2523FFFFFF'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%253E%253Cpath%20d%3D'M210%20120%20L260%20120%20L230%2065%20L165%2055%20Z'%20stroke-width%3D'14'%2F%253E%253Cpath%20d%3D'M260%20120%20C280%2092%2C%20312%2080%2C%20350%2065'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'260'%20cy%3D'130'%20r%3D'10'%20fill%3D'%2523FFFFFF'%20stroke%3D'none'%2F%253E%253Ccircle%20cx%3D'246'%20cy%3D'172'%20r%3D'10'%20fill%3D'%2523FFFFFF'%20stroke%3D'none'%2F%253E%253Cpath%20d%3D'M260%20130%20L246%20172'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'180'%20cy%3D'215'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'320'%20cy%3D'215'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'250'%20cy%3D'228'%20r%3D'44'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'214'%20cy%3D'312'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'294'%20cy%3D'312'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'254'%20cy%3D'398'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253C%2Fg%253E%253Ctext%20x%3D'256'%20y%3D'425'%20font-family%3D'Montserrat%2C%20Inter%2C%20sans-serif'%20font-size%3D'44'%20font-weight%3D'800'%20fill%3D'%2523FFFFFF'%20text-anchor%3D'middle'%20letter-spacing%3D'3'%253ECARTA%20DE%253C%2Ftext%253E%253Ctext%20x%3D'256'%20y%3D'472'%20font-family%3D'Montserrat%2C%20Inter%2C%20sans-serif'%20font-size%3D'44'%20font-weight%3D'800'%20fill%3D'%2523FFFFFF'%20text-anchor%3D'middle'%20letter-spacing%3D'3'%253EVINHOS%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
 
-  <!-- FONTE INTER & TAILWIND CSS -->
+  <!-- FONTES: MONTSERRAT (FONTE DA LOGO VINNERO), CINZEL E INTER -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Montserrat:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- SUPABASE JS OFICIAL PARA SINCRONIZAÇÃO EM TEMPO REAL -->
+  <!-- SUPABASE JS OFICIAL -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
@@ -45,8 +48,10 @@
             }
           },
           fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
             serif: ['Cinzel', 'serif'],
-            sans: ['Inter', 'sans-serif']
+            sans: ['Inter', 'sans-serif'],
+            brand: ['Montserrat', 'Inter', 'sans-serif']
           }
         }
       }
@@ -68,10 +73,10 @@
       padding-right: env(safe-area-inset-right);
     }
     .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-vinnero-brand { font-family: 'Montserrat', sans-serif; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     
-    /* Previne bordas/linhas extras causadas por padding e safe-area no topo e base do mobile */
     header {
       padding-top: max(env(safe-area-inset-top), 0px);
     }
@@ -86,18 +91,21 @@
   <div id="ageGateModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 transition-all duration-300">
     <div class="bg-vinnero-cream border border-vinnero-gold/40 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center shadow-2xl space-y-4">
       <div class="w-14 h-14 mx-auto rounded-2xl bg-vinnero-wine flex items-center justify-center text-vinnero-gold shadow-md">
-        <svg class="w-7 h-7" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M52 28 L43 28 L35 15 L48 17 Z" stroke-width="3" fill="none"/>
-          <path d="M52 28 C56 22, 60 18, 68 14" stroke-width="3"/>
-          <circle cx="52" cy="30" r="2.5" fill="currentColor"/>
-          <circle cx="48" cy="39" r="2.5" fill="currentColor"/>
-          <path d="M52 30 L48 39" stroke-width="3"/>
-          <circle cx="36" cy="48" r="10.5" stroke-width="3"/>
-          <circle cx="64" cy="48" r="10.5" stroke-width="3"/>
-          <circle cx="50" cy="51" r="10" stroke-width="3"/>
-          <circle cx="42" cy="69" r="10.5" stroke-width="3"/>
-          <circle cx="58" cy="69" r="10.5" stroke-width="3"/>
-          <circle cx="50" cy="88" r="10.5" stroke-width="3"/>
+        <!-- Ícone Oficial Vinnero -->
+        <svg class="w-8 h-8" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Folha e Haste Exata da Logo -->
+          <path d="M42 35 L58 35 L48 18 L26 15 Z" stroke-width="4.5" fill="none"/>
+          <path d="M58 35 C65 26, 75 22, 88 17" stroke-width="4.5"/>
+          <circle cx="58" cy="38" r="3.2" fill="currentColor"/>
+          <circle cx="54" cy="51" r="3.2" fill="currentColor"/>
+          <path d="M58 38 L54 51" stroke-width="4.5"/>
+          <!-- Cacho Geométrico com 6 Anéis -->
+          <circle cx="34" cy="65" r="14" stroke-width="4.5"/>
+          <circle cx="76" cy="65" r="14" stroke-width="4.5"/>
+          <circle cx="55" cy="69" r="13.5" stroke-width="4.5"/>
+          <circle cx="44" cy="95" r="14" stroke-width="4.5"/>
+          <circle cx="68" cy="95" r="14" stroke-width="4.5"/>
+          <circle cx="56" cy="122" r="14" stroke-width="4.5"/>
         </svg>
       </div>
 
@@ -123,27 +131,27 @@
   <!-- ==================== HEADER PRINCIPAL ==================== -->
   <header class="sticky top-0 z-40 bg-vinnero-cream/95 backdrop-blur-md border-b border-vinnero-gold/20 shadow-sm">
     <div class="max-w-6xl mx-auto px-4 h-16 sm:h-20 flex items-center justify-between">
-      <!-- LOGO E IDENTIDADE OFICIAL VINNERO -->
+      <!-- LOGO E IDENTIDADE OFICIAL VINNERO (GEOMETRIA & TIPOGRAFIA IDÊNTICAS AO SVG) -->
       <div onclick="navigateTo('hub')" class="cursor-pointer flex items-center gap-3">
         <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
-          <svg class="w-full h-full text-vinnero-wine" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <!-- Haste e folha superior -->
-            <path d="M52 28 L43 28 L35 15 L48 17 Z" stroke-width="3" fill="none"/>
-            <path d="M52 28 C56 22, 60 18, 68 14" stroke-width="3"/>
-            <circle cx="52" cy="30" r="2.5" fill="currentColor"/>
-            <circle cx="48" cy="39" r="2.5" fill="currentColor"/>
-            <path d="M52 30 L48 39" stroke-width="3"/>
-            <!-- Cacho de uvas geométrico -->
-            <circle cx="36" cy="48" r="10.5" stroke-width="3"/>
-            <circle cx="64" cy="48" r="10.5" stroke-width="3"/>
-            <circle cx="50" cy="51" r="10" stroke-width="3"/>
-            <circle cx="42" cy="69" r="10.5" stroke-width="3"/>
-            <circle cx="58" cy="69" r="10.5" stroke-width="3"/>
-            <circle cx="50" cy="88" r="10.5" stroke-width="3"/>
+          <svg class="w-full h-full text-vinnero-wine" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Folha e Haste da Logo -->
+            <path d="M42 35 L58 35 L48 18 L26 15 Z" stroke-width="4.5" fill="none"/>
+            <path d="M58 35 C65 26, 75 22, 88 17" stroke-width="4.5"/>
+            <circle cx="58" cy="38" r="3.2" fill="currentColor"/>
+            <circle cx="54" cy="51" r="3.2" fill="currentColor"/>
+            <path d="M58 38 L54 51" stroke-width="4.5"/>
+            <!-- Cacho de Uvas Geométrico Oficial -->
+            <circle cx="34" cy="65" r="14" stroke-width="4.5"/>
+            <circle cx="76" cy="65" r="14" stroke-width="4.5"/>
+            <circle cx="55" cy="69" r="13.5" stroke-width="4.5"/>
+            <circle cx="44" cy="95" r="14" stroke-width="4.5"/>
+            <circle cx="68" cy="95" r="14" stroke-width="4.5"/>
+            <circle cx="56" cy="122" r="14" stroke-width="4.5"/>
           </svg>
         </div>
         <div>
-          <span class="font-sans text-xl sm:text-2xl font-semibold tracking-[0.14em] text-vinnero-wine block leading-none">VINNERO</span>
+          <span class="font-vinnero-brand text-xl sm:text-2xl font-bold tracking-[0.14em] text-vinnero-wine block leading-none">VINNERO</span>
           <span class="text-[10px] tracking-wider text-vinnero-gold font-medium uppercase block mt-1">Carta Digital de Vinhos</span>
         </div>
       </div>
@@ -228,7 +236,6 @@
       <!-- CABEÇALHO DO ESTABELECIMENTO ATIVO -->
       <div class="bg-white rounded-3xl p-6 border border-vinnero-gold/30 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div class="flex items-center gap-4">
-          <!-- LOGO 500x500 SVG/PNG -->
           <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-vinnero-cream p-2 border border-vinnero-gold/40 flex items-center justify-center shrink-0 shadow-inner overflow-hidden">
             <img id="catEstLogo" src="" alt="Logo" class="w-full h-full object-contain">
           </div>
@@ -323,15 +330,29 @@
             <p id="detailWineProducer" class="text-xs sm:text-sm text-vinnero-muted mt-0.5">Baron Philippe de Rothschild & Viña Concha y Toro</p>
           </div>
 
-          <!-- BLOCO DE PREÇO E DETALHES RÁPIDOS -->
-          <div class="flex items-baseline gap-4 p-4 rounded-2xl bg-vinnero-cream border border-vinnero-gold/20">
-            <div>
-              <span id="txtDetailBottlePrice" class="text-[10px] text-vinnero-muted uppercase font-bold block">Valor da Garrafa</span>
-              <span id="detailWinePrice" class="font-cinzel text-2xl sm:text-3xl font-bold text-vinnero-wine">R$ 2.450,00</span>
+          <!-- BLOCO DE PREÇO (GARRAFA, MEIA GARRAFA E TAÇA) -->
+          <div class="p-4 rounded-2xl bg-vinnero-cream border border-vinnero-gold/20 space-y-3">
+            <div class="flex items-baseline justify-between border-b border-vinnero-gold/20 pb-2">
+              <div>
+                <span id="txtDetailBottlePrice" class="text-[10px] text-vinnero-muted uppercase font-bold block">Valor da Garrafa</span>
+                <span id="detailWinePrice" class="font-cinzel text-2xl sm:text-3xl font-bold text-vinnero-wine">R$ 2.450,00</span>
+              </div>
+              <div class="border-l border-vinnero-gold/30 pl-4 space-y-0.5 text-xs text-vinnero-muted">
+                <p><span class="font-semibold text-vinnero-charcoal" id="txtDetailVintage">Safra:</span> <span id="detailWineVintage">2019</span></p>
+                <p><span class="font-semibold text-vinnero-charcoal" id="txtDetailVolume">Volume:</span> <span id="detailWineVolume">750ml</span></p>
+              </div>
             </div>
-            <div class="border-l border-vinnero-gold/30 pl-4 space-y-0.5 text-xs text-vinnero-muted">
-              <p><span class="font-semibold text-vinnero-charcoal" id="txtDetailVintage">Safra:</span> <span id="detailWineVintage">2019</span></p>
-              <p><span class="font-semibold text-vinnero-charcoal" id="txtDetailVolume">Volume:</span> <span id="detailWineVolume">750ml</span></p>
+
+            <!-- OPÇÕES EXTRAS DE SERVIÇO: MEIA GARRAFA E TAÇA -->
+            <div id="detailServingOptionsBox" class="flex flex-wrap gap-3 pt-1">
+              <div id="detailHalfPriceBox" class="hidden flex-1 min-w-[130px] p-2.5 rounded-xl bg-white border border-vinnero-gold/30">
+                <span class="text-[9px] uppercase font-bold text-vinnero-muted block">🍾 Meia Garrafa (375ml)</span>
+                <span id="detailWineHalfPrice" class="font-cinzel text-base font-bold text-vinnero-wine block mt-0.5">R$ 0,00</span>
+              </div>
+              <div id="detailGlassPriceBox" class="hidden flex-1 min-w-[130px] p-2.5 rounded-xl bg-white border border-vinnero-gold/30">
+                <span class="text-[9px] uppercase font-bold text-vinnero-muted block">🍷 Taça (150ml)</span>
+                <span id="detailWineGlassPrice" class="font-cinzel text-base font-bold text-vinnero-wine block mt-0.5">R$ 0,00</span>
+              </div>
             </div>
           </div>
 
@@ -373,7 +394,6 @@
             </div>
             
             <div class="relative w-full h-56 sm:h-64 rounded-2xl overflow-hidden border border-vinnero-gold/30 shadow-inner bg-vinnero-cream">
-              <!-- GOOGLE MAPS EMBED OFICIAL SEM DEPENDÊNCIA DE TILES DO LEAFLET -->
               <iframe 
                 id="wineryGoogleMapIframe" 
                 class="w-full h-full border-0" 
@@ -467,7 +487,7 @@
         <button onclick="setOpTab('venue')" id="opTab_venue" class="px-3 py-1.5 rounded-lg text-xs font-medium text-vinnero-muted hover:text-vinnero-wine transition">Dados do Estabelecimento</button>
       </div>
 
-      <!-- CONTEÚDO DA ABA 1: RÓTULOS & DISPONIBILIDADE (DISPONÍVEL / EM FALTA) -->
+      <!-- CONTEÚDO DA ABA 1: RÓTULOS & DISPONIBILIDADE -->
       <div id="opContent_wines" class="space-y-4">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold text-vinnero-wine uppercase">Status Rápido do Salão</span>
@@ -543,8 +563,23 @@
             </select>
           </div>
           <div>
-            <label class="block font-bold text-vinnero-wine mb-1">Preço da Garrafa (R$)</label>
+            <label class="block font-bold text-vinnero-wine mb-1">Preço Garrafa 750ml (R$) *</label>
             <input type="number" step="0.01" id="editWinePrice" placeholder="0.00" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5">
+          </div>
+        </div>
+
+        <!-- FORMATOS EXTRAS DE SERVIÇO: MEIA GARRAFA E TAÇA -->
+        <div class="p-3 rounded-2xl bg-white border border-vinnero-gold/30 space-y-2">
+          <p class="font-bold text-vinnero-wine">Formatos Extras no Salão (Opcionais):</p>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-vinnero-muted mb-0.5">Preço Meia Garrafa 375ml (R$)</label>
+              <input type="number" step="0.01" id="editWinePriceHalf" placeholder="Opcional" class="w-full bg-vinnero-cream border border-vinnero-gold/20 rounded-xl p-2">
+            </div>
+            <div>
+              <label class="block text-vinnero-muted mb-0.5">Preço Taça 150ml (R$)</label>
+              <input type="number" step="0.01" id="editWinePriceGlass" placeholder="Opcional" class="w-full bg-vinnero-cream border border-vinnero-gold/20 rounded-xl p-2">
+            </div>
           </div>
         </div>
 
@@ -773,7 +808,6 @@
         <div>
           <label class="block text-xs font-bold text-vinnero-wine uppercase tracking-wider mb-1">Selecione o Estabelecimento</label>
           <select id="opAuthVenueSelect" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5 text-xs font-medium text-vinnero-charcoal focus:outline-none focus:ring-2 focus:ring-vinnero-wine/30">
-            <!-- Opções alimentadas via JS -->
           </select>
         </div>
         <div>
@@ -836,7 +870,7 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL DE CONFIRMAÇÃO DE EXCLUSÃO (SEM ALERT/CONFIRM) ==================== -->
+  <!-- ==================== MODAL DE CONFIRMAÇÃO DE EXCLUSÃO ==================== -->
   <div id="deleteConfirmModal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 hidden">
     <div class="bg-vinnero-cream border border-rose-300 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center shadow-2xl space-y-4">
       <div class="w-12 h-12 mx-auto rounded-2xl bg-rose-100 flex items-center justify-center text-rose-700">
@@ -866,22 +900,24 @@
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
       <div class="flex items-center gap-3">
         <div class="w-8 h-8 flex items-center justify-center shrink-0">
-          <svg class="w-full h-full text-vinnero-gold" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M52 28 L43 28 L35 15 L48 17 Z" stroke-width="3.2" fill="none"/>
-            <path d="M52 28 C56 22, 60 18, 68 14" stroke-width="3.2"/>
-            <circle cx="52" cy="30" r="2.5" fill="currentColor"/>
-            <circle cx="48" cy="39" r="2.5" fill="currentColor"/>
-            <path d="M52 30 L48 39" stroke-width="3.2"/>
-            <circle cx="36" cy="48" r="10.5" stroke-width="3.2"/>
-            <circle cx="64" cy="48" r="10.5" stroke-width="3.2"/>
-            <circle cx="50" cy="51" r="10" stroke-width="3.2"/>
-            <circle cx="42" cy="69" r="10.5" stroke-width="3.2"/>
-            <circle cx="58" cy="69" r="10.5" stroke-width="3.2"/>
-            <circle cx="50" cy="88" r="10.5" stroke-width="3.2"/>
+          <svg class="w-full h-full text-vinnero-gold" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Folha e Haste da Logo -->
+            <path d="M42 35 L58 35 L48 18 L26 15 Z" stroke-width="4.5" fill="none"/>
+            <path d="M58 35 C65 26, 75 22, 88 17" stroke-width="4.5"/>
+            <circle cx="58" cy="38" r="3.2" fill="currentColor"/>
+            <circle cx="54" cy="51" r="3.2" fill="currentColor"/>
+            <path d="M58 38 L54 51" stroke-width="4.5"/>
+            <!-- Cacho de Uvas Geométrico Oficial -->
+            <circle cx="34" cy="65" r="14" stroke-width="4.5"/>
+            <circle cx="76" cy="65" r="14" stroke-width="4.5"/>
+            <circle cx="55" cy="69" r="13.5" stroke-width="4.5"/>
+            <circle cx="44" cy="95" r="14" stroke-width="4.5"/>
+            <circle cx="68" cy="95" r="14" stroke-width="4.5"/>
+            <circle cx="56" cy="122" r="14" stroke-width="4.5"/>
           </svg>
         </div>
         <div>
-          <p class="font-sans font-semibold tracking-[0.14em] text-vinnero-gold text-sm leading-none">VINNERO</p>
+          <p class="font-vinnero-brand font-bold tracking-[0.14em] text-vinnero-gold text-sm leading-none">VINNERO</p>
           <p class="mt-1 text-[11px] text-vinnero-cream/60">
             © 2026 Vinnero Web Design LTDA. Todos os direitos reservados.
           </p>
@@ -916,7 +952,7 @@
   <!-- ==================== LÓGICA JAVASCRIPT INTEGRAL ==================== -->
   <script>
     /* ==================== ESTADO GLOBAL DA APLICAÇÃO ==================== */
-    const VINNERO_BUILD_VERSION = 'vinnero_build_2026_v4';
+    const VINNERO_BUILD_VERSION = 'vinnero_build_2026_v5';
     let currentView = 'hub';
     let currentEstId = 'est_divino';
     let currentLang = 'pt';
@@ -926,8 +962,7 @@
     let currentSelectedWine = null;
     let deferredInstallPrompt = null;
 
-    /* ==================== CONFIGURAÇÃO PADRÃO SUPABASE (NÃO PRECISA RECONFIGURAR) ==================== */
-    // Credenciais oficiais do projeto Supabase vinculadas diretamente à raiz (sem /rest/v1/):
+    /* ==================== CONFIGURAÇÃO PADRÃO SUPABASE ==================== */
     const DEFAULT_SUPABASE_URL = 'https://jooagqrgwgtxrmldvwcf.supabase.co';
     const DEFAULT_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impvb2FncXJnd2d0eHJtbGR2d2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyMzIzMDcsImV4cCI6MjEwODgwODMwN30.6v9s9gMfQUMQM-CJdcXQdGzGhJdBkYAxDmLxnUmwpsc';
 
@@ -939,14 +974,9 @@
     let canUseWebSocket = true;
     let lastCloudUpdatedAt = null;
 
-    // Detecta se estamos rodando em ambiente sandbox/Canvas onde WebSockets são proibidos
     function isWebSocketPermitted() {
       try {
-        // Se estiver dentro de um iframe com restrição ou sandbox sem conexão permitida
-        if (window.self !== window.top) {
-          // No iframe do Canvas, conexões wss:// disparam SecurityError imediato
-          return false;
-        }
+        if (window.self !== window.top) return false;
         if (typeof WebSocket === 'undefined') return false;
         return true;
       } catch (e) {
@@ -954,31 +984,17 @@
       }
     }
 
-    // Higieniza qualquer URL de Supabase para evitar o erro "Invalid path specified in request URL"
     function sanitizeSupabaseUrl(rawUrl) {
       if (!rawUrl) return '';
       let clean = rawUrl.trim();
-      // Remove barras finais
       clean = clean.replace(/\/+$/, '');
-      // Se tiver /rest/v1 ou subrotas, remove e mantém apenas o domínio principal
       clean = clean.replace(/\/rest\/v1\/?.*$/i, '');
       clean = clean.replace(/\/auth\/v1\/?.*$/i, '');
       clean = clean.replace(/\/realtime\/v1\/?.*$/i, '');
       return clean.trim();
     }
 
-    // Verifica de forma segura se o ambiente permite criar WebSockets sem SecurityError
-    function testWebSocketSupport() {
-      try {
-        if (typeof WebSocket === 'undefined') return false;
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }
-
     function getActiveSupabaseCredentials() {
-      // 1. Tenta pegar do localStorage
       let storedUrl = '';
       let storedKey = '';
       try {
@@ -986,7 +1002,6 @@
         storedKey = localStorage.getItem('vinnero_supabase_key') || '';
       } catch (e) {}
 
-      // 2. Se não estiver no localStorage, tenta pegar das constantes ou de parâmetros na URL (?sb_url=...&sb_key=...)
       if (!storedUrl) {
         const urlParams = new URLSearchParams(window.location.search);
         const queryUrl = urlParams.get('sb_url');
@@ -1001,7 +1016,6 @@
         }
       }
 
-      // Higieniza e limpa o localStorage se ele tinha o caminho /rest/v1/ salvo
       let finalUrl = sanitizeSupabaseUrl(storedUrl || DEFAULT_SUPABASE_URL || '');
       let finalKey = (storedKey || DEFAULT_SUPABASE_KEY || '').trim();
 
@@ -1027,23 +1041,13 @@
           canUseWebSocket = isWebSocketPermitted();
 
           try {
-            const clientOptions = {
-              auth: { persistSession: false }
-            };
-
-            // Só habilita realtime via socket se o ambiente permitir conexões seguras sem SecurityError
+            const clientOptions = { auth: { persistSession: false } };
             if (canUseWebSocket) {
-              clientOptions.realtime = {
-                params: { eventsPerSecond: 10 }
-              };
+              clientOptions.realtime = { params: { eventsPerSecond: 10 } };
             }
-
             supabaseClient = window.supabase.createClient(url, key, clientOptions);
           } catch (initErr) {
-            console.warn('Fallback Supabase client:', initErr);
-            supabaseClient = window.supabase.createClient(url, key, {
-              auth: { persistSession: false }
-            });
+            supabaseClient = window.supabase.createClient(url, key, { auth: { persistSession: false } });
             canUseWebSocket = false;
           }
 
@@ -1059,7 +1063,6 @@
 
           syncFromSupabase();
 
-          // Sincronização contínua resiliente via HTTP/REST a cada 8 segundos (zero erros em Canvas e PWA)
           if (!pollingIntervalTimer) {
             pollingIntervalTimer = setInterval(() => {
               if (supabaseClient) syncFromSupabase(true);
@@ -1082,7 +1085,6 @@
         return;
       }
 
-      // Remove automaticamente qualquer /rest/v1/ ou barras excedentes
       const url = sanitizeSupabaseUrl(rawUrl);
       const key = rawKey;
 
@@ -1097,8 +1099,7 @@
           });
           showToast('Conectando ao Supabase...');
           
-          // Primeiro verifica se o Supabase já tem dados gravados para NÃO sobrescrever com nada padrão
-          const { data, error } = await supabaseClient
+          const { data } = await supabaseClient
             .from('vinnero_state')
             .select('content')
             .eq('id', 'global_data')
@@ -1113,7 +1114,6 @@
             if (currentView === 'catalog') renderCatalog();
             showToast('Dados restaurados da nuvem com sucesso!');
           } else {
-            // Se o Supabase estiver vazio, envia a lista inicial para inicializar o banco
             await syncToSupabase();
             showToast('Banco na nuvem inicializado com sucesso!');
           }
@@ -1165,7 +1165,6 @@
           const incomingContent = JSON.stringify(data.content);
           const currentContent = JSON.stringify(establishments);
 
-          // Se o dado na nuvem é diferente (inclusive quando contém MENOS itens por causa de exclusão)
           if (incomingContent !== currentContent) {
             establishments = data.content;
             lastCloudUpdatedAt = data.updated_at || new Date().toISOString();
@@ -1174,7 +1173,6 @@
               localStorage.setItem('vinnero_last_sync', lastCloudUpdatedAt);
             } catch (e) {}
 
-            // Se o local atualmente visualizado foi deletado por outro aparelho, redireciona para o Hub
             if (currentView === 'catalog' || currentView === 'detail') {
               const stillExists = establishments.some(e => e.id === currentEstId);
               if (!stillExists) {
@@ -1220,7 +1218,6 @@
       try {
         const nowIso = new Date().toISOString();
         lastCloudUpdatedAt = nowIso;
-        // Envio via REST API HTTP (compatível com qualquer iframe, browser ou PWA)
         const { error } = await supabaseClient
           .from('vinnero_state')
           .upsert({
@@ -1230,7 +1227,7 @@
           }, { onConflict: 'id' });
 
         if (error) {
-          console.error('Erro retornado pelo Supabase ao gravar:', error.message);
+          console.error('Erro retornado pelo Supabase:', error.message);
           showToast('Aviso: Erro ao sincronizar nuvem: ' + error.message);
         } else {
           updateSyncIndicator(true);
@@ -1262,7 +1259,6 @@
                   localStorage.setItem('vinnero_last_sync', lastCloudUpdatedAt);
                 } catch (e) {}
 
-                // Se o local atualmente visualizado foi deletado, redireciona o tablet/celular
                 if (currentView === 'catalog' || currentView === 'detail') {
                   const stillExists = establishments.some(e => e.id === currentEstId);
                   if (!stillExists) {
@@ -1335,6 +1331,8 @@
             name: 'Almaviva 2019',
             category: 'red',
             price: 2450.00,
+            priceHalf: 1350.00,
+            priceGlass: 260.00,
             vintage: '2019',
             volume: '750ml',
             producer: 'Baron Philippe de Rothschild & Viña Concha y Toro',
@@ -1356,6 +1354,8 @@
             name: 'Chablis Premier Cru 2021',
             category: 'white',
             price: 680.00,
+            priceHalf: null,
+            priceGlass: 85.00,
             vintage: '2021',
             volume: '750ml',
             producer: 'Domaine William Fèvre',
@@ -1400,6 +1400,8 @@
             name: 'Brunello di Montalcino DOCG',
             category: 'red',
             price: 1190.00,
+            priceHalf: null,
+            priceGlass: 140.00,
             vintage: '2017',
             volume: '750ml',
             producer: 'Castello Banfi',
@@ -1447,7 +1449,12 @@
         pairing: 'Harmonização Sugerida',
         terroir: 'Terroir & Vinícola',
         sommelierBtn: 'Sommelier Virtual',
-        installPwa: 'Baixar App'
+        installPwa: 'Baixar App',
+        cat_red: 'Tinto',
+        cat_white: 'Branco',
+        cat_rose: 'Rosé',
+        cat_sparkling: 'Espumante',
+        cat_dessert: 'Sobremesa'
       },
       en: {
         bannerBadge: 'Digital Wine List',
@@ -1472,7 +1479,12 @@
         pairing: 'Food Pairing',
         terroir: 'Terroir & Winery',
         sommelierBtn: 'Virtual Sommelier',
-        installPwa: 'Install App'
+        installPwa: 'Install App',
+        cat_red: 'Red Wine',
+        cat_white: 'White Wine',
+        cat_rose: 'Rosé Wine',
+        cat_sparkling: 'Sparkling',
+        cat_dessert: 'Dessert Wine'
       },
       es: {
         bannerBadge: 'Carta Digital de Vinos',
@@ -1497,12 +1509,21 @@
         pairing: 'Maridaje Sugerido',
         terroir: 'Terroir y Bodega',
         sommelierBtn: 'Sommelier Virtual',
-        installPwa: 'Instalar App'
+        installPwa: 'Instalar App',
+        cat_red: 'Vino Tinto',
+        cat_white: 'Vino Blanco',
+        cat_rose: 'Vino Rosado',
+        cat_sparkling: 'Espumoso',
+        cat_dessert: 'Vino de Postre'
       }
     };
 
     function t(key) {
       return (I18N[currentLang] && I18N[currentLang][key]) || (I18N.pt && I18N.pt[key]) || key;
+    }
+
+    function formatCategoryName(key) {
+      return t(`cat_${key}`) || key;
     }
 
     /* ==================== VERIFICAÇÃO DE MAIORIDADE (+18 ECA) ==================== */
@@ -1537,14 +1558,13 @@
       }
     };
 
-    /* ==================== PERSISTÊNCIA & CACHE INTELIGENTE ==================== */
+    /* ==================== PERSISTÊNCIA & CACHE ==================== */
     function loadStateFromLocal() {
       try {
         const saved = localStorage.getItem('vinnero_establishments');
         if (saved) {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed)) {
-            // Se o usuário já operou e salvou uma lista (mesmo que tenha excluído o diVino), usamos a lista salva!
             establishments = parsed;
             return;
           }
@@ -1562,7 +1582,6 @@
       } catch (e) {
         console.warn('Erro ao salvar no localStorage:', e);
       }
-      // SINCRONIZAÇÃO IMEDIATA COM A NUVEM SUPABASE
       syncToSupabase();
     }
 
@@ -1593,7 +1612,7 @@
       if (!est) return false;
       const now = new Date();
       const jsDay = now.getDay();
-      const currentDay = jsDay === 0 ? 7 : jsDay; // 1:Segunda ... 7:Domingo
+      const currentDay = jsDay === 0 ? 7 : jsDay;
       const curTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
       const schedule = est.weeklySchedule && est.weeklySchedule[currentDay];
@@ -1721,7 +1740,7 @@
               </div>
               <div class="flex-1 min-w-0 w-full text-center sm:text-left">
                 <div class="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 sm:gap-2">
-                  <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-vinnero-wine/10 text-vinnero-wine">${typeText}</span>
+                  <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-vinnero-wine/10 text-vinnero-wine">${typeText}</span>
                   ${statusBadgeHtml}
                 </div>
                 <h3 class="font-cinzel text-sm sm:text-lg lg:text-xl font-bold text-vinnero-wine mt-1 truncate">${est.name}</h3>
@@ -1731,7 +1750,7 @@
             </div>
 
             <div class="pt-3 border-t border-vinnero-gold/15 flex items-center justify-center sm:justify-end mt-4">
-              <button class="w-full sm:w-auto px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-11px sm:text-xs font-bold transition shadow-sm ${btnStyleClass}">
+              <button class="w-full sm:w-auto px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition shadow-sm ${btnStyleClass}">
                 ${actionBtnText} ${isClickable ? '→' : '🔒'}
               </button>
             </div>
@@ -1821,11 +1840,9 @@
       const isRestaurant = est.type === 'restaurant';
 
       const filteredWines = est.wines.filter(w => {
-        // Filtro por Categoria
         if (currentCatFilter !== 'all' && w.category !== currentCatFilter) {
           return false;
         }
-        // Filtro por Busca Textual
         if (wineSearchQuery) {
           const matchName = (w.name || '').toLowerCase().includes(wineSearchQuery);
           const matchProducer = (w.producer || '').toLowerCase().includes(wineSearchQuery);
@@ -1865,6 +1882,15 @@
 
         const formattedPrice = `R$ ${Number(wine.price || 0).toFixed(2).replace('.', ',')}`;
 
+        // BADGES ELEGANTES PARA TAÇA E MEIA GARRAFA NO MESMO CARD
+        let servingBadgesHtml = '';
+        if (wine.priceGlass && wine.priceGlass > 0) {
+          servingBadgesHtml += `<span class="px-2 py-0.5 rounded-md bg-stone-100 border border-stone-200 text-[10px] font-semibold text-stone-700">🍷 Taça R$ ${Number(wine.priceGlass).toFixed(2).replace('.', ',')}</span>`;
+        }
+        if (wine.priceHalf && wine.priceHalf > 0) {
+          servingBadgesHtml += `<span class="px-2 py-0.5 rounded-md bg-stone-100 border border-stone-200 text-[10px] font-semibold text-stone-700">🍾 1/2 R$ ${Number(wine.priceHalf).toFixed(2).replace('.', ',')}</span>`;
+        }
+
         return `
           <div onclick="openWineDetail('${wine.id}')" class="group cursor-pointer bg-white rounded-3xl p-5 border border-vinnero-gold/25 hover:border-vinnero-gold shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
             <div class="space-y-4">
@@ -1879,7 +1905,7 @@
               <!-- DADOS DO RÓTULO -->
               <div>
                 <div class="flex items-center gap-1.5 text-[10px] font-semibold text-vinnero-gold uppercase tracking-wider">
-                  <span>${wine.category || 'Tinto'}</span> • <span>${wine.country || 'Chile'}</span>
+                  <span>${formatCategoryName(wine.category)}</span> • <span>${wine.country || 'Chile'}</span>
                 </div>
                 <h3 class="font-cinzel text-base sm:text-lg font-bold text-vinnero-wine mt-0.5 group-hover:text-vinnero-wineDark transition truncate">${wine.name}</h3>
                 <p class="text-xs text-vinnero-muted truncate mt-0.5">${wine.producer || 'Vinícola Selecionada'}</p>
@@ -1888,14 +1914,17 @@
             </div>
 
             <!-- PREÇO E AÇÃO -->
-            <div class="pt-4 border-t border-vinnero-gold/15 flex items-center justify-between mt-4">
-              <div>
-                <span class="text-[9px] uppercase font-bold text-vinnero-muted block leading-none">${t('bottlePrice')}</span>
-                <span class="font-cinzel text-lg font-bold text-vinnero-wine block mt-1">${formattedPrice}</span>
+            <div class="pt-4 border-t border-vinnero-gold/15 mt-4">
+              <div class="flex items-center justify-between mb-2">
+                <div>
+                  <span class="text-[9px] uppercase font-bold text-vinnero-muted block leading-none">${t('bottlePrice')}</span>
+                  <span class="font-cinzel text-lg font-bold text-vinnero-wine block mt-1">${formattedPrice}</span>
+                </div>
+                <button class="px-3.5 py-1.5 rounded-xl bg-vinnero-wine text-white text-xs font-bold group-hover:bg-vinnero-wineDark transition shadow-sm">
+                  Ver Detalhes →
+                </button>
               </div>
-              <button class="px-3.5 py-1.5 rounded-xl bg-vinnero-wine text-white text-xs font-bold group-hover:bg-vinnero-wineDark transition shadow-sm">
-                Ver Detalhes →
-              </button>
+              ${servingBadgesHtml ? `<div class="flex flex-wrap gap-1 pt-1">${servingBadgesHtml}</div>` : ''}
             </div>
           </div>
         `;
@@ -1908,7 +1937,6 @@
       const externalLink = document.getElementById('btnExternalGoogleMaps');
       if (!iframe || !wine) return;
 
-      // Define termo de busca preciso para o Google Maps (ex: "Viña Almaviva, Puente Alto, Chile")
       let query = wine.mapQuery || '';
       if (!query) {
         if (wine.producer && wine.country) {
@@ -1923,7 +1951,6 @@
       }
 
       const encodedQuery = encodeURIComponent(query);
-      // Google Maps Embed direto e oficial, sem falhas de tiles ou bloqueios de CORS
       iframe.src = `https://maps.google.com/maps?q=${encodedQuery}&t=&z=12&ie=UTF8&iwloc=&output=embed`;
 
       if (externalLink) {
@@ -1946,7 +1973,7 @@
       const imgEl = document.getElementById('detailWineImg');
       if (imgEl) imgEl.src = wine.image || 'https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=1000&auto=format&fit=crop&q=80';
 
-      setTxt('detailWineCategory', wine.category || 'Tinto');
+      setTxt('detailWineCategory', formatCategoryName(wine.category));
       setTxt('detailWineCountry', wine.country || 'Chile');
       setTxt('detailWineName', wine.name || '');
       setTxt('detailWineProducer', wine.producer || '');
@@ -1958,7 +1985,23 @@
       setTxt('detailWinePairing', wine.pairingSuggestion || 'Consulte nosso sommelier para harmonização.');
       setTxt('detailWineTerroir', wine.terroir || 'Terroir de altitude e clima favorável.');
 
-      // Rótulo da Região no Mapa
+      // Exibição dos preços de Meia Garrafa e Taça na ficha técnica
+      const halfBox = document.getElementById('detailHalfPriceBox');
+      const glassBox = document.getElementById('detailGlassPriceBox');
+      if (wine.priceHalf && wine.priceHalf > 0) {
+        setTxt('detailWineHalfPrice', `R$ ${Number(wine.priceHalf).toFixed(2).replace('.', ',')}`);
+        if (halfBox) halfBox.classList.remove('hidden');
+      } else if (halfBox) {
+        halfBox.classList.add('hidden');
+      }
+
+      if (wine.priceGlass && wine.priceGlass > 0) {
+        setTxt('detailWineGlassPrice', `R$ ${Number(wine.priceGlass).toFixed(2).replace('.', ',')}`);
+        if (glassBox) glassBox.classList.remove('hidden');
+      } else if (glassBox) {
+        glassBox.classList.add('hidden');
+      }
+
       const coordsLabel = document.getElementById('detailWineCoordsLabel');
       if (coordsLabel) {
         coordsLabel.innerText = wine.mapQuery || `${wine.producer || 'Origem'}, ${wine.country || ''}`;
@@ -1992,8 +2035,6 @@
       }
 
       navigateTo('detail');
-
-      // Renderiza o Google Maps instantâneo da vinícola
       renderWineryGoogleMap(wine);
     };
 
@@ -2052,7 +2093,6 @@
     let isOpAuthenticated = false;
 
     window.openOperacaoModal = function() {
-      // Sempre abre o prompt de login para autenticar o estabelecimento desejado
       promptOpLogin();
     };
 
@@ -2061,7 +2101,6 @@
       const input = document.getElementById('opAuthPassInput');
       const venueSelect = document.getElementById('opAuthVenueSelect');
       
-      // Popula a lista de estabelecimentos no login
       if (venueSelect) {
         const preferredId = (currentView === 'catalog') ? currentEstId : operatingEstId;
         venueSelect.innerHTML = establishments.map(e => `
@@ -2119,13 +2158,11 @@
       const est = establishments.find(e => e.id === operatingEstId) || establishments[0];
       if (!est) return;
 
-      // Atualiza o selo com o nome do estabelecimento autenticado no topo do painel
       const venueBadge = document.getElementById('opCurrentVenueBadge');
       if (venueBadge) {
         venueBadge.innerText = `${est.name} (${est.city || 'Nova Lima, MG'})`;
       }
 
-      // 1. Rótulos e Disponibilidade com botões de Editar e Excluir
       const winesList = document.getElementById('opWinesList');
       if (!est.wines || est.wines.length === 0) {
         winesList.innerHTML = `
@@ -2145,7 +2182,7 @@
             <div class="flex items-center justify-between p-2.5 rounded-xl bg-white border border-vinnero-gold/20 text-xs">
               <div class="min-w-0 pr-2">
                 <p class="font-bold text-vinnero-wine truncate">${w.name}</p>
-                <p class="text-[10px] text-vinnero-muted">R$ ${Number(w.price).toFixed(2)} • ${w.category}</p>
+                <p class="text-[10px] text-vinnero-muted">Garrafa: R$ ${Number(w.price).toFixed(2)} • ${formatCategoryName(w.category)}</p>
               </div>
               <div class="flex items-center gap-1.5 shrink-0">
                 <button onclick="toggleWineAvailability('${w.id}')" title="Alternar status no salão" class="px-2.5 py-1 rounded-lg text-xs font-bold transition shadow-sm ${btnClass}">
@@ -2167,7 +2204,6 @@
         }).join('');
       }
 
-      // 2. Horários Semanais
       const hoursList = document.getElementById('opWeeklyHoursList');
       const days = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
       hoursList.innerHTML = days.map((dayName, idx) => {
@@ -2202,7 +2238,6 @@
         `;
       }).join('');
 
-      // 3. Dados do Estabelecimento
       document.getElementById('opVenueName').value = est.name;
       document.getElementById('opVenueCity').value = est.city || 'Nova Lima, MG';
       document.getElementById('opVenuePhone').value = est.phone || '';
@@ -2238,6 +2273,8 @@
         document.getElementById('editWineName').value = wine.name || '';
         document.getElementById('editWineCategory').value = wine.category || 'red';
         document.getElementById('editWinePrice').value = wine.price || '';
+        document.getElementById('editWinePriceHalf').value = wine.priceHalf || '';
+        document.getElementById('editWinePriceGlass').value = wine.priceGlass || '';
         document.getElementById('editWineVintage').value = wine.vintage || '';
         document.getElementById('editWineVolume').value = wine.volume || '750ml';
         document.getElementById('editWineProducer').value = wine.producer || '';
@@ -2256,6 +2293,8 @@
         document.getElementById('editWineName').value = '';
         document.getElementById('editWineCategory').value = 'red';
         document.getElementById('editWinePrice').value = '';
+        document.getElementById('editWinePriceHalf').value = '';
+        document.getElementById('editWinePriceGlass').value = '';
         document.getElementById('editWineVintage').value = '';
         document.getElementById('editWineVolume').value = '750ml';
         document.getElementById('editWineProducer').value = '';
@@ -2277,7 +2316,6 @@
       document.getElementById('wineEditModal').classList.add('hidden');
     };
 
-    // Redimensionador de imagens para garantir que fotos de celular (que têm 5MB a 15MB) não travem o Supabase ou o LocalStorage
     function resizeImageToCanvas(file, maxWidth, maxHeight, quality, callback) {
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -2314,7 +2352,6 @@
       const file = input.files[0];
       if (!file) return;
       showToast('Otimizando foto do vinho...');
-      // Comprime para 800x800px em JPEG 80% (fica com ~60kb em vez de 5MB, salvando no Supabase sem erros)
       resizeImageToCanvas(file, 800, 800, 0.8, function(optimizedBase64) {
         document.getElementById('editWineImageValue').value = optimizedBase64;
         showToast('Foto otimizada com sucesso!');
@@ -2334,6 +2371,11 @@
       if (!est.wines) est.wines = [];
       const wineId = document.getElementById('editWineId').value;
       const priceVal = parseFloat(document.getElementById('editWinePrice').value) || 0;
+      const priceHalfVal = document.getElementById('editWinePriceHalf').value;
+      const priceHalf = priceHalfVal ? parseFloat(priceHalfVal) : null;
+      const priceGlassVal = document.getElementById('editWinePriceGlass').value;
+      const priceGlass = priceGlassVal ? parseFloat(priceGlassVal) : null;
+
       const latVal = parseFloat(document.getElementById('editWineLat').value);
       const lngVal = parseFloat(document.getElementById('editWineLng').value);
       const locationQuery = document.getElementById('editWineLocationQuery').value.trim();
@@ -2343,6 +2385,8 @@
         name: name,
         category: document.getElementById('editWineCategory').value,
         price: priceVal,
+        priceHalf: priceHalf,
+        priceGlass: priceGlass,
         vintage: document.getElementById('editWineVintage').value.trim() || 'N/V',
         volume: document.getElementById('editWineVolume').value.trim() || '750ml',
         producer: document.getElementById('editWineProducer').value.trim(),
@@ -2431,7 +2475,6 @@
       const file = input.files[0];
       if (!file) return;
       showToast('Otimizando logo...');
-      // Otimização estrita: 180x180px PNG com compressão para tráfego leve no Supabase (< 15KB)
       resizeImageToCanvas(file, 180, 180, 0.85, function(optimizedLogo) {
         const est = establishments.find(ev => ev.id === operatingEstId);
         if (est) {
@@ -2636,11 +2679,9 @@
         function() {
           establishments = establishments.filter(e => e.id !== venueId);
 
-          // Se o estabelecimento que estava selecionado na tela for o excluído, volta de forma segura para o Hub
           if (currentEstId === venueId || operatingEstId === venueId) {
             currentEstId = establishments[0] ? establishments[0].id : '';
             operatingEstId = currentEstId;
-            // Limpa parâmetro da URL de forma segura sem recarregar nem disparar erro de rota
             if (window.history && window.history.replaceState) {
               const url = new URL(window.location.href);
               url.searchParams.delete('est');
@@ -2657,7 +2698,7 @@
       );
     };
 
-    /* ==================== MODAL DE CONFIRMAÇÃO CUSTOMIZADO ==================== */
+    /* ==================== MODAL DE CONFIRMAÇÃO ==================== */
     let currentDeleteCallback = null;
 
     function openDeleteConfirmModal(title, message, onConfirm) {
@@ -2719,7 +2760,6 @@
       document.getElementById('txtBtnSommelier').innerText = t('sommelierBtn');
       document.getElementById('txtPwaInstall').innerText = t('installPwa');
 
-      // Ficha Técnica
       const pPrice = document.getElementById('txtDetailBottlePrice');
       if (pPrice) pPrice.innerText = t('bottlePrice');
       const vIntage = document.getElementById('txtDetailVintage');
@@ -2764,15 +2804,14 @@
     };
 
     function setupPwaManifest() {
-      // 1. Gera ícone PNG rasterizado em alta fidelidade para garantir 100% no Lighthouse e WebAPK
       try {
         const c = document.createElement('canvas');
         c.width = 512;
         c.height = 512;
         const ctx = c.getContext('2d');
         if (ctx) {
-          // Fundo Bordô Oficial
-          ctx.fillStyle = '#4A0D17';
+          // Fundo Cinza Neutro Idêntico à Imagem
+          ctx.fillStyle = '#606060';
           if (ctx.roundRect) {
             ctx.beginPath();
             ctx.roundRect(0, 0, 512, 512, 110);
@@ -2781,49 +2820,78 @@
             ctx.fillRect(0, 0, 512, 512);
           }
 
-          // Círculo Creme Interno
-          ctx.fillStyle = '#FAF7F2';
-          ctx.beginPath();
-          ctx.arc(256, 256, 180, 0, Math.PI * 2);
-          ctx.fill();
-
-          // Cacho de Uvas Geométrico Oficial Vinnero
-          ctx.strokeStyle = '#4A0D17';
+          // Cacho de Uvas Geométrico em Traço Branco
+          ctx.save();
+          ctx.translate(0, -25);
+          ctx.strokeStyle = '#FFFFFF';
+          ctx.fillStyle = '#FFFFFF';
           ctx.lineWidth = 14;
           ctx.lineCap = 'round';
           ctx.lineJoin = 'round';
 
-          // Haste e folha
+          // Folha e Haste
           ctx.beginPath();
-          ctx.moveTo(266, 140);
-          ctx.lineTo(220, 140);
-          ctx.lineTo(180, 80);
-          ctx.lineTo(245, 90);
+          ctx.moveTo(210, 120);
+          ctx.lineTo(260, 120);
+          ctx.lineTo(230, 65);
+          ctx.lineTo(165, 55);
           ctx.closePath();
           ctx.stroke();
 
-          // Uvas
-          const grapePositions = [
-            [186, 240], [326, 240], [256, 255],
-            [216, 345], [296, 345], [256, 430]
+          ctx.beginPath();
+          ctx.moveTo(260, 120);
+          ctx.quadraticCurveTo(280, 92, 350, 65);
+          ctx.stroke();
+
+          // Nós da haste
+          ctx.beginPath();
+          ctx.arc(260, 130, 8, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(246, 172, 8, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.moveTo(260, 130);
+          ctx.lineTo(246, 172);
+          ctx.stroke();
+
+          // 6 Anéis Vazados Brancos
+          const rings = [
+            [180, 215, 46],
+            [320, 215, 46],
+            [250, 228, 44],
+            [214, 312, 46],
+            [294, 312, 46],
+            [254, 398, 46]
           ];
-          grapePositions.forEach(([gx, gy]) => {
+          rings.forEach(([rx, ry, rad]) => {
             ctx.beginPath();
-            ctx.arc(gx, gy, 50, 0, Math.PI * 2);
+            ctx.arc(rx, ry, rad, 0, Math.PI * 2);
             ctx.stroke();
           });
+          ctx.restore();
+
+          // Tipografia Geométrica Branca "CARTA DE VINHOS"
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = '800 42px Montserrat, Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.letterSpacing = '3px';
+          ctx.fillText('CARTA DE', 256, 425);
+          ctx.fillText('VINHOS', 256, 472);
 
           const pngDataUrl = c.toDataURL('image/png');
           
-          // Atualiza ícone Apple Touch para PNG nativo
           const appleIcon = document.getElementById('appleTouchIcon');
           if (appleIcon) appleIcon.href = pngDataUrl;
 
-          // Atualiza o link do manifesto para a versão completa com PNG Data URI
+          const favicon = document.getElementById('faviconLink');
+          if (favicon) favicon.href = pngDataUrl;
+
           const manifestObj = {
             id: 'vinnero-divino-pwa',
-            name: 'Vinnero - diVino Restaurante',
-            short_name: 'Vinnero',
+            name: 'Vinnero - Carta de Vinhos',
+            short_name: 'Carta de Vinhos',
             start_url: './',
             scope: './',
             display: 'standalone',
@@ -2867,11 +2935,11 @@
         console.warn('Fallback no gerador de manifesto:', err);
       }
 
-      // 2. Registro do Service Worker 100% PWA via Blob seguro com Fallback
-      if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+      const isSecure = window.isSecureContext || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if ('serviceWorker' in navigator && isSecure) {
         try {
           const swCode = `
-            const CACHE_NAME = 'vinnero-pwa-v14';
+            const CACHE_NAME = 'vinnero-pwa-v16';
             self.addEventListener('install', (e) => {
               self.skipWaiting();
             });
@@ -2885,7 +2953,8 @@
               );
             });
             self.addEventListener('fetch', (e) => {
-              if (e.request.url.includes('supabase.co') || e.request.url.includes('google.com/maps')) {
+              const url = e.request.url;
+              if (url.startsWith('chrome-extension://') || url.includes('supabase.co') || url.includes('maps.google.com') || url.includes('google.com/maps')) {
                 return;
               }
               if (e.request.method !== 'GET') return;
@@ -2905,9 +2974,7 @@
           const swBlob = new Blob([swCode], { type: 'application/javascript' });
           const swBlobUrl = URL.createObjectURL(swBlob);
           navigator.serviceWorker.register(swBlobUrl, { scope: './' })
-            .catch(() => {
-              // Se o navegador rejeitar o blob url por restrição de sandbox, não afeta a aplicação
-            });
+            .catch(() => {});
         } catch (e) {}
       }
 
