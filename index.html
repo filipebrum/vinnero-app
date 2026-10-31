@@ -2,7 +2,7 @@
 <html lang="pt-BR" class="h-full overflow-x-hidden">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
   <title>Vinnero - Plataforma Digital de Vinhos & Experiências</title>
   
   <!-- META TAGS PWA / APPLE / MOBILE -->
@@ -13,15 +13,16 @@
   <meta name="application-name" content="Vinnero">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
 
-  <!-- FAVICON OFICIAL DA PÁGINA (Aba do Navegador) -->
-  <link rel="icon" type="image/svg+xml" id="faviconLink" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23606060'/%3E%3Cg transform='translate(0, -25)' stroke='%23FFFFFF' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M210 120 L260 120 L230 65 L165 55 Z' stroke-width='14'/%3E%3Cpath d='M260 120 C280 92, 312 80, 350 65' stroke-width='14'/%3E%3Ccircle cx='260' cy='130' r='10' fill='%23FFFFFF' stroke='none'/%3E%3Ccircle cx='246' cy='172' r='10' fill='%23FFFFFF' stroke='none'/%3E%3Cpath d='M260 130 L246 172' stroke-width='14'/%3E%3Ccircle cx='180' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='320' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='250' cy='228' r='44' stroke-width='14'/%3E%3Ccircle cx='214' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='294' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='254' cy='398' r='46' stroke-width='14'/%3E%3C/g%3E%3Ctext x='256' y='425' font-family='Montserrat, Inter, sans-serif' font-size='44' font-weight='800' fill='%23FFFFFF' text-anchor='middle' letter-spacing='3'%3ECARTA DE%3C/text%3E%3Ctext x='256' y='472' font-family='Montserrat, Inter, sans-serif' font-size='44' font-weight='800' fill='%23FFFFFF' text-anchor='middle' letter-spacing='3'%3EVINHOS%3C/text%3E%3C/svg%3E">
+  <!-- FAVICON OFICIAL DA PÁGINA (Aba do Navegador com a Logo Oficial Vinnero) -->
+  <link rel="icon" type="image/svg+xml" id="faviconLink" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23FAF7F2'/%3E%3Cg transform='translate(0, -20)' stroke='%23231815' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M210 120 L260 120 L230 65 L165 55 Z' stroke-width='14'/%3E%3Cpath d='M260 120 C280 92, 312 80, 350 65' stroke-width='14'/%3E%3Ccircle cx='260' cy='130' r='10' fill='%23231815' stroke='none'/%3E%3Ccircle cx='246' cy='172' r='10' fill='%23231815' stroke='none'/%3E%3Cpath d='M260 130 L246 172' stroke-width='14'/%3E%3Ccircle cx='180' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='320' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='250' cy='228' r='44' stroke-width='14'/%3E%3Ccircle cx='214' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='294' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='254' cy='398' r='46' stroke-width='14'/%3E%3C/g%3E%3Ctext x='256' y='465' font-family='Montserrat, sans-serif' font-size='56' font-weight='800' fill='%23231815' text-anchor='middle' letter-spacing='6'%3EVINNERO%3C/text%3E%3C/svg%3E">
 
   <!-- ÍCONE APPLE TOUCH (Obrigatório para iOS PWA) -->
-  <link rel="apple-touch-icon" id="appleTouchIcon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23606060'/%3E%3Cg transform='translate(0, -25)' stroke='%23FFFFFF' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M210 120 L260 120 L230 65 L165 55 Z' stroke-width='14'/%3E%3Cpath d='M260 120 C280 92, 312 80, 350 65' stroke-width='14'/%3E%3Ccircle cx='260' cy='130' r='10' fill='%23FFFFFF' stroke='none'/%3E%3Ccircle cx='246' cy='172' r='10' fill='%23FFFFFF' stroke='none'/%3E%3Cpath d='M260 130 L246 172' stroke-width='14'/%3E%3Ccircle cx='180' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='320' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='250' cy='228' r='44' stroke-width='14'/%3E%3Ccircle cx='214' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='294' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='254' cy='398' r='46' stroke-width='14'/%3E%3C/g%3E%3Ctext x='256' y='425' font-family='Montserrat, Inter, sans-serif' font-size='44' font-weight='800' fill='%23FFFFFF' text-anchor='middle' letter-spacing='3'%3ECARTA DE%3C/text%3E%3Ctext x='256' y='472' font-family='Montserrat, Inter, sans-serif' font-size='44' font-weight='800' fill='%23FFFFFF' text-anchor='middle' letter-spacing='3'%3EVINHOS%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" id="appleTouchIcon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23FAF7F2'/%3E%3Cg transform='translate(0, -20)' stroke='%23231815' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M210 120 L260 120 L230 65 L165 55 Z' stroke-width='14'/%3E%3Cpath d='M260 120 C280 92, 312 80, 350 65' stroke-width='14'/%3E%3Ccircle cx='260' cy='130' r='10' fill='%23231815' stroke='none'/%3E%3Ccircle cx='246' cy='172' r='10' fill='%23231815' stroke='none'/%3E%3Cpath d='M260 130 L246 172' stroke-width='14'/%3E%3Ccircle cx='180' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='320' cy='215' r='46' stroke-width='14'/%3E%3Ccircle cx='250' cy='228' r='44' stroke-width='14'/%3E%3Ccircle cx='214' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='294' cy='312' r='46' stroke-width='14'/%3E%3Ccircle cx='254' cy='398' r='46' stroke-width='14'/%3E%3C/g%3E%3Ctext x='256' y='465' font-family='Montserrat, sans-serif' font-size='56' font-weight='800' fill='%23231815' text-anchor='middle' letter-spacing='6'%3EVINNERO%3C/text%3E%3C/svg%3E">
 
   <!-- MANIFESTO NATIVO ESTÁTICO EMBUTIDO (100% PWA W3C Compliant sem Blob URL) -->
-  <link rel="manifest" id="manifestLink" href="data:application/manifest+json;charset=utf-8,%7B%22id%22%3A%22vinnero-divino-pwa%22%2C%22name%22%3A%22Vinnero%20-%20diVino%20Restaurante%22%2C%22short_name%22%3A%22Vinnero%22%2C%22start_url%22%3A%22.%2F%22%2C%22scope%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22display_override%22%3A%5B%22standalone%22%2C%22window-controls-overlay%22%5D%2C%22orientation%22%3A%22portrait-primary%22%2C%22background_color%22%3A%22%23FAF7F2%22%2C%22theme_color%22%3A%22%234A0D17%22%2C%22lang%22%3A%22pt-BR%22%2C%22dir%22%3A%22ltr%22%2C%22description%22%3A%22Carta%20Digital%20de%20Vinhos%20e%20Experi%C3%AAncias%20Enol%C3%B3gicas%22%2C%22prefer_related_applications%22%3Afalse%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%253E%253Crect%20width%3D'512'%20height%3D'512'%20rx%3D'110'%20fill%3D'%2523606060'%2F%253E%253Cg%20transform%3D'translate(0%2C%20-25)'%20stroke%3D'%2523FFFFFF'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%253E%253Cpath%20d%3D'M210%20120%20L260%20120%20L230%2065%20L165%2055%20Z'%20stroke-width%3D'14'%2F%253E%253Cpath%20d%3D'M260%20120%20C280%2092%2C%20312%2080%2C%20350%2065'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'260'%20cy%3D'130'%20r%3D'10'%20fill%3D'%2523FFFFFF'%20stroke%3D'none'%2F%253E%253Ccircle%20cx%3D'246'%20cy%3D'172'%20r%3D'10'%20fill%3D'%2523FFFFFF'%20stroke%3D'none'%2F%253E%253Cpath%20d%3D'M260%20130%20L246%20172'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'180'%20cy%3D'215'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'320'%20cy%3D'215'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'250'%20cy%3D'228'%20r%3D'44'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'214'%20cy%3D'312'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'294'%20cy%3D'312'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'254'%20cy%3D'398'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253C%2Fg%253E%253Ctext%20x%3D'256'%20y%3D'425'%20font-family%3D'Montserrat%2C%20Inter%2C%20sans-serif'%20font-size%3D'44'%20font-weight%3D'800'%20fill%3D'%2523FFFFFF'%20text-anchor%3D'middle'%20letter-spacing%3D'3'%253ECARTA%20DE%253C%2Ftext%253E%253Ctext%20x%3D'256'%20y%3D'472'%20font-family%3D'Montserrat%2C%20Inter%2C%20sans-serif'%20font-size%3D'44'%20font-weight%3D'800'%20fill%3D'%2523FFFFFF'%20text-anchor%3D'middle'%20letter-spacing%3D'3'%253EVINHOS%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+  <link rel="manifest" id="manifestLink" href="data:application/manifest+json;charset=utf-8,%7B%22id%22%3A%22vinnero-divino-pwa%22%2C%22name%22%3A%22Vinnero%20-%20diVino%20Restaurante%22%2C%22short_name%22%3A%22Vinnero%22%2C%22start_url%22%3A%22.%2F%22%2C%22scope%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22display_override%22%3A%5B%22standalone%22%2C%22window-controls-overlay%22%5D%2C%22orientation%22%3A%22portrait-primary%22%2C%22background_color%22%3A%22%23FAF7F2%22%2C%22theme_color%22%3A%22%234A0D17%22%2C%22lang%22%3A%22pt-BR%22%2C%22dir%22%3A%22ltr%22%2C%22description%22%3A%22Carta%20Digital%20de%20Vinhos%20e%20Experi%C3%AAncias%20Enol%C3%B3gicas%22%2C%22prefer_related_applications%22%3Afalse%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%253E%253Crect%20width%3D'512'%20height%3D'512'%20rx%3D'110'%20fill%3D'%2523FAF7F2'%2F%253E%253Cg%20transform%3D'translate(0%2C%20-20)'%20stroke%3D'%2523231815'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%253E%253Cpath%20d%3D'M210%20120%20L260%20120%20L230%2065%20L165%2055%20Z'%20stroke-width%3D'14'%2F%253E%253Cpath%20d%3D'M260%20120%20C280%2092%2C%20312%2080%2C%20350%2065'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'260'%20cy%3D'130'%20r%3D'10'%20fill%3D'%2523231815'%20stroke%3D'none'%2F%253E%253Ccircle%20cx%3D'246'%20cy%3D'172'%20r%3D'10'%20fill%3D'%2523231815'%20stroke%3D'none'%2F%253E%253Cpath%20d%3D'M260%20130%20L246%20172'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'180'%20cy%3D'215'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'320'%20cy%3D'215'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'250'%20cy%3D'228'%20r%3D'44'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'214'%20cy%3D'312'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'294'%20cy%3D'312'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253Ccircle%20cx%3D'254'%20cy%3D'398'%20r%3D'46'%20stroke-width%3D'14'%2F%253E%253C%2Fg%253E%253Ctext%20x%3D'256'%20y%3D'465'%20font-family%3D'Montserrat%2C%20sans-serif'%20font-size%3D'56'%20font-weight%3D'800'%20fill%3D'%2523231815'%20text-anchor%3D'middle'%20letter-spacing%3D'6'%253EVINNERO%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
 
   <!-- FONTES: MONTSERRAT (FONTE DA LOGO VINNERO), CINZEL E INTER -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,18 +60,30 @@
   </script>
 
   <style>
-    html, body {
+    *, *::before, *::after {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden !important;
+      -webkit-text-size-adjust: 100%;
+    }
+    body {
       background-color: #FAF7F2;
       color: #1A1A1A;
       font-family: 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
+      overflow-x: hidden !important;
       width: 100%;
+      max-width: 100vw;
       min-height: 100vh;
       min-height: -webkit-fill-available;
-      padding-left: env(safe-area-inset-left);
-      padding-right: env(safe-area-inset-right);
+      position: relative;
+      margin: 0;
+      padding: 0;
     }
     .font-cinzel { font-family: 'Cinzel', serif; }
     .font-vinnero-brand { font-family: 'Montserrat', sans-serif; }
@@ -79,27 +92,38 @@
     
     header {
       padding-top: max(env(safe-area-inset-top), 0px);
+      padding-left: max(env(safe-area-inset-left), 0px);
+      padding-right: max(env(safe-area-inset-right), 0px);
+      width: 100%;
+      max-width: 100vw;
+    }
+    main {
+      padding-left: max(env(safe-area-inset-left), 1rem);
+      padding-right: max(env(safe-area-inset-right), 1rem);
+      width: 100%;
+      max-width: 100vw;
     }
     footer {
       padding-bottom: max(env(safe-area-inset-bottom), 1.5rem);
+      padding-left: max(env(safe-area-inset-left), 1rem);
+      padding-right: max(env(safe-area-inset-right), 1rem);
+      width: 100%;
+      max-width: 100vw;
     }
   </style>
 </head>
-<body class="min-h-full flex flex-col bg-vinnero-cream text-vinnero-charcoal selection:bg-vinnero-wine selection:text-white overflow-x-hidden">
+<body class="min-h-full flex flex-col bg-vinnero-cream text-vinnero-charcoal selection:bg-vinnero-wine selection:text-white overflow-x-hidden w-full max-w-full">
 
   <!-- ==================== POP-UP BLOQUEANTE: VERIFICAÇÃO DE MAIORIDADE (+18 ECA) ==================== -->
   <div id="ageGateModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 transition-all duration-300">
     <div class="bg-vinnero-cream border border-vinnero-gold/40 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center shadow-2xl space-y-4">
       <div class="w-14 h-14 mx-auto rounded-2xl bg-vinnero-wine flex items-center justify-center text-vinnero-gold shadow-md">
-        <!-- Ícone Oficial Vinnero -->
-        <svg class="w-8 h-8" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <!-- Folha e Haste Exata da Logo -->
+        <svg class="w-7 h-7" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <path d="M42 35 L58 35 L48 18 L26 15 Z" stroke-width="4.5" fill="none"/>
           <path d="M58 35 C65 26, 75 22, 88 17" stroke-width="4.5"/>
           <circle cx="58" cy="38" r="3.2" fill="currentColor"/>
           <circle cx="54" cy="51" r="3.2" fill="currentColor"/>
           <path d="M58 38 L54 51" stroke-width="4.5"/>
-          <!-- Cacho Geométrico com 6 Anéis -->
           <circle cx="34" cy="65" r="14" stroke-width="4.5"/>
           <circle cx="76" cy="65" r="14" stroke-width="4.5"/>
           <circle cx="55" cy="69" r="13.5" stroke-width="4.5"/>
@@ -207,34 +231,34 @@
       </div>
 
       <!-- BARRA DE FILTROS DO HUB -->
-      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
-        <button onclick="setEstFilter('all')" id="filterEst_all" class="px-4 py-2 rounded-xl text-xs font-bold bg-vinnero-wine text-white shadow-sm transition whitespace-nowrap">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 w-full max-w-full">
+        <button onclick="setEstFilter('all')" id="filterEst_all" class="px-4 py-2 rounded-xl text-xs font-bold bg-vinnero-wine text-white shadow-sm transition whitespace-nowrap shrink-0">
           Todos
         </button>
-        <button onclick="setEstFilter('restaurant')" id="filterEst_restaurant" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap">
+        <button onclick="setEstFilter('restaurant')" id="filterEst_restaurant" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap shrink-0">
           Restaurantes & Bares
         </button>
-        <button onclick="setEstFilter('store')" id="filterEst_store" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap">
+        <button onclick="setEstFilter('store')" id="filterEst_store" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap shrink-0">
           Lojas Especializadas
         </button>
       </div>
 
       <!-- LISTAGEM DE CARDS DOS ESTABELECIMENTOS -->
-      <div>
+      <div class="w-full max-w-full">
         <div class="flex items-center justify-between mb-4">
           <h2 id="txtVenuesTitle" class="font-cinzel text-xl sm:text-2xl font-bold text-vinnero-wine">Estabelecimentos</h2>
           <span id="txtVenuesDesc" class="text-xs text-vinnero-muted hidden sm:inline">Escolha o local para ver rótulos, safras e harmonizações</span>
         </div>
-        <div id="venuesGrid" class="grid grid-cols-2 gap-3 sm:gap-6 w-full items-stretch">
+        <div id="venuesGrid" class="grid grid-cols-2 gap-3 sm:gap-6 w-full max-w-full items-stretch">
           <!-- Injetado dinamicamente via JavaScript -->
         </div>
       </div>
     </section>
 
     <!-- ==================== TELA 2: CARTA DE VINHOS DO LOCAL ==================== -->
-    <section id="viewCatalog" class="space-y-6 hidden">
+    <section id="viewCatalog" class="space-y-6 hidden w-full max-w-full">
       <!-- CABEÇALHO DO ESTABELECIMENTO ATIVO -->
-      <div class="bg-white rounded-3xl p-6 border border-vinnero-gold/30 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div class="bg-white rounded-3xl p-6 border border-vinnero-gold/30 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 w-full max-w-full">
         <div class="flex items-center gap-4">
           <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-vinnero-cream p-2 border border-vinnero-gold/40 flex items-center justify-center shrink-0 shadow-inner overflow-hidden">
             <img id="catEstLogo" src="" alt="Logo" class="w-full h-full object-contain">
@@ -279,26 +303,26 @@
       </div>
 
       <!-- BUSCA & FILTRO POR CATEGORIAS DE VINHOS -->
-      <div class="space-y-3">
-        <div class="relative">
+      <div class="space-y-3 w-full max-w-full">
+        <div class="relative w-full max-w-full">
           <input type="text" id="wineSearchInput" oninput="handleWineSearch(this.value)" placeholder="Buscar por uva, rótulo, produtor ou país..." class="w-full bg-white border border-vinnero-gold/30 rounded-2xl py-3 pl-11 pr-4 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-vinnero-wine/30 shadow-sm">
           <svg class="w-4 h-4 text-vinnero-muted absolute left-4 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
         </div>
 
-        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
-          <button onclick="setWineCategory('all')" id="catBtn_all" class="px-4 py-2 rounded-xl text-xs font-bold bg-vinnero-wine text-white shadow-sm transition whitespace-nowrap">Todos</button>
-          <button onclick="setWineCategory('red')" id="catBtn_red" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap">Tintos</button>
-          <button onclick="setWineCategory('white')" id="catBtn_white" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap">Brancos</button>
-          <button onclick="setWineCategory('rose')" id="catBtn_rose" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap">Rosés</button>
-          <button onclick="setWineCategory('sparkling')" id="catBtn_sparkling" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap">Espumantes</button>
-          <button onclick="setWineCategory('dessert')" id="catBtn_dessert" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap">Sobremesa</button>
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 w-full max-w-full">
+          <button onclick="setWineCategory('all')" id="catBtn_all" class="px-4 py-2 rounded-xl text-xs font-bold bg-vinnero-wine text-white shadow-sm transition whitespace-nowrap shrink-0">Todos</button>
+          <button onclick="setWineCategory('red')" id="catBtn_red" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap shrink-0">Tintos</button>
+          <button onclick="setWineCategory('white')" id="catBtn_white" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap shrink-0">Brancos</button>
+          <button onclick="setWineCategory('rose')" id="catBtn_rose" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap shrink-0">Rosés</button>
+          <button onclick="setWineCategory('sparkling')" id="catBtn_sparkling" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap shrink-0">Espumantes</button>
+          <button onclick="setWineCategory('dessert')" id="catBtn_dessert" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap shrink-0">Sobremesa</button>
         </div>
       </div>
 
       <!-- GRID DOS VINHOS (FOTOS 1000x1000px VERTICAIS) -->
-      <div id="winesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div id="winesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-full">
         <!-- Renderizado dinamicamente -->
       </div>
     </section>
@@ -1733,23 +1757,23 @@
           : 'bg-stone-300 text-stone-500 cursor-not-allowed';
 
         return `
-          <div onclick="${isClickable ? `openEstablishment('${est.id}')` : `showToast('Restaurante fechado no momento. Horário: ${scheduleText}')`}" class="group ${cardCursorClass} bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-vinnero-gold/30 shadow-sm transition-all duration-300 flex flex-col justify-between h-full">
-            <div class="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
+          <div onclick="${isClickable ? `openEstablishment('${est.id}')` : `showToast('Restaurante fechado no momento. Horário: ${scheduleText}')`}" class="group ${cardCursorClass} bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-vinnero-gold/30 shadow-sm transition-all duration-300 flex flex-col justify-between h-full w-full min-w-0 overflow-hidden">
+            <div class="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 w-full min-w-0">
               <div class="w-14 h-14 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl bg-vinnero-cream p-1.5 sm:p-2 border border-vinnero-gold/40 flex items-center justify-center shrink-0 shadow-inner overflow-hidden mx-auto sm:mx-0">
                 <img src="${est.logo}" alt="${est.name}" class="w-full h-full object-contain">
               </div>
               <div class="flex-1 min-w-0 w-full text-center sm:text-left">
                 <div class="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 sm:gap-2">
-                  <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-vinnero-wine/10 text-vinnero-wine">${typeText}</span>
+                  <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-vinnero-wine/10 text-vinnero-wine">${typeText}</span>
                   ${statusBadgeHtml}
                 </div>
                 <h3 class="font-cinzel text-sm sm:text-lg lg:text-xl font-bold text-vinnero-wine mt-1 truncate">${est.name}</h3>
-                <p class="text-[11px] sm:text-xs text-vinnero-muted mt-0.5">${est.city || 'Nova Lima, MG'}</p>
+                <p class="text-[11px] sm:text-xs text-vinnero-muted mt-0.5 truncate">${est.city || 'Nova Lima, MG'}</p>
                 <p class="text-[10px] sm:text-[11px] text-vinnero-muted/80 mt-1 truncate hidden sm:block">${scheduleText}</p>
               </div>
             </div>
 
-            <div class="pt-3 border-t border-vinnero-gold/15 flex items-center justify-center sm:justify-end mt-4">
+            <div class="pt-3 border-t border-vinnero-gold/15 flex items-center justify-center sm:justify-end mt-4 w-full">
               <button class="w-full sm:w-auto px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition shadow-sm ${btnStyleClass}">
                 ${actionBtnText} ${isClickable ? '→' : '🔒'}
               </button>
@@ -1892,8 +1916,8 @@
         }
 
         return `
-          <div onclick="openWineDetail('${wine.id}')" class="group cursor-pointer bg-white rounded-3xl p-5 border border-vinnero-gold/25 hover:border-vinnero-gold shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
-            <div class="space-y-4">
+          <div onclick="openWineDetail('${wine.id}')" class="group cursor-pointer bg-white rounded-3xl p-5 border border-vinnero-gold/25 hover:border-vinnero-gold shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between w-full min-w-0 overflow-hidden">
+            <div class="space-y-4 w-full min-w-0">
               <!-- FOTO DO VINHO 1000x1000px VERTICAL -->
               <div class="relative w-full h-56 sm:h-64 rounded-2xl bg-vinnero-cream p-4 flex items-center justify-center border border-vinnero-gold/15 overflow-hidden">
                 <img src="${wine.image || 'https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=1000&auto=format&fit=crop&q=80'}" alt="${wine.name}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-lg">
@@ -1903,8 +1927,8 @@
               </div>
 
               <!-- DADOS DO RÓTULO -->
-              <div>
-                <div class="flex items-center gap-1.5 text-[10px] font-semibold text-vinnero-gold uppercase tracking-wider">
+              <div class="w-full min-w-0">
+                <div class="flex items-center gap-1.5 text-[10px] font-semibold text-vinnero-gold uppercase tracking-wider truncate">
                   <span>${formatCategoryName(wine.category)}</span> • <span>${wine.country || 'Chile'}</span>
                 </div>
                 <h3 class="font-cinzel text-base sm:text-lg font-bold text-vinnero-wine mt-0.5 group-hover:text-vinnero-wineDark transition truncate">${wine.name}</h3>
@@ -1914,13 +1938,13 @@
             </div>
 
             <!-- PREÇO E AÇÃO -->
-            <div class="pt-4 border-t border-vinnero-gold/15 mt-4">
+            <div class="pt-4 border-t border-vinnero-gold/15 mt-4 w-full min-w-0">
               <div class="flex items-center justify-between mb-2">
                 <div>
                   <span class="text-[9px] uppercase font-bold text-vinnero-muted block leading-none">${t('bottlePrice')}</span>
                   <span class="font-cinzel text-lg font-bold text-vinnero-wine block mt-1">${formattedPrice}</span>
                 </div>
-                <button class="px-3.5 py-1.5 rounded-xl bg-vinnero-wine text-white text-xs font-bold group-hover:bg-vinnero-wineDark transition shadow-sm">
+                <button class="px-3.5 py-1.5 rounded-xl bg-vinnero-wine text-white text-xs font-bold group-hover:bg-vinnero-wineDark transition shadow-sm shrink-0">
                   Ver Detalhes →
                 </button>
               </div>
@@ -2810,8 +2834,8 @@
         c.height = 512;
         const ctx = c.getContext('2d');
         if (ctx) {
-          // Fundo Cinza Neutro Idêntico à Imagem
-          ctx.fillStyle = '#606060';
+          // Fundo Creme / Linho Idêntico à Imagem Oficial
+          ctx.fillStyle = '#FAF7F2';
           if (ctx.roundRect) {
             ctx.beginPath();
             ctx.roundRect(0, 0, 512, 512, 110);
@@ -2820,11 +2844,11 @@
             ctx.fillRect(0, 0, 512, 512);
           }
 
-          // Cacho de Uvas Geométrico em Traço Branco
+          // Cacho de Uvas Geométrico Oficial em Tom Marrom Escuro Nobre
           ctx.save();
-          ctx.translate(0, -25);
-          ctx.strokeStyle = '#FFFFFF';
-          ctx.fillStyle = '#FFFFFF';
+          ctx.translate(0, -20);
+          ctx.strokeStyle = '#231815';
+          ctx.fillStyle = '#231815';
           ctx.lineWidth = 14;
           ctx.lineCap = 'round';
           ctx.lineJoin = 'round';
@@ -2856,7 +2880,7 @@
           ctx.lineTo(246, 172);
           ctx.stroke();
 
-          // 6 Anéis Vazados Brancos
+          // 6 Anéis Vazados
           const rings = [
             [180, 215, 46],
             [320, 215, 46],
@@ -2872,13 +2896,12 @@
           });
           ctx.restore();
 
-          // Tipografia Geométrica Branca "CARTA DE VINHOS"
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = '800 42px Montserrat, Inter, sans-serif';
+          // Lettering Oficial "VINNERO" em Tom Nobre
+          ctx.fillStyle = '#231815';
+          ctx.font = '800 52px Montserrat, Inter, sans-serif';
           ctx.textAlign = 'center';
-          ctx.letterSpacing = '3px';
-          ctx.fillText('CARTA DE', 256, 425);
-          ctx.fillText('VINHOS', 256, 472);
+          ctx.letterSpacing = '5px';
+          ctx.fillText('VINNERO', 256, 465);
 
           const pngDataUrl = c.toDataURL('image/png');
           
@@ -2891,7 +2914,7 @@
           const manifestObj = {
             id: 'vinnero-divino-pwa',
             name: 'Vinnero - Carta de Vinhos',
-            short_name: 'Carta de Vinhos',
+            short_name: 'Vinnero',
             start_url: './',
             scope: './',
             display: 'standalone',
