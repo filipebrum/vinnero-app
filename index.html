@@ -221,10 +221,7 @@
 
       <!-- BARRA DE FILTROS DO HUB -->
       <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 w-full max-w-full touch-pan-x overscroll-x-contain">
-        <button onclick="setEstFilter('all')" id="filterEst_all" class="px-4 py-2 rounded-xl text-xs font-bold bg-vinnero-wine text-white shadow-sm transition whitespace-nowrap shrink-0">
-          Todos
-        </button>
-        <button onclick="setEstFilter('restaurant')" id="filterEst_restaurant" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap shrink-0">
+        <button onclick="setEstFilter('restaurant')" id="filterEst_restaurant" class="px-4 py-2 rounded-xl text-xs font-bold bg-vinnero-wine text-white shadow-sm transition whitespace-nowrap shrink-0">
           Restaurantes & Bares
         </button>
         <button onclick="setEstFilter('store')" id="filterEst_store" class="px-4 py-2 rounded-xl text-xs font-medium bg-white text-vinnero-muted hover:text-vinnero-wine border border-vinnero-gold/20 transition whitespace-nowrap shrink-0">
@@ -976,7 +973,7 @@
     let currentView = 'hub';
     let currentEstId = 'est_divino';
     let currentLang = 'pt';
-    let currentEstFilter = 'all';
+    let currentEstFilter = 'restaurant';
     let currentCatFilter = 'all';
     let operatingEstId = 'est_divino';
     let currentSelectedWine = null;
@@ -1731,7 +1728,7 @@
     /* ==================== RENDERIZAÇÃO: HUB INICIAL ==================== */
     window.setEstFilter = function(filter) {
       currentEstFilter = filter;
-      ['all', 'restaurant', 'store'].forEach(f => {
+      ['restaurant', 'store'].forEach(f => {
         const btn = document.getElementById(`filterEst_${f}`);
         if (!btn) return;
         if (f === filter) {
@@ -1748,9 +1745,8 @@
       if (!grid) return;
 
       const filtered = establishments.filter(est => {
-        if (currentEstFilter === 'restaurant') return est.type === 'restaurant';
         if (currentEstFilter === 'store') return est.type === 'store';
-        return true;
+        return est.type === 'restaurant';
       });
 
       grid.innerHTML = filtered.map(est => {
@@ -2914,7 +2910,6 @@
       setTxtSafe('txtBannerBadge', t('bannerBadge'));
       setTxtSafe('txtBannerTitle', t('bannerTitle'));
       setTxtSafe('txtBannerSubtitle', t('bannerSubtitle'));
-      setTxtSafe('filterEst_all', t('filterAll'));
       setTxtSafe('filterEst_restaurant', t('filterRestaurants'));
       setTxtSafe('filterEst_store', t('filterStores'));
       setTxtSafe('txtVenuesTitle', t('venuesTitle'));
