@@ -491,10 +491,11 @@
       </div>
 
       <!-- ABAS DA OPERAÇÃO -->
-      <div class="flex items-center gap-2 border-b border-vinnero-gold/20 pb-2">
-        <button onclick="setOpTab('wines')" id="opTab_wines" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-vinnero-wine text-white transition">Rótulos & Disponibilidade</button>
-        <button onclick="setOpTab('hours')" id="opTab_hours" class="px-3 py-1.5 rounded-lg text-xs font-medium text-vinnero-muted hover:text-vinnero-wine transition">Horários Semanais</button>
-        <button onclick="setOpTab('venue')" id="opTab_venue" class="px-3 py-1.5 rounded-lg text-xs font-medium text-vinnero-muted hover:text-vinnero-wine transition">Dados do Estabelecimento</button>
+      <div class="flex items-center gap-2 border-b border-vinnero-gold/20 pb-2 overflow-x-auto no-scrollbar">
+        <button onclick="setOpTab('wines')" id="opTab_wines" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-vinnero-wine text-white transition whitespace-nowrap">Rótulos & Disponibilidade</button>
+        <button onclick="setOpTab('hours')" id="opTab_hours" class="px-3 py-1.5 rounded-lg text-xs font-medium text-vinnero-muted hover:text-vinnero-wine transition whitespace-nowrap">Horários Semanais</button>
+        <button onclick="setOpTab('venue')" id="opTab_venue" class="px-3 py-1.5 rounded-lg text-xs font-medium text-vinnero-muted hover:text-vinnero-wine transition whitespace-nowrap">Dados do Estabelecimento</button>
+        <button onclick="setOpTab('analytics')" id="opTab_analytics" class="px-3 py-1.5 rounded-lg text-xs font-medium text-vinnero-muted hover:text-vinnero-wine transition whitespace-nowrap">Analytics & BI</button>
       </div>
 
       <!-- CONTEÚDO DA ABA 1: RÓTULOS & DISPONIBILIDADE -->
@@ -540,6 +541,47 @@
         <button onclick="saveOperatingVenueInfo()" class="w-full py-2.5 rounded-xl bg-vinnero-wine text-white text-xs font-bold hover:bg-vinnero-wineDark transition mt-2">
           Salvar Dados do Local
         </button>
+      </div>
+
+      <!-- CONTEÚDO DA ABA 4: ANALYTICS E BI -->
+      <div id="opContent_analytics" class="space-y-4 text-xs hidden">
+        <div class="flex items-center justify-between">
+          <h4 class="font-bold text-vinnero-wine uppercase tracking-wider">Visão Geral de Acessos</h4>
+          <button onclick="loadAnalyticsData()" class="px-3 py-1.5 rounded-lg bg-vinnero-wine/10 text-vinnero-wine text-[10px] font-bold hover:bg-vinnero-wine/20 transition flex items-center gap-1">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            Atualizar Dados
+          </button>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-2 sm:gap-3">
+          <div class="bg-white p-3 sm:p-4 rounded-xl border border-vinnero-gold/30 text-center shadow-sm">
+            <span class="block text-[9px] sm:text-[10px] text-vinnero-muted uppercase font-bold">Buscas na Lupa</span>
+            <span id="metricTotalSearches" class="block font-cinzel text-xl sm:text-2xl text-vinnero-wine font-bold mt-1">0</span>
+          </div>
+          <div class="bg-white p-3 sm:p-4 rounded-xl border border-vinnero-gold/30 text-center shadow-sm">
+            <span class="block text-[9px] sm:text-[10px] text-vinnero-muted uppercase font-bold">Fichas Abertas</span>
+            <span id="metricTotalViews" class="block font-cinzel text-xl sm:text-2xl text-vinnero-wine font-bold mt-1">0</span>
+          </div>
+          <div class="bg-white p-3 sm:p-4 rounded-xl border border-vinnero-gold/30 text-center shadow-sm">
+            <span class="block text-[9px] sm:text-[10px] text-vinnero-muted uppercase font-bold">Uso Sommelier</span>
+            <span id="metricTotalSommelier" class="block font-cinzel text-xl sm:text-2xl text-vinnero-wine font-bold mt-1">0</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="bg-white p-4 rounded-xl border border-vinnero-gold/30 shadow-sm">
+            <h5 class="font-bold text-vinnero-wine mb-3">Top Termos Buscados</h5>
+            <div id="analyticsTopSearches" class="space-y-3 max-h-48 overflow-y-auto pr-1 text-[11px]">
+              <div class="text-vinnero-muted italic">Carregando dados da nuvem...</div>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-xl border border-vinnero-gold/30 shadow-sm">
+            <h5 class="font-bold text-vinnero-wine mb-3">Top Vinhos Acessados</h5>
+            <div id="analyticsTopWines" class="space-y-3 max-h-48 overflow-y-auto pr-1 text-[11px]">
+              <div class="text-vinnero-muted italic">Carregando dados da nuvem...</div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1320,6 +1362,100 @@
       }
     }
 
+    /* ==================== ANALYTICS ENGINE (FASE 2 E 3) ==================== */
+    async function trackAnalyticsEvent(eventType, eventData = {}) {
+      if (!supabaseClient) return; 
+      
+      const estId = (currentView === 'catalog' || currentView === 'detail') ? currentEstId : operatingEstId;
+      if (!estId) return;
+
+      try {
+        await supabaseClient
+          .from('analytics_events')
+          .insert([{
+            establishment_id: estId,
+            event_type: eventType,
+            event_data: eventData
+          }]);
+      } catch (e) {
+        // Falha silenciosa para não interferir na experiência do cliente
+      }
+    }
+
+    async function loadAnalyticsData() {
+      if (!supabaseClient) {
+        document.getElementById('analyticsTopSearches').innerHTML = '<div class="text-rose-600">Supabase não conectado.</div>';
+        document.getElementById('analyticsTopWines').innerHTML = '<div class="text-rose-600">Supabase não conectado.</div>';
+        return;
+      }
+      const est = establishments.find(e => e.id === operatingEstId);
+      if (!est) return;
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('analytics_events')
+          .select('*')
+          .eq('establishment_id', operatingEstId);
+
+        if (error) throw error;
+
+        let searches = [];
+        let views = [];
+        let sommelierCount = 0;
+
+        data.forEach(ev => {
+          if (ev.event_type === 'busca' && ev.event_data && ev.event_data.palavra_chave) {
+            searches.push(ev.event_data.palavra_chave.toLowerCase());
+          } else if (ev.event_type === 'visualizacao_vinho' && ev.event_data && ev.event_data.wine_name) {
+            views.push(ev.event_data.wine_name);
+          } else if (ev.event_type === 'pergunta_sommelier') {
+            sommelierCount++;
+          }
+        });
+
+        document.getElementById('metricTotalSearches').innerText = searches.length;
+        document.getElementById('metricTotalViews').innerText = views.length;
+        document.getElementById('metricTotalSommelier').innerText = sommelierCount;
+
+        const countOccurrences = (arr) => arr.reduce((acc, curr) => {
+          acc[curr] = (acc[curr] || 0) + 1;
+          return acc;
+        }, {});
+
+        const searchCounts = countOccurrences(searches);
+        const sortedSearches = Object.entries(searchCounts).sort((a,b) => b[1] - a[1]).slice(0, 10);
+        
+        const viewsCounts = countOccurrences(views);
+        const sortedViews = Object.entries(viewsCounts).sort((a,b) => b[1] - a[1]).slice(0, 10);
+
+        const renderList = (arr) => {
+          if (arr.length === 0) return '<div class="text-vinnero-muted italic">Sem dados coletados ainda.</div>';
+          const max = arr[0][1];
+          return arr.map(([name, count]) => {
+            const pct = Math.max(8, Math.round((count / max) * 100));
+            return `
+              <div>
+                <div class="flex justify-between items-end mb-1 text-[11px]">
+                  <span class="truncate pr-2 font-medium text-vinnero-charcoal capitalize">${name}</span>
+                  <span class="font-bold text-vinnero-wine shrink-0">${count}</span>
+                </div>
+                <div class="w-full bg-vinnero-cream rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-vinnero-gold h-1.5 rounded-full" style="width: ${pct}%"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        };
+
+        document.getElementById('analyticsTopSearches').innerHTML = renderList(sortedSearches);
+        document.getElementById('analyticsTopWines').innerHTML = renderList(sortedViews);
+
+      } catch (e) {
+        console.error('Erro ao carregar analytics:', e);
+        document.getElementById('analyticsTopSearches').innerHTML = '<div class="text-rose-600">Erro ao processar dados.</div>';
+      }
+    }
+
     /* ==================== BANCO PADRÃO DE DADOS ==================== */
     const DEFAULT_ESTABLISHMENTS = [
       {
@@ -1857,10 +1993,20 @@
     };
 
     let wineSearchQuery = '';
+    let analyticsSearchTimer = null; // FASE 2: Timer do Analytics
 
     window.handleWineSearch = function(query) {
       wineSearchQuery = (query || '').toLowerCase().trim();
       renderWineGrid();
+      
+      // FASE 2: Envio de Analytics com "Debounce"
+      // Se o cliente parar de digitar por 1.5s e a palavra tiver 3 ou mais letras, enviamos para o banco.
+      clearTimeout(analyticsSearchTimer);
+      if (wineSearchQuery.length > 2) {
+        analyticsSearchTimer = setTimeout(() => {
+          trackAnalyticsEvent('busca', { palavra_chave: wineSearchQuery });
+        }, 1500);
+      }
     };
 
     function renderWineGrid() {
@@ -2082,6 +2228,13 @@
 
       navigateTo('detail');
       renderWineryGoogleMap(wine);
+
+      // FASE 2: Envio de Analytics (Cliente visualizou um vinho)
+      trackAnalyticsEvent('visualizacao_vinho', { 
+        wine_id: wine.id, 
+        wine_name: wine.name, 
+        wine_category: wine.category 
+      });
     };
 
     window.handleStoreWhatsAppOrder = function() {
@@ -2089,6 +2242,13 @@
       if (!est || !currentSelectedWine) return;
       const phone = est.phone || '31988887777';
       const msg = encodeURIComponent(`Olá! Gostaria de encomendar uma garrafa de ${currentSelectedWine.name} (R$ ${Number(currentSelectedWine.price).toFixed(2)}) vista na carta digital.`);
+      
+      // FASE 2: Envio de Analytics (Intenção de Compra - Loja)
+      trackAnalyticsEvent('clique_whatsapp', {
+        wine_id: currentSelectedWine.id,
+        wine_name: currentSelectedWine.name
+      });
+
       window.open(`https://wa.me/55${phone}?text=${msg}`, '_blank');
     };
 
@@ -2239,6 +2399,14 @@
           </div>
         `;
         chatLog.scrollTop = chatLog.scrollHeight;
+        
+        // FASE 2: Envio de Analytics (O que o cliente pediu ao sommelier)
+        trackAnalyticsEvent('pergunta_sommelier', { 
+          mensagem_cliente: text,
+          vinho_recomendado_id: selectedWine.id,
+          vinho_recomendado_nome: selectedWine.name
+        });
+
       }, 550);
     };
 
@@ -2287,6 +2455,10 @@
         operatingEstId = targetVenue.id;
         closeOpAuthModal();
         loadOperatingVenueData();
+        
+        // Carrega as estatísticas do painel silcenciosamente
+        loadAnalyticsData();
+        
         document.getElementById('operacaoModal').classList.remove('hidden');
       } else {
         showToast('Senha de operação incorreta para este estabelecimento.');
@@ -2298,13 +2470,21 @@
     };
 
     window.setOpTab = function(tab) {
-      ['wines', 'hours', 'venue'].forEach(t => {
-        document.getElementById(`opTab_${t}`).className = t === tab
-          ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-vinnero-wine text-white transition'
-          : 'px-3 py-1.5 rounded-lg text-xs font-medium text-vinnero-muted hover:text-vinnero-wine transition';
-        document.getElementById(`opContent_${t}`).classList.add('hidden');
+      ['wines', 'hours', 'venue', 'analytics'].forEach(t => {
+        const btn = document.getElementById(`opTab_${t}`);
+        if (btn) {
+          btn.className = t === tab
+            ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-vinnero-wine text-white transition whitespace-nowrap'
+            : 'px-3 py-1.5 rounded-lg text-xs font-medium text-vinnero-muted hover:text-vinnero-wine transition whitespace-nowrap';
+        }
+        const content = document.getElementById(`opContent_${t}`);
+        if (content) content.classList.add('hidden');
       });
       document.getElementById(`opContent_${tab}`).classList.remove('hidden');
+
+      if (tab === 'analytics') {
+        loadAnalyticsData();
+      }
     };
 
     function loadOperatingVenueData() {
