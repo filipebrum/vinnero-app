@@ -602,9 +602,16 @@
       <input type="hidden" id="editWineId" value="">
 
       <div class="space-y-3 text-xs">
-        <div>
-          <label class="block font-bold text-vinnero-wine mb-1">Nome do Vinho / Rótulo</label>
-          <input type="text" id="editWineName" placeholder="Ex: Almaviva 2019" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5">
+        <div class="relative">
+          <div class="flex items-center justify-between mb-1">
+            <label class="block font-bold text-vinnero-wine">Nome do Vinho / Rótulo</label>
+          </div>
+          <input type="text" id="editWineName" placeholder="Ex: Catena Zapata Malbec" oninput="handleGlobalCatalogSearch(this.value)" autocomplete="off" class="w-full bg-white border border-vinnero-gold/30 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-vinnero-wine/30">
+          
+          <!-- FASE 2: Dropdown Invisível e Seamless para o Catálogo Global -->
+          <div id="globalCatalogSuggestions" class="absolute w-full mt-1 bg-white border border-vinnero-gold/30 rounded-xl shadow-2xl max-h-48 overflow-y-auto z-[60] hidden">
+            <!-- Injetado via JS -->
+          </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -1487,6 +1494,134 @@
         if(errEl) errEl.innerHTML = '<div class="text-rose-600">Erro ao processar dados.</div>';
       }
     };
+
+    /* ==================== CATÁLOGO GLOBAL VINNERO (FASE 2) ==================== */
+    const GLOBAL_WINE_CATALOG = [
+      {
+        name: 'Catena Zapata Malbec Argentino',
+        category: 'red',
+        producer: 'Bodega Catena Zapata',
+        country: 'Argentina',
+        mapQuery: 'Bodega Catena Zapata, Mendoza, Argentina',
+        grapes: 'Malbec (100%)',
+        tastingNotes: 'Aromas profundos de frutas negras maduras, violetas, tabaco e especiarias doces. No paladar, é extremamente encorpado, com taninos densos e aveludados e um final longo, persistente e mineral.',
+        pairingSuggestion: 'Carnes vermelhas grelhadas (Bife de Chorizo, Ancho), cordeiro assado e queijos curados.',
+        terroir: 'Mendoza (Vinhedos Nicasia e Angélica). Altitudes elevadas e solos pedregosos.',
+        lat: -33.1506,
+        lng: -68.9744,
+        image: 'https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?w=1000&auto=format&fit=crop&q=80'
+      },
+      {
+        name: 'Angelica Zapata Cabernet Franc Alta',
+        category: 'red',
+        producer: 'Bodega Catena Zapata',
+        country: 'Argentina',
+        mapQuery: 'Bodega Catena Zapata, Mendoza, Argentina',
+        grapes: 'Cabernet Franc (100%)',
+        tastingNotes: 'Um nariz incrivelmente perfumado de amoras, pimentão vermelho assado, eucalipto e pimenta preta. Na boca é estruturado, com acidez brilhante e taninos finos.',
+        pairingSuggestion: 'Costela no bafo, empanadas de carne picantes e risoto de funghi porcini.',
+        terroir: 'Mendoza (Valle de Uco). Microclima frio garantindo frescor aromático.',
+        lat: -33.1506,
+        lng: -68.9744,
+        image: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=1000&auto=format&fit=crop&q=80'
+      },
+      {
+        name: 'Perrier-Jouët Grand Brut',
+        category: 'sparkling',
+        producer: 'Maison Perrier-Jouët',
+        country: 'França',
+        mapQuery: 'Avenue de Champagne, Épernay, France',
+        grapes: 'Pinot Noir (40%), Pinot Meunier (40%), Chardonnay (20%)',
+        tastingNotes: 'Elegância floral e frutada, com notas de pêssego branco, toranja e brioche amanteigado. Perlage fino, cremoso, com uma acidez vibrante e final límpido.',
+        pairingSuggestion: 'Caviar, ostras frescas, ceviche de robalo e queijos de pasta mole como Brie.',
+        terroir: 'Champagne, solo calcário clássico garantindo finesse.',
+        lat: 49.0435,
+        lng: 3.9602,
+        image: 'https://images.unsplash.com/photo-1590212001556-9aa960fc5ef8?w=1000&auto=format&fit=crop&q=80'
+      },
+      {
+        name: 'Pêra-Manca Tinto',
+        category: 'red',
+        producer: 'Fundação Eugénio de Almeida (Cartuxa)',
+        country: 'Portugal',
+        mapQuery: 'Adega Cartuxa, Évora, Portugal',
+        grapes: 'Trincadeira, Aragonez',
+        tastingNotes: 'Um clássico do Alentejo. Complexo, com aromas de frutas secas, couro, especiarias e toques balsâmicos. Encorpado, elegante, com uma longevidade em taça excepcional.',
+        pairingSuggestion: 'Bacalhau ao forno, pratos com javali ou pernil de cordeiro assado lentamente.',
+        terroir: 'Évora (Alentejo). Clima continental mediterrânico e solos graníticos.',
+        lat: 38.5835,
+        lng: -7.9152,
+        image: 'https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=1000&auto=format&fit=crop&q=80'
+      }
+    ];
+
+    let globalSearchTimer = null;
+
+    window.handleGlobalCatalogSearch = function(query) {
+      const suggestBox = document.getElementById('globalCatalogSuggestions');
+      if (!suggestBox) return;
+
+      query = (query || '').toLowerCase().trim();
+      
+      clearTimeout(globalSearchTimer);
+      
+      if (query.length < 3) {
+        suggestBox.classList.add('hidden');
+        return;
+      }
+
+      globalSearchTimer = setTimeout(() => {
+        const matches = GLOBAL_WINE_CATALOG.filter(w => w.name.toLowerCase().includes(query) || w.producer.toLowerCase().includes(query));
+        
+        if (matches.length > 0) {
+          suggestBox.innerHTML = matches.map(w => `
+            <div onclick="applyGlobalCatalogData('${w.name}')" class="p-3 border-b border-vinnero-gold/10 hover:bg-vinnero-wine/5 cursor-pointer flex items-center gap-3 transition">
+              <div class="w-8 h-8 rounded-lg bg-vinnero-cream border border-vinnero-gold/20 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                 <img src="${w.image}" class="h-full object-contain">
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-bold text-vinnero-wine truncate">${w.name}</p>
+                <p class="text-[10px] text-vinnero-muted truncate">${w.producer} • ${w.country}</p>
+              </div>
+              <span class="ml-auto text-[9px] font-bold text-vinnero-gold uppercase px-2 py-0.5 rounded bg-vinnero-gold/10 whitespace-nowrap">Preencher</span>
+            </div>
+          `).join('');
+          suggestBox.classList.remove('hidden');
+        } else {
+          suggestBox.classList.add('hidden');
+        }
+      }, 300);
+    };
+
+    window.applyGlobalCatalogData = function(wineName) {
+      const wine = GLOBAL_WINE_CATALOG.find(w => w.name === wineName);
+      if (!wine) return;
+
+      document.getElementById('editWineName').value = wine.name;
+      document.getElementById('editWineCategory').value = wine.category;
+      document.getElementById('editWineProducer').value = wine.producer;
+      document.getElementById('editWineCountry').value = wine.country;
+      document.getElementById('editWineLocationQuery').value = wine.mapQuery;
+      document.getElementById('editWineGrapes').value = wine.grapes;
+      document.getElementById('editWineTasting').value = wine.tastingNotes;
+      document.getElementById('editWinePairing').value = wine.pairingSuggestion;
+      document.getElementById('editWineTerroir').value = wine.terroir;
+      document.getElementById('editWineLat').value = wine.lat;
+      document.getElementById('editWineLng').value = wine.lng;
+      document.getElementById('editWineImageValue').value = wine.image;
+
+      document.getElementById('globalCatalogSuggestions').classList.add('hidden');
+      showToast('Dados e foto importados do Catálogo Global!');
+    };
+
+    // Esconder o dropdown ao clicar fora
+    document.addEventListener('click', function(e) {
+      const suggestBox = document.getElementById('globalCatalogSuggestions');
+      const input = document.getElementById('editWineName');
+      if (suggestBox && !suggestBox.contains(e.target) && e.target !== input) {
+        suggestBox.classList.add('hidden');
+      }
+    });
 
     /* ==================== BANCO PADRÃO DE DADOS ==================== */
     const DEFAULT_ESTABLISHMENTS = [
