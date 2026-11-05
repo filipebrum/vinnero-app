@@ -553,7 +553,7 @@
           </button>
         </div>
         
-        <div class="grid grid-cols-3 gap-2 sm:gap-3">
+        <div id="analyticsMetricsGrid" class="grid grid-cols-3 gap-2 sm:gap-3">
           <div class="bg-white p-3 sm:p-4 rounded-xl border border-vinnero-gold/30 text-center shadow-sm">
             <span class="block text-[9px] sm:text-[10px] text-vinnero-muted uppercase font-bold">Buscas na Lupa</span>
             <span id="metricTotalSearches" class="block font-cinzel text-xl sm:text-2xl text-vinnero-wine font-bold mt-1">0</span>
@@ -565,6 +565,10 @@
           <div class="bg-white p-3 sm:p-4 rounded-xl border border-vinnero-gold/30 text-center shadow-sm">
             <span class="block text-[9px] sm:text-[10px] text-vinnero-muted uppercase font-bold">Uso Sommelier</span>
             <span id="metricTotalSommelier" class="block font-cinzel text-xl sm:text-2xl text-vinnero-wine font-bold mt-1">0</span>
+          </div>
+          <div id="metricWhatsappContainer" class="hidden bg-emerald-50 p-3 sm:p-4 rounded-xl border border-emerald-200 text-center shadow-sm">
+            <span class="block text-[9px] sm:text-[10px] text-emerald-800 uppercase font-bold">Acessos WhatsApp</span>
+            <span id="metricTotalWhatsapp" class="block font-cinzel text-xl sm:text-2xl text-emerald-700 font-bold mt-1">0</span>
           </div>
         </div>
 
@@ -1382,7 +1386,7 @@
       }
     }
 
-    async function loadAnalyticsData() {
+    window.loadAnalyticsData = async function() {
       if (!supabaseClient) {
         document.getElementById('analyticsTopSearches').innerHTML = '<div class="text-rose-600">Supabase não conectado.</div>';
         document.getElementById('analyticsTopWines').innerHTML = '<div class="text-rose-600">Supabase não conectado.</div>';
@@ -1402,6 +1406,7 @@
         let searches = [];
         let views = [];
         let sommelierCount = 0;
+        let whatsappCount = 0;
 
         data.forEach(ev => {
           if (ev.event_type === 'busca' && ev.event_data && ev.event_data.palavra_chave) {
@@ -1410,13 +1415,36 @@
             views.push(ev.event_data.wine_name);
           } else if (ev.event_type === 'pergunta_sommelier') {
             sommelierCount++;
+          } else if (ev.event_type === 'clique_whatsapp') {
+            whatsappCount++;
           }
         });
 
-        document.getElementById('metricTotalSearches').innerText = searches.length;
-        document.getElementById('metricTotalViews').innerText = views.length;
-        document.getElementById('metricTotalSommelier').innerText = sommelierCount;
+        // 1. Atualizar Contadores
+        const totalSearchesEl = document.getElementById('metricTotalSearches');
+        if(totalSearchesEl) totalSearchesEl.innerText = searches.length;
+        
+        const totalViewsEl = document.getElementById('metricTotalViews');
+        if(totalViewsEl) totalViewsEl.innerText = views.length;
+        
+        const totalSommelierEl = document.getElementById('metricTotalSommelier');
+        if(totalSommelierEl) totalSommelierEl.innerText = sommelierCount;
 
+        // 2. Adaptação do Layout para Loja (WhatsApp) vs Restaurante
+        const whatsappContainer = document.getElementById('metricWhatsappContainer');
+        const metricsGrid = document.getElementById('analyticsMetricsGrid');
+        if (whatsappContainer && metricsGrid) {
+          if (est.type === 'store') {
+            whatsappContainer.classList.remove('hidden');
+            document.getElementById('metricTotalWhatsapp').innerText = whatsappCount;
+            metricsGrid.className = "grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3";
+          } else {
+            whatsappContainer.classList.add('hidden');
+            metricsGrid.className = "grid grid-cols-3 gap-2 sm:gap-3";
+          }
+        }
+
+        // 3. Atualizar Ranking (Top Termos e Top Vinhos)
         const countOccurrences = (arr) => arr.reduce((acc, curr) => {
           acc[curr] = (acc[curr] || 0) + 1;
           return acc;
@@ -1447,14 +1475,18 @@
           }).join('');
         };
 
-        document.getElementById('analyticsTopSearches').innerHTML = renderList(sortedSearches);
-        document.getElementById('analyticsTopWines').innerHTML = renderList(sortedViews);
+        const topSearchesEl = document.getElementById('analyticsTopSearches');
+        if(topSearchesEl) topSearchesEl.innerHTML = renderList(sortedSearches);
+        
+        const topWinesEl = document.getElementById('analyticsTopWines');
+        if(topWinesEl) topWinesEl.innerHTML = renderList(sortedViews);
 
       } catch (e) {
         console.error('Erro ao carregar analytics:', e);
-        document.getElementById('analyticsTopSearches').innerHTML = '<div class="text-rose-600">Erro ao processar dados.</div>';
+        const errEl = document.getElementById('analyticsTopSearches');
+        if(errEl) errEl.innerHTML = '<div class="text-rose-600">Erro ao processar dados.</div>';
       }
-    }
+    };
 
     /* ==================== BANCO PADRÃO DE DADOS ==================== */
     const DEFAULT_ESTABLISHMENTS = [
@@ -1993,14 +2025,13 @@
     };
 
     let wineSearchQuery = '';
-    let analyticsSearchTimer = null; // FASE 2: Timer do Analytics
+    let analyticsSearchTimer = null;
 
     window.handleWineSearch = function(query) {
       wineSearchQuery = (query || '').toLowerCase().trim();
       renderWineGrid();
       
       // FASE 2: Envio de Analytics com "Debounce"
-      // Se o cliente parar de digitar por 1.5s e a palavra tiver 3 ou mais letras, enviamos para o banco.
       clearTimeout(analyticsSearchTimer);
       if (wineSearchQuery.length > 2) {
         analyticsSearchTimer = setTimeout(() => {
