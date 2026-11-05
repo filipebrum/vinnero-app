@@ -2552,6 +2552,11 @@
                 <button onclick="toggleWineAvailability('${w.id}')" title="Alternar status no salão" class="px-2.5 py-1 rounded-lg text-xs font-bold transition shadow-sm ${btnClass}">
                   ${btnLabel}
                 </button>
+                <button onclick="duplicateWineFromOp('${w.id}')" title="Duplicar Rótulo" class="p-1.5 rounded-lg text-vinnero-wine hover:bg-vinnero-wine/10 border border-vinnero-gold/30 transition">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                  </svg>
+                </button>
                 <button onclick="openWineEditForm('${w.id}')" title="Editar dados e foto" class="p-1.5 rounded-lg text-vinnero-wine hover:bg-vinnero-wine/10 border border-vinnero-gold/30 transition">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
@@ -2674,6 +2679,43 @@
       }
 
       document.getElementById('wineEditModal').classList.remove('hidden');
+    };
+
+    // Função Exclusiva para a FASE 1 da Automação de Cadastros (Duplicar Rótulo)
+    window.duplicateWineFromOp = function(wineId) {
+      const est = establishments.find(e => e.id === operatingEstId);
+      if (!est || !est.wines) return;
+      const wine = est.wines.find(w => w.id === wineId);
+      if (!wine) return;
+
+      // Abre o modal limpo para garantir transição
+      openWineEditForm(null);
+
+      // Preenche os campos com os dados idênticos ao do vinho que será duplicado
+      document.getElementById('wineEditModalTitle').innerText = 'Duplicar Rótulo (Cópia)';
+      
+      // DEIXAR O ID VAZIO É O SEGREDO: Assim, quando clicar em Salvar, ele cria um NOVO registro!
+      document.getElementById('editWineId').value = ''; 
+      
+      document.getElementById('editWineName').value = (wine.name || '') + ' (Cópia)';
+      document.getElementById('editWineCategory').value = wine.category || 'red';
+      document.getElementById('editWinePrice').value = wine.price || '';
+      document.getElementById('editWinePriceHalf').value = wine.priceHalf || '';
+      document.getElementById('editWinePriceGlass').value = wine.priceGlass || '';
+      document.getElementById('editWineVintage').value = wine.vintage || '';
+      document.getElementById('editWineVolume').value = wine.volume || '750ml';
+      document.getElementById('editWineProducer').value = wine.producer || '';
+      document.getElementById('editWineCountry').value = wine.country || '';
+      document.getElementById('editWineLocationQuery').value = wine.mapQuery || '';
+      document.getElementById('editWineGrapes').value = wine.grapes || '';
+      document.getElementById('editWineTasting').value = wine.tastingNotes || '';
+      document.getElementById('editWinePairing').value = wine.pairingSuggestion || '';
+      document.getElementById('editWineTerroir').value = wine.terroir || '';
+      document.getElementById('editWineLat').value = wine.lat || '';
+      document.getElementById('editWineLng').value = wine.lng || '';
+      document.getElementById('editWineImageValue').value = wine.image || '';
+
+      showToast('Rótulo copiado! Altere a safra ou o tamanho e clique em Salvar.');
     };
 
     window.closeWineEditForm = function() {
