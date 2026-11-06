@@ -1666,12 +1666,12 @@
       showToast('🤖 IA do Google analisando a imagem... Extraindo dados do rótulo.');
       
       try {
-        // Converter a imagem para Base64 para envio seguro
-        const base64Image = await new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result.split(',')[1]);
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
+        // CORREÇÃO DE MEMÓRIA MAX: Reduzido para 500px para ser perfeitamente estável e levíssimo
+        const base64Image = await new Promise((resolve) => {
+          resizeImageToCanvas(file, 500, 500, 0.6, function(optimizedBase64) {
+            // optimizedBase64 vem no formato "data:image/jpeg;base64,ASDF..." 
+            resolve(optimizedBase64.split(',')[1]);
+          });
         });
 
         // O "Cérebro": Pedimos para a IA extrair tudo e formatar como JSON estruturado
@@ -3056,35 +3056,48 @@
     };
 
     function resizeImageToCanvas(file, maxWidth, maxHeight, quality, callback) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          let width = img.width;
-          let height = img.height;
+      const img = new Image();
+      const objectUrl = URL.createObjectURL(file);
+      
+      img.onload = function() {
+        URL.revokeObjectURL(objectUrl);
+        
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
 
-          if (width > height) {
-            if (width > maxWidth) {
-              height = Math.round((height * maxWidth) / width);
-              width = maxWidth;
-            }
-          } else {
-            if (height > maxHeight) {
-              width = Math.round((width * maxHeight) / height);
-              height = maxHeight;
-            }
+        if (width > height) {
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
           }
+        } else {
+          if (height > maxHeight) {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
 
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          callback(canvas.toDataURL('image/jpeg', quality));
-        };
-        img.src = e.target.result;
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // COMPRESSÃO ASSÍNCRONA (Evita Out of Memory no iOS/Android)
+        canvas.toBlob(function(blob) {
+          canvas.width = 0; 
+          canvas.height = 0;
+          if (!blob) return;
+          
+          const reader = new FileReader();
+          reader.onloadend = function() {
+            callback(reader.result);
+          };
+          reader.readAsDataURL(blob);
+        }, 'image/jpeg', quality);
       };
-      reader.readAsDataURL(file);
+      
+      img.src = objectUrl;
     }
 
     window.handleWineImageUpload = function(input) {
